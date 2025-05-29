@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <style>
+            #message {
+                display:none;
+                color: #fff;
+                position: relative;
+            }
+            
+            /* Add a green text color and a checkmark when the requirements are right */
+            .valid {
+                color: green;
+            }
+
+            .valid:before {
+                position: relative;
+                left: -35px;
+            }
+
+            /* Add a red text color and an "x" icon when the requirements are wrong */
+            .invalid {
+                color: red;
+            }
+
+            .invalid:before {
+                position: relative;
+                left: -35px;
+            }
+        </style>
+
+    </head>
+    <body class="grey lighten-5">
+            <div class="row">
+                <div class="col s12 m8 l4 offset-m2 offset-l4">
+                    <div class="card white" style="border-radius: 10px;">
+                        <div class="card-content black-text">
+                            <span class="card-title center"><h2 id="titoloModulo">Registrazione Utente</h2></span>
+                            <form method="POST" action="">
+                                <div class="row center">
+                                    <label>
+                                        <input name="tipoUtente" type="radio" value="utente" checked />
+                                        <span class="black-text">Sono un utente</span>
+                                    </label>
+                                    <label>
+                                        <input name="tipoUtente" type="radio" value="azienda"/>
+                                        <span class="black-text">Sono un'azienda</span>
+                                    </label>
+                                </div>
+                                <!-- Campi per utente -->
+                                <div id="campi-utente" class="row">
+                                    <div class="input-field col s6">
+                                        <input id="name" type="text" name="name" class="validate black-text" required>
+                                        <label for="name">Nome</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="surname" type="text" name="surname" class="validate black-text" required>
+                                        <label for="surname">Cognome</label>
+                                    </div>
+                                </div>
+
+                                <!-- Campi per azienda -->
+                                <div id="campi-azienda" class="row" style="display:none;">
+                                    <div class="input-field col s6">
+                                        <input id="ragsoc" type="text" name="ragsoc" class="validate black-text" required>
+                                        <label for="ragsoc">Ragione Sociale</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="piva" type="text" name="piva" class="validate black-text" required>
+                                        <label for="piva">Partita Iva</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="username" type="text" name="username" class="validate black-text" required>
+                                        <label for="username">Username</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input id="phone" type="tel" name="phone" class="validate black-text" required>
+                                        <label for="phone">Telefono</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="email" type="email" name="email" class="validate black-text" required>
+                                        <label for="email">Email</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="password" class="black-text" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Ci devono essere almeno 8 caratteri, di cui un numero, una lettera maiuscola ed una minuscola." required>
+                                        <label for="password">Password</label>
+                                        <div id="message">
+                                            <p>La password deve contenere:</p>
+                                            <ul>
+                                                <li id="letter" class="invalid">Almeno una lettera minuscola</li>
+                                                <li id="capital" class="invalid">Almeno una lettera maiuscola</li>
+                                                <li id="number" class="invalid">Almeno un numero</li>
+                                                <li id="length" class="invalid">Minimo 8 caratteri</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="campi-azienda2" class="row" style="display:none;">
+                                    <div class="input-field col s12">
+                                        <input id="sede" name="sede" type="text" class="validate black-text" required>
+                                        <label for="sede">Sede Azienda</label>
+                                    </div>
+                                </div>
+                                <div id="descrizione" class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="description" name="description" class="materialize-textarea black-text"></textarea>
+                                        <label for="description">Una tua Breve Descrizione</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="file-field input-field">
+                                        <div class="btn light-blue darken-1">
+                                            <span id="tastoImmagine">Immagine Profilo</span>
+                                            <input type="file" name="file">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate black-text" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row center">
+                                    <input type="submit" class="light-blue darken-1 btn-large" value="Registrati">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--JavaScript at end of body for optimized loading-->
+        <script type="text/javascript" src="js/materialize.js"></script>
+        <script>
+        document.querySelectorAll('input[name="tipoUtente"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                const tipoUtente = document.querySelector('input[name="tipoUtente"]:checked').value;
+                const campiUtente = document.getElementById('campi-utente');
+                const campiAzienda = document.getElementById('campi-azienda');
+                const campiAzienda2 = document.getElementById('campi-azienda2');
+                const titoloModulo = document.getElementById('titoloModulo');
+                const labelDescrizione = document.querySelector('label[for="description"]');
+                const tastoImmagine = document.getElementById('tastoImmagine');
+                
+                if (tipoUtente === "utente") {
+                    campiUtente.style.display = 'flex';
+                    campiAzienda.style.display = 'none';
+                    campiAzienda2.style.display = 'none';
+                    titoloModulo.textContent = 'Registrazione Utente';
+                    labelDescrizione.textContent = 'Una tua Breve Descrizione';
+                    tastoImmagine.textContent = 'Immagine Profilo';
+                } else {
+                    campiUtente.style.display = 'none';
+                    campiAzienda.style.display = 'flex';
+                    campiAzienda2.style.display = 'flex';
+                    titoloModulo.textContent = 'Registrazione Azienda';
+                    labelDescrizione.textContent = "Una Breve Descrizione Dell'Azienda";
+                    tastoImmagine.textContent = 'Logo Azienda';
+                }
+            });
+        });
+        </script>
+
+        <script>
+            var myInput = document.getElementById("password");
+            var letter = document.getElementById("letter");
+            var capital = document.getElementById("capital");
+            var number = document.getElementById("number");
+            var length = document.getElementById("length");
+
+            // When the user clicks on the password field, show the message box
+            myInput.onfocus = function() {
+            document.getElementById("message").style.display = "block";
+            }
+
+            // When the user clicks outside of the password field, hide the message box
+            myInput.onblur = function() {
+            document.getElementById("message").style.display = "none";
+            }
+
+            // When the user starts to type something inside the password field
+            myInput.onkeyup = function() {
+            // Validate lowercase letters
+            var lowerCaseLetters = /[a-z]/g;
+            if(myInput.value.match(lowerCaseLetters)) {
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+            } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+            }
+
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if(myInput.value.match(upperCaseLetters)) {
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+            } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+            }
+
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if(myInput.value.match(numbers)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+
+            // Validate length
+            if(myInput.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
+            }
+        </script>
+
+    </body>
+</html>
