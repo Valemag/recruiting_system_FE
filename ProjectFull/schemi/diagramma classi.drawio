@@ -1,0 +1,208 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" version="27.1.1">
+  <diagram name="Pagina-1" id="54fLbxfwXZObV9pdjQnR">
+    <mxGraphModel dx="2526" dy="1652" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="aWdZE8WK8su21jjzheNT-1" value="DataBaseCore" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="620" y="-70" width="300" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-2" value="- host: String&lt;div&gt;- user: String&lt;/div&gt;&lt;div&gt;- pass: String&lt;/div&gt;&lt;div&gt;- db: String&lt;/div&gt;&lt;div&gt;- port: int&lt;/div&gt;&lt;div&gt;# isConnectedToDb: boolean&lt;/div&gt;&lt;div&gt;# conn: Mysqli&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-1" vertex="1">
+          <mxGeometry y="26" width="300" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-1" vertex="1">
+          <mxGeometry y="150" width="300" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-4" value="+ &lt;font style=&quot;color: light-dark(rgb(41, 108, 163), rgb(255, 255, 255)); font-size: 13px;&quot; face=&quot;Consolas, Courier New, monospace&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;setParameters&lt;/span&gt;&lt;/font&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;(host, user, passwd, db,&amp;nbsp;&lt;/span&gt;port&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;): void&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ connectToDatabase():int&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ closeConnectionToDatabase():void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ isConnected(): boolean&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-1" vertex="1">
+          <mxGeometry y="158" width="300" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-11" value="FileSystem" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-1320" y="-410" width="390" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-12" value="&lt;div&gt;- fileSystemUrl: String&lt;/div&gt;&lt;div&gt;- uploadsPath: String&lt;/div&gt;&lt;div&gt;- utenteFolderPlaceholder: String&lt;/div&gt;&lt;div&gt;- aziendaFolderPlaceholder: String&lt;/div&gt;&lt;div&gt;- validFileExtensions: List&amp;lt;String&amp;gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- validImageExtensions: List&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-11" vertex="1">
+          <mxGeometry y="26" width="390" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-13" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-11" vertex="1">
+          <mxGeometry y="130" width="390" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-14" value="&lt;div&gt;&lt;div&gt;+ getFileSystemUrl(): String&lt;/div&gt;&lt;div&gt;+ getUploadsPath(): String&lt;/div&gt;&lt;div&gt;+ getUtenteFolderPlaceholder(): String&lt;/div&gt;&lt;div&gt;+ getAziendaFolderPlaceholder(): String&lt;/div&gt;&lt;div&gt;+ getValidFileExtensions():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;List&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getValidImageExtensions():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;List&amp;lt;String&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ isImageExtensionValid(ext: string): bool&lt;/div&gt;&lt;div&gt;+ isFileExtensionValid(ext: string): bool&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-11" vertex="1">
+          <mxGeometry y="138" width="390" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-15" value="StorageUtenti" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-1130" y="312" width="280" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-16" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-15" vertex="1">
+          <mxGeometry y="26" width="280" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-17" value="+ createUtenteFolder(idUtente: int): void&lt;div&gt;+ uploadUtenteFile(idUtente: int, file: HashMap):int&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-15" vertex="1">
+          <mxGeometry y="50" width="280" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-18" value="StorageAziende" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-1550" y="312" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-19" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-18" vertex="1">
+          <mxGeometry y="26" width="300" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-20" value="+ createAziendaFolder(idAzienda: int): void&lt;div&gt;+ uploadAziendaFile(idAzienda: int, file: HashMap):int&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-18" vertex="1">
+          <mxGeometry y="50" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-21" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.483;entryY=1.042;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="aWdZE8WK8su21jjzheNT-26" target="aWdZE8WK8su21jjzheNT-4" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="360" y="400" as="sourcePoint" />
+            <mxPoint x="560" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-22" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.537;entryY=1.014;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="aWdZE8WK8su21jjzheNT-30" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1089" y="450" as="sourcePoint" />
+            <mxPoint x="780.0999999999999" y="171.1479999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-23" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.611;entryY=0.992;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="aWdZE8WK8su21jjzheNT-15" target="aWdZE8WK8su21jjzheNT-14" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-910" y="120" as="sourcePoint" />
+            <mxPoint x="-750" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-24" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.433;entryY=0.992;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="aWdZE8WK8su21jjzheNT-18" target="aWdZE8WK8su21jjzheNT-14" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-1420" y="210" as="sourcePoint" />
+            <mxPoint x="-1260" y="210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-26" value="Aziende" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="140" y="400" width="450" height="600" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-27" value="&lt;div&gt;- aziendaId: String&lt;/div&gt;&lt;div&gt;- nome:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- descrizione:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- sitoWeb:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- emailContatto:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- telefonoContatto:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- partitaIva:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- ragioneSociale:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- logo:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- password:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- email:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- sediAzienda:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;array&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-26" vertex="1">
+          <mxGeometry y="26" width="450" height="184" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-28" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-26" vertex="1">
+          <mxGeometry y="210" width="450" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-29" value="&lt;div&gt;+ getAziendaId():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getNome():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getDescrizione():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getSitoWeb():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getEmailContatto():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getTelefonoContatto():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getPartitaIva(): mixed&lt;/div&gt;&lt;div&gt;+ getRagioneSociale():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getLogo():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getPassword():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getEmail():&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ getSediAzienda(): array&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ addSedeAzienda(paese: string, regione: string, citta: string, indirizzo: string): int&lt;/div&gt;&lt;div&gt;+ addAzienda(nome: string, descrizione: string, sitoWeb: string, emailContatto: string, telefonoContatto: string, email: string, password: string): int&lt;/div&gt;&lt;div&gt;+ setAziendaLogo(fileName: string): int&lt;/div&gt;&lt;div&gt;+ setAziendaBanner(fileName: string): int&lt;/div&gt;&lt;div&gt;+ getAziendaByEmail(email: string): int&lt;/div&gt;&lt;div&gt;+ getAziendaById(id: int): int&lt;/div&gt;&lt;div&gt;+ fetchSediAzienda(): int&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ populateFromArray(data: array): void&lt;/div&gt;&lt;div&gt;+ toArray(): array&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-26" vertex="1">
+          <mxGeometry y="240" width="450" height="360" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-30" value="Utenti" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="710" y="404" width="770" height="690" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-31" value="&lt;div&gt;- utenteId: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; - email: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; - password: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; - username: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; - nome: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; - cognome: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; - descrizione: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; - telefonoContatto: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; - dataRegistrazione: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; - immagineProfilo: String&lt;/div&gt;&lt;div&gt;&amp;nbsp; - candidature: List&amp;lt;Candidature&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; - competenze: List&amp;lt;Competenze&amp;gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; - documenti: List&amp;lt;DocumentiUtente&amp;gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-30" vertex="1">
+          <mxGeometry y="26" width="770" height="214" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-32" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-30" vertex="1">
+          <mxGeometry y="240" width="770" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-33" value="&lt;div&gt;+ getUtenteId(): int&lt;/div&gt;&lt;div&gt;+ getEmail(): string&lt;/div&gt;&lt;div&gt;+ getPassword(): string&lt;/div&gt;&lt;div&gt;+ setPassword(passwd: string): void&lt;/div&gt;&lt;div&gt;+ getUsername(): string&lt;/div&gt;&lt;div&gt;+ getNome(): string&lt;/div&gt;&lt;div&gt;+ getCognome(): string&lt;/div&gt;&lt;div&gt;+ getDescrizione(): string&lt;/div&gt;&lt;div&gt;+ getTelefonoContatto(): string&lt;/div&gt;&lt;div&gt;+ getDataRegistrazione(): string&lt;/div&gt;&lt;div&gt;+ getImmagineProfilo(): string&lt;/div&gt;&lt;div&gt;+ getCandidature(): array&lt;/div&gt;&lt;div&gt;+ getCompetenze(): array&lt;/div&gt;&lt;div&gt;+ getDocumenti(): array&lt;/div&gt;&lt;div&gt;+ populateFromArray(data: array): void&lt;/div&gt;&lt;div&gt;+ toArray(): array&lt;/div&gt;&lt;div&gt;+ addUtente(username: string, nome: string, cognome: string, descrizione: string, nTelefono: string, email: string, password: string): int&lt;/div&gt;&lt;div&gt;+ addDocumento(fileName: string): int&lt;/div&gt;&lt;div&gt;+ setUtenteProfileImage(fileName: string): int&lt;/div&gt;&lt;div&gt;+ getUtenteByEmail(email: string): int&lt;/div&gt;&lt;div&gt;+ getUtenteById(id: int): int&lt;/div&gt;&lt;div&gt;+ fetchCandidatureUtente(): int&lt;/div&gt;&lt;div&gt;+ fetchCompetenzeUtente(): int&lt;/div&gt;&lt;div&gt;+ fetchDocumentiUtente(): int&lt;/div&gt;&lt;div&gt;+ getCandidatureWithInfoByUtenteId(utenteId: int): array&lt;/div&gt;&lt;div&gt;+ getCandidaturaWithInfoById(candidaturaId: int):&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;array&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ updateUtente(): int&lt;/div&gt;&lt;div&gt;+ getOfferteAppuntateByUtenteId(utenteId: int): array&lt;/div&gt;&lt;div&gt;+ appuntaOfferta(utenteId: int, offertaId: int): bool&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-30" vertex="1">
+          <mxGeometry y="248" width="770" height="442" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-34" value="Offerte" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-670" y="400" width="440" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-35" value="&lt;div&gt;&lt;div&gt;- offertaId: int&lt;/div&gt;&lt;div&gt;- aziendaId: int&lt;/div&gt;&lt;div&gt;- descrizione: string&amp;nbsp;&lt;/div&gt;&lt;div&gt;- titolo: string&lt;/div&gt;&lt;div&gt;- tipoContrattoId: int&amp;nbsp;&lt;/div&gt;&lt;div&gt;- retribuzione: String&lt;/div&gt;&lt;div&gt;- dataPubblicazione: string&lt;/div&gt;&lt;div&gt;- sedeLavoroId: int&lt;/div&gt;&lt;div&gt;- dataScadenza: string&amp;nbsp;&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-34" vertex="1">
+          <mxGeometry y="26" width="440" height="154" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-36" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-34" vertex="1">
+          <mxGeometry y="180" width="440" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-37" value="&lt;div&gt;&lt;div&gt;+ getOffertaId(): int&lt;/div&gt;&lt;div&gt;+ getAziendaId(): int&lt;/div&gt;&lt;div&gt;+ getDescrizione(): string&lt;/div&gt;&lt;div&gt;+ getTitolo(): string&lt;/div&gt;&lt;div&gt;+ getTipoContrattoId(): int&lt;/div&gt;&lt;div&gt;+ getRetribuzione(): String&lt;/div&gt;&lt;div&gt;+ getDataPubblicazione(): string&amp;nbsp;&lt;/div&gt;&lt;div&gt;+ getSedeLavoroId(): int&lt;/div&gt;&lt;div&gt;+ getDataScadenza(): string&lt;/div&gt;&lt;div&gt;+ populateFromArray(data: array): void&lt;/div&gt;&lt;div&gt;+ toArray(): array&lt;/div&gt;&lt;div&gt;+ addOfferta(aziendaId: int, titolo: string, descrizione: string, requisiti: string, sedeId: int, categoriaId: int): int&lt;/div&gt;&lt;div&gt;+ deleteOfferta(offertaId: int): int&lt;/div&gt;&lt;div&gt;+ getOffertaById(id: int): int&lt;/div&gt;&lt;div&gt;+ getUltimeOfferteConRequisiti(): array&lt;/div&gt;&lt;div&gt;+ getOffertaConRequisitiById(offertaId: int):array&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-34" vertex="1">
+          <mxGeometry y="188" width="440" height="272" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-42" value="Candidature" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1945" y="-88" width="400" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-43" value="&lt;div&gt;&lt;div&gt;- candidaturaId: int&lt;/div&gt;&lt;div&gt;- offertaId: int&lt;/div&gt;&lt;div&gt;- utenteId: int&lt;/div&gt;&lt;div&gt;- note: string&lt;/div&gt;&lt;div&gt;- dataCandidatura: string&lt;/div&gt;&lt;div&gt;- statoId: int&lt;/div&gt;&lt;div&gt;- motivazioneRisultato: string&lt;/div&gt;&lt;div&gt;- cvDocumentoId: int&amp;nbsp;&amp;nbsp;&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-42" vertex="1">
+          <mxGeometry y="26" width="400" height="134" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-44" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-42" vertex="1">
+          <mxGeometry y="160" width="400" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-45" value="&lt;div&gt;&lt;div&gt;+ getCandidaturaId(): int&lt;/div&gt;&lt;div&gt;+ getCvDocumentoId(): int&lt;/div&gt;&lt;div&gt;+ getOffertaId(): int&lt;/div&gt;&lt;div&gt;+ getUtenteId(): int&lt;/div&gt;&lt;div&gt;+ getNote(): string&lt;/div&gt;&lt;div&gt;+ getDataCandidatura(): string&lt;/div&gt;&lt;div&gt;+ getStatoId(): int&lt;/div&gt;&lt;div&gt;+ getMotivazioneRisultato(): string&lt;/div&gt;&lt;div&gt;+ populateFromArray(data: array): void&lt;/div&gt;&lt;div&gt;+ toArray(): array&lt;/div&gt;&lt;div&gt;+ getCandidaturaById(id: int): int&lt;/div&gt;&lt;div&gt;+ addCandidatura(offertaId: int, cvId: int, utenteId: int, note: String): int&lt;/div&gt;&lt;div&gt;+ deleteCandidatura(): int&lt;/div&gt;&lt;div&gt;+ setStatoCandidatura(statoId: int, motivazione:string): int&amp;nbsp; &amp;nbsp;&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-42" vertex="1">
+          <mxGeometry y="168" width="400" height="232" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-54" value="DocumentiUtente" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1945" y="-300" width="350" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-55" value="&lt;div&gt;- documentoId: String&lt;/div&gt;&lt;div&gt;- utenteId: String&lt;/div&gt;&lt;div&gt;- documento: String&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-54" vertex="1">
+          <mxGeometry y="26" width="350" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-56" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-54" vertex="1">
+          <mxGeometry y="90" width="350" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-57" value="&lt;div&gt;+ getDocumentoId(): String&lt;/div&gt;&lt;div&gt;+ getUtenteId(): String&lt;/div&gt;&lt;div&gt;+ getDocumento(): String&lt;/div&gt;&lt;div&gt;+ addDocumento(idUtente: String, nomeDocumento: String): int&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-54" vertex="1">
+          <mxGeometry y="98" width="350" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-58" value="Competenze" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1945" y="365" width="370" height="350" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-59" value="&lt;div&gt;- candidatura_id: int&lt;/div&gt;&lt;div&gt;- offerta_id: int&lt;/div&gt;&lt;div&gt;- utente_id: int&lt;/div&gt;&lt;div&gt;- note: String&lt;/div&gt;&lt;div&gt;- data_candidatura: String&lt;/div&gt;&lt;div&gt;- stato_id: int&lt;/div&gt;&lt;div&gt;- motivazione_risultato: String&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-58" vertex="1">
+          <mxGeometry y="26" width="370" height="124" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-60" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-58" vertex="1">
+          <mxGeometry y="150" width="370" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-61" value="&lt;div&gt;+ getCandidaturaId(): int&lt;/div&gt;&lt;div&gt;+ getOffertaId(): int&lt;/div&gt;&lt;div&gt;+ getUtenteId(): int&lt;/div&gt;&lt;div&gt;+ getNote(): string&lt;/div&gt;&lt;div&gt;+ getDataCandidatura(): string&lt;/div&gt;&lt;div&gt;+ getStatoId(): int&lt;/div&gt;&lt;div&gt;+ getMotivazioneRisultato(): string&lt;/div&gt;&lt;div&gt;+ toArray(): array&lt;/div&gt;&lt;div&gt;+ populateFromArray(data: array): void&lt;/div&gt;&lt;div&gt;+ getCompetenzaById(id: int): int&lt;/div&gt;&lt;div&gt;+ aggiungiCompetenzaUtente(utenteId: int, competenzaId: int): int&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-58" vertex="1">
+          <mxGeometry y="158" width="370" height="192" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-62" value="SediAziende" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-160" y="400" width="230" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-63" value="&lt;div&gt;&lt;b&gt;- sedeId: String&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;- aziendaId: String&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;- paese: String&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;- regione: String&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;- citta: String&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;- indirizzo: String&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-62" vertex="1">
+          <mxGeometry y="26" width="230" height="114" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-64" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="aWdZE8WK8su21jjzheNT-62" vertex="1">
+          <mxGeometry y="140" width="230" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-65" value="&lt;div&gt;+ getSedeId(): String&lt;/div&gt;&lt;div&gt;+ getAziendaId(): String&lt;/div&gt;&lt;div&gt;+ getPaese(): String&lt;/div&gt;&lt;div&gt;+ getRegione(): String&lt;/div&gt;&lt;div&gt;+ getCitta(): String&lt;/div&gt;&lt;div&gt;+ getIndirizzo(): String&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ populateFromArray(data: array): void&lt;/div&gt;&lt;div&gt;+ toArray(): array&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="aWdZE8WK8su21jjzheNT-62" vertex="1">
+          <mxGeometry y="148" width="230" height="162" as="geometry" />
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-69" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="aWdZE8WK8su21jjzheNT-34" target="aWdZE8WK8su21jjzheNT-4" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-70" y="190" as="sourcePoint" />
+            <mxPoint x="90" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-70" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.453;exitY=0.003;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.181;entryY=1.03;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="aWdZE8WK8su21jjzheNT-62" target="aWdZE8WK8su21jjzheNT-4" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="260" y="330" as="sourcePoint" />
+            <mxPoint x="780" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-77" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.004;exitY=0.975;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="aWdZE8WK8su21jjzheNT-43" target="aWdZE8WK8su21jjzheNT-2" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1260" y="20" as="sourcePoint" />
+            <mxPoint x="1420" y="20" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-78" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=0.995;entryY=0.294;entryDx=0;entryDy=0;entryPerimeter=0;exitX=-0.008;exitY=1.016;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="aWdZE8WK8su21jjzheNT-55" target="aWdZE8WK8su21jjzheNT-2" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1240" y="-170" as="sourcePoint" />
+            <mxPoint x="1400" y="-170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-79" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.006;entryY=0.559;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="aWdZE8WK8su21jjzheNT-45" target="aWdZE8WK8su21jjzheNT-31" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1762.93" y="349.99600000000004" as="sourcePoint" />
+            <mxPoint x="1530.0000527962454" y="535.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-80" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;entryX=1.001;entryY=0.269;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="aWdZE8WK8su21jjzheNT-57" target="aWdZE8WK8su21jjzheNT-31" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1150" y="250" as="sourcePoint" />
+            <mxPoint x="1310" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-81" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.009;entryY=0.724;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="aWdZE8WK8su21jjzheNT-59" target="aWdZE8WK8su21jjzheNT-2" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1290" y="170" as="sourcePoint" />
+            <mxPoint x="1450" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aWdZE8WK8su21jjzheNT-82" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;entryX=1.001;entryY=0.77;entryDx=0;entryDy=0;entryPerimeter=0;exitX=-0.011;exitY=0.984;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="aWdZE8WK8su21jjzheNT-59" target="aWdZE8WK8su21jjzheNT-31" edge="1">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="1710" y="560" as="sourcePoint" />
+            <mxPoint x="1870" y="560" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
