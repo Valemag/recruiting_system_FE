@@ -1,0 +1,140 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" version="26.2.14">
+  <diagram name="Pagina-1" id="8GTanwEHIXb2FKBYi2Z3">
+    <mxGraphModel dx="1699" dy="483" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-1" target="pyBdS1eRIfOjg0KSSLxZ-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-1" value="Interfaccia Login" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-2" target="pyBdS1eRIfOjg0KSSLxZ-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-2" value="Interfaccia registrazione" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="90" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-3" value="Modulo gestione login" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-4" target="pyBdS1eRIfOjg0KSSLxZ-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-60" y="350" />
+              <mxPoint x="-60" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-4" value="Modulo gestione dati utente database" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="320" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-5" value="Database" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-240" y="440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-10" target="pyBdS1eRIfOjg0KSSLxZ-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-10" value="Modulo gestione login" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-14" target="pyBdS1eRIfOjg0KSSLxZ-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-14" value="Interfaccia profilo utente" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-16" target="pyBdS1eRIfOjg0KSSLxZ-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-16" value="Interfaccia profilo azienda" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="500" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-18" target="pyBdS1eRIfOjg0KSSLxZ-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-18" value="Modulo gestione profilo azienda" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="500" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-19" target="pyBdS1eRIfOjg0KSSLxZ-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-19" value="Modulo gestione profilo utente" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-24" target="pyBdS1eRIfOjg0KSSLxZ-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-24" value="Interfaccia home utente" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-25" target="pyBdS1eRIfOjg0KSSLxZ-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-25" value="Interfaccia home azienda" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-26" target="pyBdS1eRIfOjg0KSSLxZ-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-26" value="Offerte di lavoro&amp;nbsp;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="860" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-27" target="pyBdS1eRIfOjg0KSSLxZ-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-27" value="Candidature ad offerte di lavoro Utente" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="960" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-28" target="pyBdS1eRIfOjg0KSSLxZ-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-28" target="pyBdS1eRIfOjg0KSSLxZ-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-28" value="Modulo gestione home utente" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-29" target="pyBdS1eRIfOjg0KSSLxZ-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-29" target="pyBdS1eRIfOjg0KSSLxZ-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-29" value="Modulo gestione home azienda" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-30" target="pyBdS1eRIfOjg0KSSLxZ-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-30" value="Modulo gestione offerte di lavoro" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="860" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-31" target="pyBdS1eRIfOjg0KSSLxZ-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-31" value="Modulo gestione candidature ad offerte di lavoro" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="960" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-36" target="pyBdS1eRIfOjg0KSSLxZ-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-36" value="Modulo gestione candidature e offerte database" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry y="860" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="pyBdS1eRIfOjg0KSSLxZ-47" target="pyBdS1eRIfOjg0KSSLxZ-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pyBdS1eRIfOjg0KSSLxZ-47" value="Candidature ad offerte di lavoro Azienda" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="1070" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
