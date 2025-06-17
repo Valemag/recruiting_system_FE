@@ -45,46 +45,38 @@
         <div class="container">
             <div class="col s12 m8 offset-m2 l6 offset-l3">
                 <div class="card-panel white z-depth-1">
-                    <table class="black-text">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h4 style="margin:0px;" class="black-text">Azienda</h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="color: #bdbdbd;" class="left">
-                                    <h3 style="margin:0px;" class="black-text">Posizione</h3>
-                                </td>
-                                <td>
-                                    <h6 style="margin:0px;" class="black-text">RAL</h6>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h6 style="margin:0px;" class="black-text">Modalità lavoro (ibrida-remote-in sede)</h6>
-                                </td>
-                                <td>
-                                    <a class="btn-floating light-blue darken-1" href=""><i class="material-icons">send</i></a> Invia Candidatura
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h6 style="margin:0px;" class="black-text">Descrizione</h6>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h6 style="margin:0px;" class="black-text">Benefit offerti</h6>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h6 style="margin:0px;" class="black-text">Requisiti (esperienza e titoli)</h6>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <h4 class="black-text center">
+                        Nuova Offerta di Lavoro
+                    </h4>
+                    <form method="POST" action="">
+                        <div class="input-field col s12">
+                            <input id="posizione" type="text" name="posizione" class="validate black-text" required>
+                            <label for="posizione">Posizione di Lavoro</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="sede" type="text" name="sede" class="validate black-text" required>
+                            <label for="sede">Modalità Lavoro (ibrida-remote-in sede)</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="ral" type="text" name="ral" class="validate black-text" required>
+                            <label for="ral">RAL Offerta</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="description" name="description" class="materialize-textarea black-text"></textarea>
+                            <label for="description">Descrizione Offerta</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="benefit" name="benefit" class="materialize-textarea black-text"></textarea>
+                            <label for="benefit">Benefit Offerti</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="requirements" name="requirements" class="materialize-textarea black-text"></textarea>
+                            <label for="requirements">Requisiti (esperienza e titoli)</label>
+                        </div>
+                        <div class="row center">
+                            <input type="submit" class="light-blue darken-1 btn-large" value="Salva Offerta">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
