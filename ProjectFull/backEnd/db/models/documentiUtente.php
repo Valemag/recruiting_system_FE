@@ -49,7 +49,7 @@ require_once("core/dbCore.php");
             }
 
             $sql = "INSERT INTO documentiUtente (utente_id, documento) VALUES (:utente_id, :documento)";
-            $stmt = $conn->prepare($sql);
+            $stmt = $this->conn->prepare($sql);
 
             // Associa i parametri
             $stmt->bindParam(':utente_id', $idUtente, PDO::PARAM_INT);

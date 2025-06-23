@@ -12,9 +12,9 @@ function register(){
     $tipo = $_POST["tipo"]; // 'utente' o 'azienda'
 
     if ($tipo === "utente") {
-        require("../db/models/utenti.php");
-        require("../db/models/competenzeUtente.php");
-        require("../fileSystem/storage/storageUtenti.php");
+        require_once("../db/models/utenti.php");
+        require_once("../db/models/competenzeUtente.php");
+        require_once("../fileSystem/storage/storageUtenti.php");
 
         if((isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["username"]) && isset($_POST["nome"]) && 
             isset($_POST["cognome"]) && isset($_POST["descrizione"]) && isset($_POST["nTelefono"]) &&
@@ -126,14 +126,14 @@ function register(){
                 echo("registrazione eseguita con successo");
                 http_response_code(200);
 
-                header('Location: ../../../frontEnd/utente/login.php');
+                header('Location: ../../../frontEnd/utente/login.html');
 
             }
             else{
                     
                 $utente -> closeConnectionToDatabase();
                 echo("registrazione eseguita con successo");
-                header('Location: ../../..frontEnd/utente/login.html');
+                header('Location: ../../../frontEnd/utente/login.html');
                 http_response_code(200);
 
             }

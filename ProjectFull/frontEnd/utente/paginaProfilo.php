@@ -37,12 +37,12 @@
                 <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
                     <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                     <li class="divider"></li>
-                    <li><a href="../../backEnd/controllers/utenti/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+                    <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul id="dropdownmenu_mobile" class="dropdown-content light-blue darken-2">
                     <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                     <li class="divider"></li>
-                    <li><a href="../../backEnd/controllers/utenti/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+                    <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul class="sidenav light-blue darken-1" id="mobile-demo">
                     <li><a href="paginaCandidature.php"><i class="material-icons left">business_center</i>Candidature</a></li>

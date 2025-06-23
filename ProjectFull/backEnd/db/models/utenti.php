@@ -297,7 +297,7 @@ class Utenti extends DataBaseCore{
             // Itera su tutte le righe del risultato
             while ($row = $result->fetch_assoc()) {
                 // Crea un oggetto SediAziende e popola con i dati
-                $competenza = new Competenze();
+                $competenza = new CompetenzeUtente();
                 $competenza->populateFromArray($row);  // Popola l'oggetto Sede
                 // Aggiungi l'oggetto Sede all'array di sedi
                 array_push($this->competenze, $competenza);
