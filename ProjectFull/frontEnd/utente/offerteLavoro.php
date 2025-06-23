@@ -78,23 +78,9 @@ $datiUtente = getInfoUtenteBySession();
                                         </td>
                                         <td>
                                             <a class="btn-floating light-blue darken-1 modal-trigger" href="#modal' . $index . '"><i class="material-icons">info</i></a> 
-                                            <form method="POST" action="../../backEnd/controllers/utenti/createCandidatura.php" style="display: flex; gap: 10px; align-items: center;">
+                                            <form method="POST" action="../../backEnd/controllers/utenti/createCandidatura.php" enctype="multipart/form-data" style="display: flex; gap: 10px; align-items: center;">
                                                 <input type="hidden" name="offerta_id" value="' . $offertaSingola["offerta_id"] . '">
-                        
-                                                <div class="input-field" style="margin: 0;">
-                                                    <select name="cv_documento_id" required>
-                                                        <option value="" disabled selected>Scegli documento</option>');
-
-                                                        if (isset($datiUtente["documenti"])) {
-                                                            foreach ($datiUtente["documenti"] as $doc) {
-                                                                $nomeFile = $doc["nome"]; // E.g. "cv.pdf"
-                                                                $docId = $doc["id"];   // E.g. 5
-                                                                echo('<option value="' . $docId . '">' . $nomeFile . '</option>');
-                                                            }
-                                                        }
-
-                                                    echo('</select>
-                                                </div>
+                                                <input type="file" name="file" id="file">
                                                 <button type="submit" class="btn light-blue darken-1">Invia</button>
                                             </form>
                                         </td>
