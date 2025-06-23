@@ -100,6 +100,11 @@ $candidatureUtente = getCandidature();
                                                 <h4 style="margin:0px;" class="black-text">'.$candidaturaSingola["nome_azienda"].'</h4>
                                                 <br>
                                                 '.$candidaturaSingola["titolo_offerta"].'
+                                                <br>
+                                                <form action="../../backEnd/controllers/utenti/deleteCandidature.php" method="post">
+                                                    <input type="hidden" name="candidatura_id" value="'.$candidaturaSingola["candidatura_id"].'">
+                                                    <input type="submit" value="Elimina">
+                                                </form>
                                             </td>');
 
                                         if($candidaturaSingola["stato_candidatura"] == "In attesa"){
