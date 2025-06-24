@@ -95,7 +95,7 @@ class Offerte extends DataBaseCore{
         ];
     }
 
-    function addOfferta($aziendaId, $titolo, $descrizione, $requisiti, $sedeId, $retribuzione, $tipoContrattoId, $dataScadenza, $modalitaLavoro) {
+    public function addOfferta($aziendaId, $titolo, $descrizione, $requisiti, $sedeId, $retribuzione, $tipoContrattoId, $dataScadenza, $modalitaLavoro) {
         if (!$this->isConnectedToDb) {
             return 2; // Connessione non attiva
         }
@@ -169,7 +169,7 @@ class Offerte extends DataBaseCore{
         }
     }
     
-    function getOffertaById($id) {
+    public function getOffertaById($id) {
         if (!$this->isConnectedToDb) {
             return 2; // Connessione non attiva
         }
@@ -178,13 +178,13 @@ class Offerte extends DataBaseCore{
     
         $query = "SELECT * FROM offerte WHERE offerta_id = $id";
     
-        $result = $conn->query($query);
+        $result = $this->conn->query($query);
 
         if (!$result) {
             return 1; // oppure puoi restituire $conn->error per debugging
         }
 
-        populateFromArray($result);
+        $this->populateFromArray($result);
 
         return 0;
     }
