@@ -3,7 +3,9 @@
 require_once(__DIR__."/../../db/models/offerte.php");
 
 function getOfferte(){
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     // Verifica che l'utente sia autenticato
     if (isset($_SESSION['utente_id'])) {

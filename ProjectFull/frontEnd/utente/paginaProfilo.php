@@ -1,5 +1,7 @@
 <?php
-
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     require("../../backEnd/controllers/getInfo.php");
 
     $userData = getInfoUtente();

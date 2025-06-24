@@ -4,7 +4,9 @@ require("../../db/models/utenti.php");
 
 function updateProfilo(){
 
-    session_start();
+   if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     // Controlla che l'utente sia autenticato
     if (!isset($_SESSION['utente_id'])) {

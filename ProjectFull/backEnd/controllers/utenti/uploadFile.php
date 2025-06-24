@@ -7,7 +7,9 @@ function return_with_error($status_code) {
 
 function uploadFile(){
 
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     // Verifica sessione
     $isAuth = isset($_SESSION["utente_id"]) && $_SESSION["utente_id"] != "";

@@ -1,7 +1,9 @@
 <?php
 
 function start() {
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     http_response_code(response_code: 200);
     $isUser = isset($_SESSION["utente_id"]);

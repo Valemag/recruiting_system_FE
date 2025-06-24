@@ -1,8 +1,11 @@
 <?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
-require("../../backEnd/controllers/utenti/getCandidature.php");
+    require("../../backEnd/controllers/utenti/getCandidature.php");
 
-$candidatureUtente = getCandidature();
+    $candidatureUtente = getCandidature();
 
 ?>
 

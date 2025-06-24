@@ -4,7 +4,9 @@ require_once("../../db/models/offerte.php");
 
 function getOfferta(){
 
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     // Verifica autenticazione
     if (!isset($_SESSION['utente_id'])) {

@@ -5,7 +5,6 @@
     require_once("../../backEnd/controllers/getInfo.php");
 
     $aziendaData = getInfoAzienda();
-
 ?>
 
 <!DOCTYPE html>

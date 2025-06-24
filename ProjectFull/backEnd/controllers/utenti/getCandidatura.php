@@ -4,7 +4,9 @@ require_once("../../db/models/candidature.php");
 
 function getCandidatura(){
 
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     if (!isset($_SESSION['utente_id'])) {
         echo "non autenticato";

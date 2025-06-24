@@ -6,7 +6,9 @@ require_once(__DIR__."/../../fileSystem/storage/storageUtenti.php");
 
 function createCandidatura(){
 
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
     if (!isset($_SESSION['utente_id'])) {

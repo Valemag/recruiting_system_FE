@@ -7,7 +7,9 @@ function getInfo(){
 
     if(isset($_GET["id"]) && $_GET["id"]!=""){
 
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
         if(isset($_SESSION["utente_id"])){
 

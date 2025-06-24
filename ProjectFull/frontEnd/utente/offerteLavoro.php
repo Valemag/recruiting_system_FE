@@ -1,10 +1,12 @@
 <?php
-require(__DIR__."/../../backEnd/controllers/utenti/getOfferte.php");
-require(__DIR__."/../../backEnd/controllers/getInfo.php");
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require(__DIR__."/../../backEnd/controllers/utenti/getOfferte.php");
+    require(__DIR__."/../../backEnd/controllers/getInfo.php");
 
-$offerteLavoro = getOfferte();
-$datiUtente = getInfoUtenteBySession();
-
+    $offerteLavoro = getOfferte();
+    $datiUtente = getInfoUtenteBySession();
 ?>
 
 <!DOCTYPE html>
