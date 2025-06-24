@@ -1,11 +1,11 @@
 
 <?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once("../../backEnd/controllers/getInfo.php");
 
-require("../../backEnd/controllers/getInfo.php");
-
-$aziendaData = getInfoAziendaBySession();
-
-
+    $aziendaData = getInfoAziendaBySession();
 ?>
 
 <!DOCTYPE html>

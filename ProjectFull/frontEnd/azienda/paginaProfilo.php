@@ -1,6 +1,8 @@
 <?php
-    session_start();
-    require("../../backEnd/controllers/getInfo.php");
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once("../../backEnd/controllers/getInfo.php");
 
     $aziendaData = getInfoAzienda();
 
@@ -32,7 +34,7 @@
 
                         echo('<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="left hide-on-med-and-down">
-                                <li><a href="paginaOfferte.php"><i class="material-icons left">business</i>Offerte di Lavoro</a></li>
+                                <li><a href="paginaOfferte.php?id='.$_SESSION["azienda_id"].'"><i class="material-icons left">business</i>Offerte di Lavoro</a></li>
                             </ul>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
                                 <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i>'.$aziendaData["nome"].'<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -49,7 +51,7 @@
                             </ul>
                             <ul class="sidenav light-blue darken-1" id="mobile-demo">
                                 <li><a href="candidature.html"><i class="material-icons left">business_center</i>Candidature</a></li>
-                                <li><a href="paginaOfferte.php"><i class="material-icons left">business</i>Offerte di Lavoro</a></li>
+                                <li><a href="paginaOfferte.php?id='.$_SESSION["azienda_id"].'"><i class="material-icons left">business</i>Offerte di Lavoro</a></li>
                                 <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i><i class="material-icons right">arrow_drop_down</i></a></li>
                             </ul>');
 

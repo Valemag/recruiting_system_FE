@@ -6,9 +6,11 @@ function getInfoUtente(){
     require_once(__DIR__."/../db/models/utenti.php");
     require_once(__DIR__."/../fileSystem/storage/storageUtenti.php");
 
-    if(isset($_GET["id"]) && $_GET["id"]!=""){
-
+    if (session_status() === PHP_SESSION_NONE) {
         session_start();
+    }
+
+    if(isset($_GET["id"]) && $_GET["id"]!=""){
 
         if(isset($_SESSION["utente_id"]) || isset($_SESSION["azienda_id"])){
 
@@ -99,7 +101,7 @@ function getInfoUtente(){
 
             echo("non autenticato");
             http_response_code(403);
-            header('Location: ../../frontEnd/utente/login.html');
+            header('Location: ../../frontEnd/login.html');
             return NULL;
         }
 
@@ -108,7 +110,7 @@ function getInfoUtente(){
 
         echo("campi obbligatori mancanti");
         http_response_code(403);
-        header('Location: ../../frontEnd/utente/login.html');
+        header('Location: ../../frontEnd/login.html');
         return NULL;
 
     }
@@ -121,7 +123,9 @@ function getInfoUtenteBySession(){
     require_once(__DIR__."/../db/models/utenti.php");
     require_once(__DIR__."/../fileSystem/storage/storageUtenti.php");
 
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     if(isset($_SESSION["utente_id"]) || isset($_SESSION["azienda_id"])){
 
@@ -212,7 +216,7 @@ function getInfoUtenteBySession(){
 
         echo("non autenticato");
         http_response_code(403);
-        header('Location: ../../frontEnd/utente/login.html');
+        header('Location: ../../frontEnd/login.html');
         return NULL;
     }
 
@@ -226,6 +230,10 @@ function getInfoAzienda(){
     require_once(__DIR__."/../fileSystem/storage/storageAziende.php");
 
     if(isset($_GET["id"]) && $_GET["id"]!=""){
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
         if(isset($_SESSION["azienda_id"]) || isset($_SESSION["utente_id"])){
 
@@ -297,7 +305,7 @@ function getInfoAzienda(){
 
             echo("non autenticato");
             http_response_code(403);
-            header('Location: ../../frontEnd/azienda/login.html');
+            header('Location: ../../frontEnd/login.html');
             return NULL;
         }
     }
@@ -305,7 +313,7 @@ function getInfoAzienda(){
 
         echo("campi obbligatori mancanti");
         http_response_code(403);
-        header('Location: ../../frontEnd/azienda/login.html');
+        header('Location: ../../frontEnd/login.html');
         return NULL;
 
     }
@@ -316,6 +324,10 @@ function getInfoAziendaBySession(){
 
     require_once(__DIR__."/../db/models/aziende.php");
     require_once(__DIR__."/../fileSystem/storage/storageAziende.php");
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
     if(isset($_SESSION["azienda_id"]) || isset($_SESSION["utente_id"])){
 
@@ -387,7 +399,7 @@ function getInfoAziendaBySession(){
 
         echo("non autenticato");
         http_response_code(403);
-        header('Location: ../../frontEnd/azienda/login.html');
+        header('Location: ../../frontEnd/login.html');
         return NULL;
     }
 

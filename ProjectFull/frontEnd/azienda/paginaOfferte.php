@@ -1,9 +1,11 @@
 <?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    require_once("../../backEnd/controllers/aziende/getOfferteAzienda.php");
+    require_once("../../backEnd/controllers/getInfo.php");
 
-    session_start();
-
-    require(__DIR__."/../../backEnd/controllers/aziende/getOfferteAzienda.php");
-
+    $aziendaData = getInfoAzienda();
     $offerte = getOfferte();
 
 ?>
@@ -24,14 +26,16 @@
                 <a href="#" class="brand-logo center">Logo</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i>Nome Cognome<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i>
+                    <?php echo($aziendaData["nome"]) ?>
+                    <i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
                 <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
                     <?php echo('<li><a href="paginaProfilo.php?id='.$_SESSION["azienda_id"].'"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>'); ?>
                     <li class="divider"></li>
                     <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                     <li class="divider"></li>
-                    <li><a href="nuovaOffertaLavoro.php"><i class="material-icons left">assignment_ind</i>Nuova offerta</a></li>
+                    <?php echo('<li><a href="nuovaOffertaLavoro.php?id='.$_SESSION["azienda_id"].'"><i class="material-icons left">assignment_ind</i>Nuova offerta</a></li>'); ?>
                 </ul>
                 <ul id="dropdownmenu_mobile" class="dropdown-content light-blue darken-2">
                 <?php echo('<li><a href="paginaProfilo.php?id='.$_SESSION["azienda_id"].'"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>'); ?>
@@ -39,7 +43,9 @@
                     <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul class="sidenav light-blue darken-1" id="mobile-demo">
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i>Nome Cognome<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i>
+                    <?php echo($aziendaData["nome"]) ?>
+                    <i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
         </nav>
