@@ -1,19 +1,26 @@
 <?php
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 require_once("../../db/models/offerte.php");
 
+function return_with_error($status_code) {
+    http_response_code(response_code: $status_code);
+    header('Location: ../../frontEnd/azienda/nuovaOffertaLavoro.php?id='.$_SESSION['azienda_id']);
+}
+
 // Controllo sessione
 if (!isset($_SESSION['azienda_id'])) {
     echo "non autenticato";
     http_response_code(401);
+    header('Location: ../../frontEnd/login.html');
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo "metodo non supportato";
-    http_response_code(405);
+    return_with_error(405);
     exit;
 }
 
@@ -24,7 +31,7 @@ $aziendaId = $_SESSION['azienda_id'];
 
 if ($offerta -> connectToDatabase() != 0) {
     echo "errore durante la connessione al database";
-    http_response_code(500);
+    return_with_error(500);
     exit;
 }
 
@@ -54,7 +61,7 @@ $result = $offerta -> addOfferta($aziendaId,
 if($result != 0){
 
     echo "errore durante l'aggiunta del record";
-    http_response_code(500);
+    return_with_error(500);
     exit;
 
 }

@@ -79,7 +79,7 @@ class Candidature extends DataBaseCore{
         ];
     }
 
-    function getCandidaturaById($id) {
+    public function getCandidaturaById($id) {
         if (!$this->isConnectedToDb) {
             return 2; // Connessione non attiva
         }
@@ -88,19 +88,19 @@ class Candidature extends DataBaseCore{
     
         $query = "SELECT * FROM candidature WHERE candidatura_id = $id";
     
-        $result = $conn->query($query);
+        $result = $this->conn->query($query);
 
         if (!$result) {
             return 1; // oppure puoi restituire $conn->error per debugging
         }
 
-        populateFromArray($result);
+        $this->populateFromArray($result);
 
         return 0;
     }
 
 
-    function addCandidatura($offertaId, $cvId, $utenteId, $note = null) {
+    public function addCandidatura($offertaId, $cvId, $utenteId, $note = null) {
         if (!$this->isConnectedToDb) {
             return 2; // connessione non attiva
         }
@@ -124,7 +124,7 @@ class Candidature extends DataBaseCore{
     }
 
 
-    function deleteCandidatura() {
+    public function deleteCandidatura() {
         if (!$this->isConnectedToDb) {
             return 2; // Connessione non attiva
         }
@@ -145,7 +145,7 @@ class Candidature extends DataBaseCore{
     }
 
 
-    function setStatoCandidatura($statoId, $motivazione = null) {
+    public function setStatoCandidatura($statoId, $motivazione = null) {
         if (!$this->isConnectedToDb) {
             return 2; // Connessione non attiva
         }
