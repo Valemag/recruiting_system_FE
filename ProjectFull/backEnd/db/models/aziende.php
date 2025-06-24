@@ -178,13 +178,13 @@ class Aziende extends DataBaseCore{
     
     
 
-    function setAziendaLogo($fileName){
+    public function setAziendaLogo($fileName){
 
         if (!$this -> isConnectedToDb) {
             return 2;
         }
 
-        $stmt = $this ->conn->prepare("UPDATE aziende SET logo = ? WHERE azienda_id = ?");
+        $stmt = $this->conn->prepare("UPDATE aziende SET logo = ? WHERE azienda_id = ?");
         $stmt->bind_param("si", $fileName, $this->aziendaId);
 
         if ($stmt->execute()) {

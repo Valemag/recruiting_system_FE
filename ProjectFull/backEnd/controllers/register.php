@@ -126,14 +126,14 @@ function register(){
                 echo("registrazione eseguita con successo");
                 http_response_code(200);
 
-                header('Location: ../../../frontEnd/utente/login.html');
+                header('Location: ../../frontEnd/login.html');
 
             }
             else{
                     
                 $utente -> closeConnectionToDatabase();
                 echo("registrazione eseguita con successo");
-                header('Location: ../../../frontEnd/utente/login.html');
+                header('Location: ../../frontEnd/login.html');
                 http_response_code(200);
 
             }
@@ -178,17 +178,17 @@ function register(){
 
                 echo("errore durante la connessione al database");
                 http_response_code(500);
-
+                exit;
             }
 
             $result = $azienda -> addAzienda($_POST["nome"], $descrizione, $_POST["sito_web"], $_POST["email_contatto"], $_POST["telefono_contatto"], $_POST["ragione_sociale"], $_POST["partita_iva"], $_POST["email"], $_POST["password"]);
 
-            if($result != 0){
+            if($result != 0) {
 
                 $azienda ->  closeConnectionToDatabase();
                 echo("errore durante la registrazione dell'azienda");
                 http_response_code(500);
-
+                exit;
             }
 
             // Recupera l'azienda tramite email
@@ -208,9 +208,8 @@ function register(){
                 $azienda ->  closeConnectionToDatabase();
                 echo("errore durante la registrazione della sede aziendale");
                 http_response_code(500);
-
+                exit;
             }
-
                 
             $fs -> createAziendaFolder($azienda->getAziendaId());
 
@@ -223,7 +222,7 @@ function register(){
                     $azienda -> closeConnectionToDatabase();
                     echo("errore durante l'upload del file");
                     http_response_code(500);
-
+                    exit;
                 }
 
 
@@ -234,7 +233,7 @@ function register(){
                     $azienda -> closeConnectionToDatabase();
                     echo("errore durante l'upload dell'immagine profilo");
                     http_response_code(500);
-
+                    exit;
                 }
 
             }
@@ -243,7 +242,7 @@ function register(){
             $azienda -> closeConnectionToDatabase();
             echo("registrazione eseguita con successo");
             http_response_code(200);
-            header('Location: ../../frontEnd/azienda/login.html');
+            header('Location: ../../frontEnd/login.html');
             
 
         }

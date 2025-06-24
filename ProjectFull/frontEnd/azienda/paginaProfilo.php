@@ -16,7 +16,11 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- 
+        <style>
+            body {
+                color: white;
+            }
+        </style>
     </head>
     <body class="black">
         <nav>
@@ -31,17 +35,17 @@
                                 <li><a href="paginaOfferte.php"><i class="material-icons left">business</i>Offerte di Lavoro</a></li>
                             </ul>
                             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                                <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i>Nome Azienda<i class="material-icons right">arrow_drop_down</i></a></li>
+                                <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i>'.$aziendaData["nome"].'<i class="material-icons right">arrow_drop_down</i></a></li>
                             </ul>
                             <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
                                 <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                                 <li class="divider"></li>
-                                <li><a href="../../backEnd/controllers/utenti/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+                                <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                             </ul>
                             <ul id="dropdownmenu_mobile" class="dropdown-content light-blue darken-2">
                                 <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                                 <li class="divider"></li>
-                                <li><a href="../../backEnd/controllers/utenti/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+                                <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                             </ul>
                             <ul class="sidenav light-blue darken-1" id="mobile-demo">
                                 <li><a href="candidature.html"><i class="material-icons left">business_center</i>Candidature</a></li>
@@ -62,16 +66,16 @@
                 <div class="card-panel grey darken-4 z-depth-1">
                     <div class="row valign-wrapper">
                         <div class="col s4 l2 square-container">
-                        <?php 
+                            <?php 
 
-                            if(isset($aziendaData["logo"])){
-                                echo('<img id="propic" src="'.$aziendaData["logo"].'" class="circle responsive-img">');
-                            }
-                            else{
-                                echo('<img id="propic" src="../assets/defaultPropic.jpg" class="circle responsive-img">');
-                            }
+                                if(isset($aziendaData["logo"])){
+                                    echo('<img id="propic" src="'.$aziendaData["logo"].'" class="circle responsive-img">');
+                                }
+                                else{
+                                    echo('<img id="propic" src="../assets/defaultPropic.jpg" class="circle responsive-img">');
+                                }
 
-                        ?>
+                            ?>
                         </div>
                         <div class="col s8 l10">
                             <h4 id="nome" class="white-text">
@@ -91,6 +95,7 @@
                     <div class="row valign-wrapper">
                         <div class="col s12">
                             <p id="descrizione" class="white-text">
+                                <h5>Descrizione</h5>
                                 <?php echo($aziendaData["descrizione"]); ?>
                             </p>
                         </div>

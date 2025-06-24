@@ -15,7 +15,6 @@ class StorageUtenti extends FileSystem{
 
     function uploadUtenteFile($idUtente, $file){
        
-
         $fileTmpPath = $file['tmp_name'];
         $fileName = $file['name'];
         $fileNameCmps = explode(".", $fileName);

@@ -16,6 +16,46 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style>
+            body {
+                color: white;
+            }
+            #competenze {
+                margin-top: 30px;
+            }
+
+            .skills-list {
+                border-radius: 8px;
+                max-width: 300px;
+            }
+
+            .skills-list h2 {
+                color: #333;
+                text-align: center;
+                font-size: 24px;
+            }
+
+            .skills-list ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .skills-list li {
+                font-size: 18px;
+                color: #555;
+                padding: 8px 0;
+                border-bottom: 1px solid #eee;
+            }
+
+            .skills-list li:last-child {
+                border-bottom: none;
+            }
+
+            .skills-list li:hover {
+                background-color: #f1f1f1;
+                cursor: pointer;
+            }
+        </style>
 
     </head>
     <body class="black">
@@ -32,7 +72,7 @@
                     <li><a href="offerteLavoro.php"><i class="material-icons left">business_center</i>offerte</a></li>
                 </ul>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i><i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i>'.$userData['username'].'<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
                 <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
                     <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
@@ -92,23 +132,24 @@
                     <div class="row valign-wrapper">
                         <div class="col s12">
                             <p id="descrizione" class="white-text">
+                            <h5>Descrizione</h5>
                             <?php echo($userData["descrizione"])?>
                             </p>
                             <?php
 
                                 if(isset($userData["competenze"])){
 
-                                    echo("<p>
-                                    Competenze
-                                    <br>");
+                                    echo("<div class=\"skills-list\">
+                                    <h5 id=\"competenze\">Competenze</h5>
+                                    <ul>");
 
                                     foreach($userData["competenze"] as $competenza){
 
-                                        echo($competenza -> getCompetenza() . "<br>");
+                                        echo("<li>" . $competenza -> getCompetenza() . "</li>");
 
                                     }
                             
-                                    echo("</p>");
+                                    echo("</ul></div>");
 
                                 }
 
@@ -166,7 +207,7 @@
                     <div class="row valign-wrapper">
                         <div class="col s12">
                             <p class="white-text">
-                                Contatti
+                                <h5>Contatti</h5>
                                 <br>
                                 telefono: <?php echo($userData["telefono_contatto"])?>
                                 <br>

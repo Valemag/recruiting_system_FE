@@ -58,7 +58,7 @@ function getInfoUtente(){
             unset($userData["password"]);
             unset($userData["data_registrazione"]);
 
-            $path = "../../backEnd/fileSystem/";
+            $path = "../../bitByte/backEnd/fileSystem/";
             $path .= $storageUtenti -> getUploadsPath();
             $path .= $storageUtenti -> getUtenteFolderPlaceholder();
             $path .= $userId."/";
@@ -171,7 +171,7 @@ function getInfoUtenteBySession(){
         unset($userData["password"]);
         unset($userData["data_registrazione"]);
 
-        $path = "../../backEnd/fileSystem/";
+        $path = "../../bitByte/backEnd/fileSystem/";
         $path .= $storageUtenti -> getUploadsPath();
         $path .= $storageUtenti -> getUtenteFolderPlaceholder();
         $path .= $userId."/";
@@ -272,7 +272,7 @@ function getInfoAzienda(){
 
             $aziendaData = $aziende -> toArray();
 
-            $path = "../../backEnd/fileSystem/";
+            $path = "../../bitByte/backEnd/fileSystem/";
             $path .= $storageAziende -> getUploadsPath();
             $path .= $storageAziende -> getAziendaFolderPlaceholder();
             $path .= $aziendaId."/";
@@ -362,7 +362,7 @@ function getInfoAziendaBySession(){
 
         $aziendaData = $aziende -> toArray();
 
-        $path = "../../backEnd/fileSystem/";
+        $path = "../../bitByte/backEnd/fileSystem/";
         $path .= $storageAziende -> getUploadsPath();
         $path .= $storageAziende -> getAziendaFolderPlaceholder();
         $path .= $aziendaId."/";

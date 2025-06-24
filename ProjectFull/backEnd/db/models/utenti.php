@@ -183,7 +183,7 @@ class Utenti extends DataBaseCore{
             return 2;
         }
 
-            $stmt = $this->conn->prepare("UPDATE utenti SET immagine_profilo = ? WHERE utente_id = ?");
+        $stmt = $this->conn->prepare("UPDATE utenti SET immagine_profilo = ? WHERE utente_id = ?");
         $stmt->bind_param("si", $fileName, $this->utenteId);
 
         if ($stmt->execute()) {

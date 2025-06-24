@@ -17,7 +17,7 @@ class CompetenzeUtente extends DataBaseCore {
     // Metodo per popolare da array
     public function populateFromArray(array $data) {
         if (isset($data['utente_id'])) $this->utente_id = $data['utente_id'];
-        if (isset($data['competenza'])) $this->competenze = $data['competenza'];
+        if (isset($data['competenza'])) $this->competenza = $data['competenza'];
     }
 
     // Aggiunge una competenza per un utente, dato il nome della competenza

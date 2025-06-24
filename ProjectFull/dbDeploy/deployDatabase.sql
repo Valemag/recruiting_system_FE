@@ -14,7 +14,7 @@ FLUSH PRIVILEGES;
 
 create database bitByte;
 
-use bitByte
+use bitByte;
 
 CREATE TABLE utenti (
     utente_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -54,7 +54,7 @@ CREATE TABLE sediAziende (
 );
 
 CREATE TABLE competenze (
-    competenza_id INT AUTO_INCREMENT PRIMARY KEY,
+    competenza_id INT PRIMARY KEY,
     competenza VARCHAR(255) NOT NULL
 );
 
@@ -253,17 +253,17 @@ GROUP BY o.offerta_id;
 
 
 --filler tabelle
-INSERT INTO competenze (competenza) VALUES
-('Java'),
-('Python'),
-('SQL'),
-('Project Management'),
-('React'),
-('Machine Learning'),
-('Linux'),
-('Comunicazione efficace'),
-('AWS'),
-('Cybersecurity');
+INSERT INTO competenze (competenza_id, competenza) VALUES
+(1, 'Java'),
+(2, 'Python'),
+(3, 'SQL'),
+(4, 'Project Management'),
+(5, 'React'),
+(6, 'Machine Learning'),
+(7, 'Linux'),
+(8, 'Comunicazione efficace'),
+(9, 'AWS'),
+(10, 'Cybersecurity');
 
 
 INSERT INTO tipoContratti (tipo) VALUES
@@ -286,7 +286,7 @@ INSERT INTO statiCandidature (stato) VALUES
 
 INSERT INTO modalitaLavoro (modalita) VALUES
 ('in sede'),
-('smart working')
+('smart working');
 
 INSERT INTO utenti (email, password, username, nome, cognome, telefono_contatto, descrizione) VALUES ('admin@admin.com', '$2y$10$wnSAqXD0QKhhiPHagJY7a.EH8kgr4VLipZI11yZ6vVEA.qWa8V3Du', 'admin_user', 'Nome Admin', 'Cognome Admin', '1234567890', 'Descrizione dell admin');
                             --password: admin

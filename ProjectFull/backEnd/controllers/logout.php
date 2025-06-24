@@ -7,7 +7,7 @@ function logout(){
 
     echo "Logout effettuato";
     http_response_code(200);
-    header('Location: /');
+    header('Location: /index.php');
 }
 
 logout();

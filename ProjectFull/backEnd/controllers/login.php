@@ -1,13 +1,18 @@
 <?php
-// Verifica parametri minimi
 
+function return_with_error($status_code) {
+    http_response_code(response_code: $status_code);
+    header('Location: ../../frontEnd/login.html?error=true');
+}
+
+// Verifica parametri minimi
 function login(){
     if (
         !isset($_POST["email"]) || !isset($_POST["password"]) || !isset($_POST["tipo"]) ||
         $_POST["email"] === "" || $_POST["password"] === "" || $_POST["tipo"] === ""
     ) {
         echo "Parametri mancanti";
-        http_response_code(400);
+        return_with_error(400);
         exit;
     }
 
@@ -23,14 +28,14 @@ function login(){
         $account = new Aziende();
     } else {
         echo "Tipo non valido. Deve essere 'utente' o 'azienda'";
-        http_response_code(400);
+        return_with_error(400);
         exit;
     }
 
     if ($account->connectToDatabase() != 0) {
         echo "Connessione al database fallita";
         $account -> closeConnectionToDatabase();
-        http_response_code(500);
+        return_with_error(500);
         exit;
     }
 
@@ -40,7 +45,7 @@ function login(){
     if ($getByEmail != 0) {
         echo ucfirst($tipo) . " non trovato.";
         $account -> closeConnectionToDatabase();
-        http_response_code(404);
+        return_with_error(404);
         exit;
     }
 
@@ -49,7 +54,7 @@ function login(){
     if (!password_verify($password, $getPassword)) {
         echo "Password errata.";
         $account -> closeConnectionToDatabase();
-        http_response_code(401);
+        return_with_error(401);
         exit;
     }
 
