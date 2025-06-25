@@ -7,14 +7,14 @@ require_once("../../db/models/offerte.php");
 
 function return_with_error($status_code) {
     http_response_code(response_code: $status_code);
-    header('Location: ../../frontEnd/azienda/nuovaOffertaLavoro.php?id='.$_SESSION['azienda_id']);
+    header('Location: ../../../frontEnd/azienda/nuovaOffertaLavoro.php?id='.$_SESSION['azienda_id']);
 }
 
 // Controllo sessione
 if (!isset($_SESSION['azienda_id'])) {
     echo "non autenticato";
     http_response_code(401);
-    header('Location: ../../frontEnd/login.html');
+    header('Location: ../../../frontEnd/login.html');
     exit;
 }
 
@@ -49,11 +49,16 @@ if (!empty($_POST["competenze3"])) {
     $competenze[] = $_POST["competenze3"];
 }
 
+if (empty($_GET["sedeId"])) {
+    return_with_error(status_code: 400);
+    exit;
+}
+
 $result = $offerta -> addOfferta($aziendaId, 
                                 $_POST["titolo"], 
                                 $_POST["descrizione"], 
                                 $competenze,
-                                $_POST["sede"],
+                                $_GET["sedeId"],
                                 $_POST["retribuzione"],
                                 $_POST["tipo_contratto"],
                                 $_POST["data_scadenza"],
@@ -66,8 +71,8 @@ if($result != 0){
 
 }
 
-echo "successo";
 http_response_code(200);
+header('Location: ../../../frontEnd/azienda/paginaOfferte.php?id='.$_SESSION['azienda_id']);
 exit;
 
 ?>

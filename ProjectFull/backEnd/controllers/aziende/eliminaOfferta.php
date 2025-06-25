@@ -4,6 +4,11 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require_once("../../db/models/offerte.php");
 
+function return_with_status($status_code) {
+    http_response_code(response_code: $status_code);
+    header('Location: ../../../frontEnd/azienda/paginaOfferte.php?id='.$_SESSION['azienda_id']);
+}
+
 // Controllo sessione
 if (!isset($_SESSION['azienda_id'])) {
     echo "non autenticato";
@@ -22,29 +27,22 @@ $offerta = new Offerte();
 
 if ($offerta -> connectToDatabase() != 0) {
     echo "errore durante la connessione al database";
-    http_response_code(500);
+    return_with_status(500);
     exit;
 }
 
-if ($offerta -> getOffertaById($_POST["offerta_id"]) != 0) {
-    echo "errore la lettura dal database";
-    http_response_code(500);
-    exit;
-}
-
-
+$offerta->setOffertaId($_POST['offerta_id']);
 $result = $offerta -> deleteOfferta();
 
 if($result != 0){
 
     echo "errore durante l'eliminazione del record";
-    http_response_code(500);
+    return_with_status(500);
     exit;
 
 }
 
-echo "successo";
-http_response_code(200);
+return_with_status(200);
 exit;
 
 ?>

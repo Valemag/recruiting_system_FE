@@ -16,10 +16,16 @@ class Offerte extends DataBaseCore{
 
     private $candidature;
 
+    private $modalitaLavoroId;
+
 
     // Getter per offertaId
     public function getOffertaId() {
         return $this->offertaId;
+    }
+
+    public function setOffertaId($newOffertaId) {
+        $this->offertaId = $newOffertaId;
     }
 
     // Getter per aziendaId
@@ -67,6 +73,10 @@ class Offerte extends DataBaseCore{
         return $this->dataScadenza;
     }
 
+    public function getModalitaLavoroId() {
+        return $this->modalitaLavoroId;
+    }
+
     // Metodo per trasferire i dati dall'array associativo agli attributi
     public function populateFromArray($data) {
         $this->offertaId = isset($data['offerta_id']) ? $data['offerta_id'] : null;
@@ -78,6 +88,7 @@ class Offerte extends DataBaseCore{
         $this->dataPubblicazione = isset($data['data_pubblicazione']) ? $data['data_pubblicazione'] : null;
         $this->sedeLavoroId = isset($data['sede_lavoro_id']) ? $data['sede_lavoro_id'] : null;
         $this->dataScadenza = isset($data['data_scadenza']) ? $data['data_scadenza'] : null;
+        $this->modalitaLavoroId = isset($data['modalita_lavoro_id']) ? $data['modalita_lavoro_id'] : null;
     }
 
     // Metodo che restituisce un array associativo con i dati dell'oggetto
@@ -91,7 +102,8 @@ class Offerte extends DataBaseCore{
             'retribuzione' => $this->retribuzione,
             'data_pubblicazione' => $this->dataPubblicazione,
             'sede_lavoro_id' => $this->sedeLavoroId,
-            'data_scadenza' => $this->dataScadenza
+            'data_scadenza' => $this->dataScadenza,
+            'modalita_lavoro_id' => $this->modalitaLavoroId,
         ];
     }
 
@@ -105,7 +117,7 @@ class Offerte extends DataBaseCore{
     
         // 1. Inserimento offerta
         $stmt = $this->conn->prepare(
-            "INSERT INTO offerte (azienda_id, titolo, descrizione, data_pubblicazione, retribuzione, sede_lavoro_id, tipo_contratto_id, data_scadenza modalita_lavoro_id)
+            "INSERT INTO offerte (azienda_id, titolo, descrizione, data_pubblicazione, retribuzione, sede_lavoro_id, tipo_contratto_id, data_scadenza, modalita_lavoro_id)
              VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?)"
         );
     
@@ -159,7 +171,7 @@ class Offerte extends DataBaseCore{
         if (!$stmt) {
             return 1; // Errore nella preparazione
         }
-    
+ 
         $stmt->bind_param("i", $this -> offertaId);
     
         if ($stmt->execute()) {
@@ -184,7 +196,7 @@ class Offerte extends DataBaseCore{
             return 1; // oppure puoi restituire $conn->error per debugging
         }
 
-        $this->populateFromArray($result);
+        $this->populateFromArray($result->fetch_assoc());
 
         return 0;
     }
@@ -290,17 +302,12 @@ class Offerte extends DataBaseCore{
     }
 
 
-    public function getOffertaConRequisitiById($offertaId) {
+    public function getOffertaConRequisitiById($offertaId): array|int {
         if (!$this->isConnectedToDb) {
             return 3;
         }
     
-        $stmt = $this->conn->prepare("
-            SELECT * FROM vista_offerta_con_requisiti
-            WHERE offerta_id = ?
-            LIMIT 1
-        ");
-    
+        $stmt = $this->conn->prepare("SELECT * FROM vista_offerta_con_requisiti WHERE offerta_id = ?");
         if (!$stmt) {
            return 2;
         }

@@ -59,7 +59,7 @@ CREATE TABLE competenze (
 );
 
 CREATE TABLE modalitaLavoro (
-    modalita_id INT AUTO_INCREMENT PRIMARY KEY,
+    modalita_id INT PRIMARY KEY,
     modalita VARCHAR(255) NOT NULL
 );
 
@@ -312,9 +312,10 @@ INSERT INTO statiCandidature (stato) VALUES
 ('Rifiutato'),
 ('Rinunciato');
 
-INSERT INTO modalitaLavoro (modalita) VALUES
-('in sede'),
-('smart working');
+INSERT INTO modalitaLavoro (modalita_id, modalita) VALUES
+(1, 'in sede'),
+(2, 'smart working'),
+(3, 'ibrido');
 
 INSERT INTO utenti (email, password, username, nome, cognome, telefono_contatto, descrizione) VALUES ('admin@admin.com', '$2y$10$wnSAqXD0QKhhiPHagJY7a.EH8kgr4VLipZI11yZ6vVEA.qWa8V3Du', 'admin_user', 'Nome Admin', 'Cognome Admin', '1234567890', 'Descrizione dell admin');
                             --password: admin

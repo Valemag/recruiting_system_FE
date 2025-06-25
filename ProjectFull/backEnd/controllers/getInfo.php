@@ -272,7 +272,7 @@ function getInfoAzienda(){
             if($result != 0){
 
                 $aziende -> closeConnectionToDatabase();
-                echo("errore durante il fetching delle sedi");
+                echo("errore durante il fetching delle sedi: ".$result);
                 http_response_code(500);
                 return NULL;
 
