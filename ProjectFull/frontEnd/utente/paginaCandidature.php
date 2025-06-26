@@ -104,7 +104,7 @@
                                                 <br>
                                                 '.$candidaturaSingola["titolo_offerta"].'
                                                 <br>
-                                                <form action="../../backEnd/controllers/utenti/deleteCandidature.php" method="post">
+                                                <form action="../../backEnd/controllers/utenti/deleteCandidatura.php" method="post">
                                                     <input type="hidden" name="candidatura_id" value="'.$candidaturaSingola["candidatura_id"].'">
                                                     <input type="submit" value="Elimina">
                                                 </form>
@@ -120,7 +120,7 @@
                                                 </td>');
 
                                         }
-                                        else if($candidaturaSingola["stato_candidatura"] == "Accettata"){
+                                        if($candidaturaSingola["stato_candidatura"] == "Accettata"){
 
                                             echo('<td class="center">
                                                     <div class="status center">
@@ -130,7 +130,7 @@
                                                 </td>');
 
                                         }
-                                        else if($candidaturaSingola["stato_candidatura"] == "Rifuitata"){
+                                        if($candidaturaSingola["stato_candidatura"] == "Rifuitata"){
 
                                             echo('<td class="center">
                                                     <div class="status">
@@ -158,7 +158,7 @@
         
                                     }
 
-                                    echo('</tbody></table>;');
+                                    echo('</tbody></table>');
     
                                 }
                                 else{
