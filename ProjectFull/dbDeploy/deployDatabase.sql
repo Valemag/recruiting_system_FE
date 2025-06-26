@@ -305,12 +305,9 @@ INSERT INTO tipoContratti (tipo) VALUES
 
 
 INSERT INTO statiCandidature (stato) VALUES
-('Candidatura ricevuta'),
-('In valutazione'),
-('Offerta inviata'),
+('In attesa'),
 ('Accettato'),
-('Rifiutato'),
-('Rinunciato');
+('Rifiutato');
 
 INSERT INTO modalitaLavoro (modalita_id, modalita) VALUES
 (1, 'in sede'),
@@ -384,3 +381,13 @@ INSERT INTO competenzaUtente (utente_id, competenza_id) VALUES
 (4, 6), 
 (4, 3), 
 (4, 3); 
+
+-- Sedi per Tech Solutions Srl (azienda_id = 1)
+INSERT INTO sediAziende (azienda_id, paese, regione, citta, indirizzo) VALUES
+(1, 'Italia', 'Lombardia', 'Milano', 'Via Monte Napoleone 10'),
+(1, 'Italia', 'Lazio', 'Roma', 'Viale delle Milizie 20');
+
+-- Sedi per Digital Innovators (azienda_id = 2)
+INSERT INTO sediAziende (azienda_id, paese, regione, citta, indirizzo) VALUES
+(2, 'Italia', 'Veneto', 'Venezia', 'Campo San Polo 5'),
+(2, 'Italia', 'Emilia-Romagna', 'Bologna', 'Via Zamboni 33');
