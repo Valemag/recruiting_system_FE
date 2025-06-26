@@ -46,5 +46,11 @@ class DataBaseCore{
 
     }
 
+    function getConn(){
+
+        return $this->conn;
+
+    }
+
 }
 ?>
