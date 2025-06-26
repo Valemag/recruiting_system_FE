@@ -60,7 +60,7 @@
                 <div class="card-panel white z-depth-1">
                   <h4 class="black-text center">Nuova Offerta di Lavoro</h4>
 
-                    <form method="POST" action="../../../backEnd/controllers/aziende/pubblicaOfferta.php?sedeId=<?php echo ($aziendaData["sediAzienda"][0]->getSedeId()) ?>">
+                    <form method="POST" action="../../../backEnd/controllers/aziende/ControllerOfferta.php?sedeId=<?php echo ($aziendaData["sediAzienda"][0]->getSedeId()) ?>">
 
 
                         <div class="input-field col s12">

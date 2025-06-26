@@ -18,7 +18,6 @@ class Offerte extends DataBaseCore{
 
     private $modalitaLavoroId;
 
-
     // Getter per offertaId
     public function getOffertaId() {
         return $this->offertaId;
@@ -132,6 +131,7 @@ class Offerte extends DataBaseCore{
             $this->conn->rollback();
             return 1; // Errore in esecuzione
         }
+        $stmt->close();
     
         // Ottieni l'ID dell'offerta appena inserita
         $offertaId = $this->conn->insert_id;
@@ -154,10 +154,13 @@ class Offerte extends DataBaseCore{
                     return 1; // Errore nell'inserimento dei requisiti
                 }
             }
+
+            $stmtReq->close();
         }
     
         // Commit finale
         $this->conn->commit();
+
         return 0; // Inserimento riuscito
     }
     
@@ -173,8 +176,10 @@ class Offerte extends DataBaseCore{
         }
  
         $stmt->bind_param("i", $this -> offertaId);
-    
-        if ($stmt->execute()) {
+        $result = $stmt->execute();
+        $stmt->close();
+
+        if ($result) {
             return 0; // Eliminazione riuscita
         } else {
             return 1; // Errore durante l'eliminazione
@@ -197,6 +202,7 @@ class Offerte extends DataBaseCore{
         }
 
         $this->populateFromArray($result->fetch_assoc());
+        $result->close();
 
         return 0;
     }
@@ -234,6 +240,18 @@ class Offerte extends DataBaseCore{
             $values[] = $this->dataScadenza;
             $types .= "s";
         }
+
+        if (!empty($this->modalitaLavoroId)) {
+            $fields[] = "modalita_lavoro_id = ?";
+            $values[] = $this->modalitaLavoroId;
+            $types .= "i";
+        }
+
+        if (!empty($this->tipoContrattoId)) {
+            $fields[] = "tipo_contratto_id = ?";
+            $values[] = $this->tipoContrattoId;
+            $types .= "i";
+        }
     
         if (empty($fields)) {
             return 3; // Nessun campo da aggiornare
@@ -250,8 +268,10 @@ class Offerte extends DataBaseCore{
         $types .= "i";
     
         $stmt->bind_param($types, ...$values);
-    
-        if ($stmt->execute()) {
+        $result = $stmt->execute();
+        $stmt->close();
+
+        if ($result) {
             return 0; // Successo
         } else {
             return 1; // Errore durante l'update
@@ -276,6 +296,7 @@ class Offerte extends DataBaseCore{
         while ($row = $result->fetch_assoc()) {
             $offerte[] = $row;
         }
+        $result->close();
     
         return $offerte;
     }
@@ -297,6 +318,7 @@ class Offerte extends DataBaseCore{
         while ($row = $result->fetch_assoc()) {
             $offerte[] = $row;
         }
+        $result->close();
     
         return $offerte;
     }
@@ -321,6 +343,8 @@ class Offerte extends DataBaseCore{
         }
     
         $offerta = $result->fetch_assoc();
+        $result->close();
+
         return $offerta;
     }
 
@@ -338,6 +362,7 @@ class Offerte extends DataBaseCore{
         if (!$result) {
             return 1; // oppure puoi restituire $conn->error per debugging
         }
+        $finalResult = 1;
 
         if ($result->num_rows > 0) {
             // Elenco delle sedi da restituire
@@ -352,13 +377,14 @@ class Offerte extends DataBaseCore{
                 array_push($this->candidature, $candidatura);
             }
     
-            return 0; // Successo
+            $finalResult = 0; // Successo
         } else {
-            return 3; // Nessuna sede trovata
+            $finalResult = 3; // Nessuna sede trovata
         }
 
+        $result->close();
+        return $finalResult;
     }
-
 
     public function getCompetenzeRichiesteByOffertaId($offertaId) {
         if (!$this->isConnectedToDb) {
@@ -383,15 +409,16 @@ class Offerte extends DataBaseCore{
         }
     
         $result = $stmt->get_result();
+        $stmt->close();
         $competenze = [];
     
         while ($row = $result->fetch_assoc()) {
             $competenze[] = $row;
         }
+        $result->close();
     
         return $competenze; // Array di competenze
     }
-    
 
     public function getOfferteAppuntateByUtenteId($utenteId) {
         $query = "
@@ -401,6 +428,7 @@ class Offerte extends DataBaseCore{
     
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $utenteId);
+        $finalResult = [];
     
         if ($stmt->execute()) {
             $result = $stmt->get_result();
@@ -408,10 +436,12 @@ class Offerte extends DataBaseCore{
             while ($row = $result->fetch_assoc()) {
                 $offerte[] = $row;
             }
-            return $offerte;
-        } else {
-            return []; // oppure false se vuoi segnalare un errore
+            $result->close();
+            $finalResult = $offerte;
         }
+        $stmt->close();
+        
+        return $finalResult;
     }
 
 }

@@ -2,7 +2,7 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    require_once("../../backEnd/controllers/aziende/getOfferteAzienda.php");
+    require_once("../../backEnd/controllers/aziende/ControllerOfferta.php");
     require_once("../../backEnd/controllers/getInfo.php");
 
     $aziendaData = getInfoAzienda();
@@ -99,7 +99,8 @@
                                             </div>
                                             <div class="card-action">
                                                 <a class="btn-small light-blue darken-1" href="modificaOffertaLavoro.php?id='.$_SESSION["azienda_id"].'&offerta='.$offerta["offerta_id"].'">Modifica</a>
-                                                <form method="POST" action="../../backEnd/controllers/aziende/eliminaOfferta.php">
+                                                <form method="POST" action="../../backEnd/controllers/aziende/ControllerOfferta.php">
+                                                    <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="offerta_id" value="'.$offerta["offerta_id"].'">
                                                     <input type="submit" class="btn-small red darken-1" value="Elimina">
                                                 </form>
