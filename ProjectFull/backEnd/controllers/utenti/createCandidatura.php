@@ -2,6 +2,7 @@
 
 require_once(__DIR__."/../../db/models/candidature.php");
 require_once(__DIR__."/../../db/models/utenti.php");
+require_once(__DIR__."/../../db/models/offerte.php");
 require_once(__DIR__."/../../fileSystem/storage/storageUtenti.php");
 
 function createCandidatura(){
@@ -32,7 +33,30 @@ function createCandidatura(){
     $file = $_FILES['file'];
     $storage = new StorageUtenti();
     $utente = new Utenti();
+    $offerta = new Offerte();
     $candidaturaObj = new Candidature();
+
+    if ($offerta -> connectToDatabase() != 0) {
+        echo "Impossibile connettersi al database 0";
+        http_response_code(500);
+        exit;
+    }
+
+    $competenzeOffertaResult = $offerta -> getCompetenzeRichiesteByOffertaId($_POST['offerta_id']);
+
+    if(!is_array($competenzeOffertaResult)){
+        $offerta->closeConnectionToDatabase();
+        echo "Impossibile trovare le competenze richieste dall'offerta";
+        http_response_code(500);
+        exit;
+    }
+
+    $competenzeOfferta = [];
+    foreach($competenzeOffertaResult as $c) {
+        $competenzeOfferta[] = $c["competenza"];
+    }
+
+    $offerta->closeConnectionToDatabase();
 
     if ($utente -> connectToDatabase() != 0) {
         echo "Impossibile connettersi al database 1";
@@ -44,6 +68,33 @@ function createCandidatura(){
         $utente->closeConnectionToDatabase();
         echo "Impossibile connettersi al database";
         http_response_code(500);
+        exit;
+    }
+
+    if ($utente->fetchCompetenzeUtente() != 0) {
+        $utente->closeConnectionToDatabase();
+        echo "Impossibile recuperare le competenze dell'utente";
+        http_response_code(500);
+        exit;
+    }
+
+    $competenzeUtenteResult = $utente->getCompetenze();
+
+    $competenzeUtente = [];
+
+    foreach($competenzeUtenteResult as $c){
+
+        $competenzeUtente[] = $c->getCompetenza();
+
+    }
+
+    //controllo competenze necessarie
+
+    $allPresent = array_diff($competenzeUtente, $competenzeOfferta);
+
+    if ($allPresent) {
+        echo("L'utente non ha le competenze necessarie per candidarsi");
+        http_response_code(200);
         exit;
     }
 
@@ -61,11 +112,11 @@ function createCandidatura(){
         exit;
     }
 
-    $utente->closeConnectionToDatabase();
-
     $offertaId = intval($_POST['offerta_id']);
     $cvDocumentoId = $utente -> getConn() -> insert_id;
     $note = isset($_POST['note']) ? trim($_POST['note']) : null;
+
+    $utente->closeConnectionToDatabase();
 
     if ($candidaturaObj->connectToDatabase() !== 0) {
         http_response_code(500);
@@ -82,7 +133,7 @@ function createCandidatura(){
     else{
 
         http_response_code(200);
-        echo "candidatura aggiunta con successo";
+        header('location: ../../../frontEnd/utente/paginaCandidature.php');
 
     }
 }
