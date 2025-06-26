@@ -359,6 +359,40 @@ class Offerte extends DataBaseCore{
 
     }
 
+
+    public function getCompetenzeRichiesteByOffertaId($offertaId) {
+        if (!$this->isConnectedToDb) {
+            return 2; // Connessione non attiva
+        }
+    
+        $query = "
+            SELECT c.competenza AS competenza
+            FROM requisitiCompetenzeOfferta r
+            JOIN competenze c ON r.competenza_id = c.competenza_id
+            WHERE r.offerta_id = ?
+        ";
+    
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            return 1; // Errore nella preparazione
+        }
+    
+        $stmt->bind_param("i", $offertaId);
+        if (!$stmt->execute()) {
+            return 1; // Errore in esecuzione
+        }
+    
+        $result = $stmt->get_result();
+        $competenze = [];
+    
+        while ($row = $result->fetch_assoc()) {
+            $competenze[] = $row;
+        }
+    
+        return $competenze; // Array di competenze
+    }
+    
+
     public function getOfferteAppuntateByUtenteId($utenteId) {
         $query = "
             SELECT *
