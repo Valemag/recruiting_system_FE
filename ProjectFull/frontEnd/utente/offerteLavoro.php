@@ -26,7 +26,7 @@
                 <a href="#" class="brand-logo center">Logo</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li><a href="candidature.php"><i class="material-icons left">business_center</i>Candidature</a></li>
+                    <li><a href="paginaCandidature.php"><i class="material-icons left">business_center</i>Candidature</a></li>
                 </ul>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i><i class="material-icons right">arrow_drop_down</i></a></li>
@@ -105,7 +105,7 @@
                                     </div>
                                 ');
 
-                                echo('</tbody></table>');
+                                echo('<br>');
                             }
                         }
                     ?>
