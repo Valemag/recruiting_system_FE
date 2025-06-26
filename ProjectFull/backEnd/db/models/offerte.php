@@ -106,6 +106,26 @@ class Offerte extends DataBaseCore{
         ];
     }
 
+    private function addCompetenze($competenze) {
+        $stmt = $this->conn->prepare(
+            "INSERT INTO requisitiCompetenzeOfferta (competenza_id, offerta_id) VALUES (?, ?)"
+        );
+
+        if (!$stmt) {
+            return 1; // Errore nella preparazione dei requisiti
+        }
+
+        foreach ($competenze as $competenzaId) {
+            $stmt->bind_param("ii", $competenzaId, $this->offertaId);
+            if (!$stmt->execute()) {
+                return 1; // Errore nell'inserimento dei requisiti
+            }
+        }
+
+        $stmt->close();
+        return 0;
+    }
+
     public function addOfferta($aziendaId, $titolo, $descrizione, $requisiti, $sedeId, $retribuzione, $tipoContrattoId, $dataScadenza, $modalitaLavoro) {
         if (!$this->isConnectedToDb) {
             return 2; // Connessione non attiva
@@ -138,24 +158,10 @@ class Offerte extends DataBaseCore{
     
         // 2. Inserimento requisiti (competenza_id -> offerta_id)
         if (!empty($requisiti) && is_array($requisiti)) {
-            $stmtReq = $this->conn->prepare(
-                "INSERT INTO requisitiCompetenzeOfferta (competenza_id, offerta_id) VALUES (?, ?)"
-            );
-    
-            if (!$stmtReq) {
+            if ($this->addCompetenze($requisiti) != 0) {
                 $this->conn->rollback();
-                return 1; // Errore nella preparazione dei requisiti
+                return 1;
             }
-    
-            foreach ($requisiti as $competenzaId) {
-                $stmtReq->bind_param("ii", $competenzaId, $offertaId);
-                if (!$stmtReq->execute()) {
-                    $this->conn->rollback();
-                    return 1; // Errore nell'inserimento dei requisiti
-                }
-            }
-
-            $stmtReq->close();
         }
     
         // Commit finale
@@ -208,7 +214,7 @@ class Offerte extends DataBaseCore{
     }
 
 
-    public function updateOfferta() {
+    public function updateOfferta($competenze) {
         if (!$this->isConnectedToDb) {
             return 2; // Connessione non attiva
         }
@@ -256,11 +262,14 @@ class Offerte extends DataBaseCore{
         if (empty($fields)) {
             return 3; // Nessun campo da aggiornare
         }
+
+        // Inizia la transazione
+        $this->conn->begin_transaction();
     
         $query = "UPDATE offerte SET " . implode(", ", $fields) . " WHERE offerta_id = ?";
         $stmt = $this->conn->prepare($query);
-    
         if (!$stmt) {
+            $this->conn->rollback();
             return 4; // Errore nella preparazione
         }
     
@@ -270,12 +279,34 @@ class Offerte extends DataBaseCore{
         $stmt->bind_param($types, ...$values);
         $result = $stmt->execute();
         $stmt->close();
-
-        if ($result) {
-            return 0; // Successo
-        } else {
-            return 1; // Errore durante l'update
+        if (!$result) { 
+            $this->conn->rollback();
+            return 1;
         }
+
+        $query = "DELETE FROM requisiticompetenzeofferta WHERE offerta_id = ?";
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            $this->conn->rollback();
+            return 4; // Errore nella preparazione
+        }
+        $stmt->bind_param("i", $this -> offertaId);
+        $result = $stmt->execute();
+        $stmt->close();
+        if (!$result) { 
+            $this->conn->rollback();
+            return 1;
+        }
+
+        if ($this->addCompetenze($competenze) != 0) {
+            $this->conn->rollback();
+            return 1;
+        }
+
+        // Commit finale
+        $this->conn->commit();
+
+        return 0;
     }
     
 

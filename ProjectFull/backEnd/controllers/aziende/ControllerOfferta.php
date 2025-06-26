@@ -34,17 +34,7 @@ function ExtractId($var, $location): int {
     return intval($var);
 }
 
-function addOfferta() {
-    $rollbackLocation =  '../../../frontEnd/azienda/nuovaOffertaLavoro.php?id='.$_SESSION['azienda_id'];
-
-    $offerta = new Offerte();
-    $aziendaId = $_SESSION['azienda_id'];
-
-    if ($offerta -> connectToDatabase() != 0) {
-        return_with_status(500, $rollbackLocation);
-        exit;
-    }
-
+function initCompetenzeList(): array {
     $competenze = array();
 
     if (!empty($_POST["competenze1"])) {
@@ -58,6 +48,22 @@ function addOfferta() {
     if (!empty($_POST["competenze3"])) {
         $competenze[] = $_POST["competenze3"];
     }
+
+    return $competenze;
+}
+
+function addOfferta() {
+    $rollbackLocation =  '../../../frontEnd/azienda/nuovaOffertaLavoro.php?id='.$_SESSION['azienda_id'];
+
+    $offerta = new Offerte();
+    $aziendaId = $_SESSION['azienda_id'];
+
+    if ($offerta -> connectToDatabase() != 0) {
+        return_with_status(500, $rollbackLocation);
+        exit;
+    }
+
+    $competenze = initCompetenzeList();
 
     if (empty($_GET["sedeId"])) {
         return_with_status(400, $rollbackLocation);
@@ -90,12 +96,13 @@ function updateOfferta() {
 
     $offerte->populateFromArray($_POST);
     $offerte->setOffertaId($offertaId);
+    $competenze = initCompetenzeList();
 
     if ($offerte->connectToDatabase() != 0) {
         return_with_status(500, $rollbackLocation . '&update=failure');
         exit;
     }
-    if ($offerte->updateOfferta() != 0) {
+    if ($offerte->updateOfferta($competenze) != 0) {
        return_with_status(500, $rollbackLocation . '&update=failure');
        exit;
     }
