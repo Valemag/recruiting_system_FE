@@ -47,9 +47,7 @@
             exit;
         }
 
-        header('Location: ../../frontEnd/utente/paginaCandidature.php');
-
-        http_response_code(200);
+        header('location: ../../../frontEnd/utente/paginaCandidature.php');
 
     }
 
