@@ -3,7 +3,7 @@
 
 class FileSystem{
 
-    protected $fileSystemUrl = "/xampp/htdocs/bitByte/backEnd/fileSystem/";
+    protected $fileSystemUrl = "/xampp/htdocs/backEnd/fileSystem/";
     protected $uploadsPath = "files/";
     protected $utenteFolderPlaceholder = "u_";
     protected $aziendaFolderPlaceholder = "a_";
