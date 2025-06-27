@@ -19,6 +19,7 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="../../bitnami.css">
     </head>
     <body class="grey lighten-5">
         <nav>
@@ -79,7 +80,10 @@
                                             <h6 style="margin:0px;" class="black-text">Tipo contratto: ' . $offertaSingola["tipo_contratto"] . '</h6>
                                         </td>
                                         <td>
-                                            <a class="btn-floating light-blue darken-1 modal-trigger" href="#modal' . $index . '"><i class="material-icons">info</i></a> 
+                                <button class="btn light-blue darken-1 modal-trigger" href="#modal' . $index . '" style="margin-right: 10px;">
+                                Mostra dettagli offerta
+                                </button>
+
                                             <form method="POST" action="../../backEnd/controllers/utenti/createCandidatura.php" enctype="multipart/form-data" style="display: flex; gap: 10px; align-items: center;">
                                                 <input type="hidden" name="offerta_id" value="' . $offertaSingola["offerta_id"] . '">
                                                 <input type="file" name="file" id="file">

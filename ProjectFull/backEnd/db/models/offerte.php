@@ -155,6 +155,9 @@ class Offerte extends DataBaseCore{
     
         // Ottieni l'ID dell'offerta appena inserita
         $offertaId = $this->conn->insert_id;
+
+        //aggiunta
+        $this->offertaId = $offertaId;
     
         // 2. Inserimento requisiti (competenza_id -> offerta_id)
         if (!empty($requisiti) && is_array($requisiti)) {

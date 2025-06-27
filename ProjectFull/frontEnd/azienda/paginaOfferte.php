@@ -36,6 +36,7 @@
                 align-items: center;
             }
         </style>
+        <link rel="stylesheet" href="../../bitnami.css">
     </head>
     <body class="grey lighten-5">
         <nav>

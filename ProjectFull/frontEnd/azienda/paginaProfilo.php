@@ -22,6 +22,7 @@
                 color: white;
             }
         </style>
+        <link rel="stylesheet" href="../../bitnami.css">
     </head>
     <body class="black">
         <nav>
