@@ -46,7 +46,7 @@
     <body class="grey lighten-5">
         <nav>
             <div class="nav-wrapper light-blue darken-1">
-                <a href="#" class="brand-logo center">Logo</a>
+                <a href="#" class="brand-logo center"><img class="responsive-img" src="../assets/logo.png" alt="Logo"></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li><a href="index.html"><i class="material-icons left">home</i>Home</a></li>

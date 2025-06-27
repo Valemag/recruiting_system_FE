@@ -63,7 +63,7 @@
     <body class="black">
         <nav>
             <div class="nav-wrapper light-blue darken-1">
-                <a href="#" class="brand-logo center">Logo</a>
+                <a href="#" class="brand-logo center"><img class="responsive-img" src="../assets/logo.png" alt="Logo"></a>
 
                 <?php 
                 
