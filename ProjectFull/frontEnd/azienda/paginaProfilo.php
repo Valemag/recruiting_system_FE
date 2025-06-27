@@ -17,14 +17,9 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <style>
-            body {
-                color: white;
-            }
-        </style>
         <link rel="stylesheet" href="../../bitnami.css">
     </head>
-    <body class="black">
+    <body class="grey lighten-5">
         <nav>
             <div class="nav-wrapper light-blue darken-1">
                 <a href="#" class="brand-logo center"><img class="responsive-img" src="../assets/logo.png" alt="Logo"></a>
@@ -40,19 +35,18 @@
                                 <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i>'.$aziendaData["nome"].'<i class="material-icons right">arrow_drop_down</i></a></li>
                             </ul>
                             <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
-                                <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
+                                <li><a href="modificaProfilo.php?id='.$_SESSION["azienda_id"].'"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                                 <li class="divider"></li>
                                 <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                             </ul>
                             <ul id="dropdownmenu_mobile" class="dropdown-content light-blue darken-2">
-                                <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
+                                <li><a href="modificaProfilo.php?id='.$_SESSION["azienda_id"].'"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                                 <li class="divider"></li>
                                 <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                             </ul>
                             <ul class="sidenav light-blue darken-1" id="mobile-demo">
-                                <li><a href="candidature.html"><i class="material-icons left">business_center</i>Candidature</a></li>
                                 <li><a href="paginaOfferte.php?id='.$_SESSION["azienda_id"].'"><i class="material-icons left">business</i>Offerte di Lavoro</a></li>
-                                <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i><i class="material-icons right">arrow_drop_down</i></a></li>
+                                <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i>'.$aziendaData["nome"].'<i class="material-icons right">arrow_drop_down</i></a></li>
                             </ul>');
 
                     }
@@ -65,7 +59,7 @@
             <!-- FOTO, NOME AZIENDA, USERNAME -->
 
             <div class="col s12 m8 offset-m2 l6 offset-l3">
-                <div class="card-panel grey darken-4 z-depth-1">
+                <div class="card-panel z-depth-1">
                     <div class="row valign-wrapper">
                         <div class="col s4 l2 square-container">
                             <?php 
@@ -80,7 +74,7 @@
                             ?>
                         </div>
                         <div class="col s8 l10">
-                            <h4 id="nome" class="white-text">
+                            <h4 id="nome">
 
                             <?php echo($aziendaData["nome"]); ?>
 
@@ -93,10 +87,10 @@
             <!-- DESCRIZIONE -->
 
             <div class="col s12 m8 offset-m2 l6 offset-l3">
-                <div class="card-panel grey darken-4 z-depth-1">
+                <div class="card-panel z-depth-1">
                     <div class="row valign-wrapper">
                         <div class="col s12">
-                            <p id="descrizione" class="white-text">
+                            <p id="descrizione">
                                 <h5>Descrizione</h5>
                                 <?php echo($aziendaData["descrizione"]); ?>
                             </p>
@@ -107,9 +101,9 @@
 
             <!-- CONTATTI -->
              <div class="col s12 m8 offset-m2 l6 offset-l3">
-                <div class="card-panel grey darken-4 z-depth-1">
+                <div class="card-panel z-depth-1">
                     <div class="row valign-wrapper">
-                        <div class="col s12 white-text">
+                        <div class="col s12">
                             <p>
                                 <h6>Contatti</h6>
                                 Telefono: <?php echo($aziendaData["telefono_contatto"]); ?>

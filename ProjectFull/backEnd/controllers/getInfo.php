@@ -1,6 +1,5 @@
 <?php
 
-
 function getInfoUtente(){
 
     require_once(__DIR__."/../db/models/utenti.php");
@@ -221,8 +220,6 @@ function getInfoUtenteBySession(){
     }
 
 }
-
-
 
 function getInfoAzienda(){
 

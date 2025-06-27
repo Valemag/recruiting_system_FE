@@ -18,6 +18,7 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="../../bitnami.css">
         <style>
             body {
                 color: white;
@@ -58,7 +59,7 @@
                 cursor: pointer;
             }
         </style>
-        <link rel="stylesheet" href="../../bitnami.css">
+
     </head>
     <body class="black">
         <nav>
@@ -105,14 +106,12 @@
                     <div class="row valign-wrapper">
                         <div class="col s4 l2 square-container">
                             <?php 
-
                                 if(isset($userData["immagine_profilo"])){
                                     echo('<img id="propic" src="'.$userData["immagine_profilo"].'" class="circle responsive-img">');
                                 }
                                 else{
                                     echo('<img id="propic" src="../assets/defaultPropic.jpg" class="circle responsive-img">');
                                 }
-                                
                             ?>
                         </div>
                         <div class="col s8 l10">

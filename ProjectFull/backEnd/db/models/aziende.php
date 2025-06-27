@@ -238,7 +238,7 @@ class Aziende extends DataBaseCore{
     }
 
 
-    public function fetchSediAzienda(){
+    public function fetchSediAzienda(): int {
 
         if (!$this -> isConnectedToDb) {
             return 2;
@@ -266,10 +266,8 @@ class Aziende extends DataBaseCore{
             }
     
             return 0; // Successo
-        } else {
-            return 3; // Nessuna sede trovata
-        }
-
+        } 
+        return 3; // Nessuna sede trovata
     }
 
     public function fetchOfferteAzienda(){
@@ -306,10 +304,38 @@ class Aziende extends DataBaseCore{
 
     }
 
+    public function setAziendaId($aziendaId) {
+        $this->aziendaId = $aziendaId;
+    }
+
 
     public function setPassword($hashedPassword) {
         $this->password = $hashedPassword;
         return $this->updateAzienda();
+    }
+
+    public function updatePassword($password) {
+        if (!$this -> isConnectedToDb) {
+            return 2; // Connessione non attiva
+        }
+
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+
+        $stmt = $this -> conn->prepare("UPDATE aziende SET password = ? WHERE azienda_id = ?");
+    
+        if (!$stmt) {
+            return 4; // Errore nella preparazione
+        }
+    
+        $stmt->bind_param("si", $this->password, $this->aziendaId);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        if ($result) {
+            return 0; // Successo
+        } else {
+            return 1; // Errore durante l'update
+        }
     }
     
 
@@ -389,8 +415,10 @@ class Aziende extends DataBaseCore{
         $types .= "i";
     
         $stmt->bind_param($types, ...$values);
-    
-        if ($stmt->execute()) {
+        $result = $stmt->execute();
+        $stmt->close();
+
+        if ($result) {
             return 0; // Successo
         } else {
             return 1; // Errore durante l'update

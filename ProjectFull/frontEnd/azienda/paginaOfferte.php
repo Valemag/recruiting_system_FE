@@ -19,6 +19,7 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="../../bitnami.css">
         <style>
             .card-equal-height {
                 display: flex;
@@ -36,7 +37,6 @@
                 align-items: center;
             }
         </style>
-        <link rel="stylesheet" href="../../bitnami.css">
     </head>
     <body class="grey lighten-5">
         <nav>
@@ -70,7 +70,7 @@
                     <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul class="sidenav light-blue darken-1" id="mobile-demo">
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile">>person</i>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i>
                     <?php echo($aziendaData["nome"]) ?>
                     <i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
