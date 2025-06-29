@@ -68,7 +68,7 @@ function getInfoAzienda(): array|null {
     }
     $aziendaData = $aziende -> toArray();
 
-    $path = "../../../bitByte/backEnd/fileSystem/";
+    $path = "/backEnd/fileSystem/";
     $path .= $storageAziende -> getUploadsPath();
     $path .= $storageAziende -> getAziendaFolderPlaceholder();
     $path .= $aziendaId."/";
@@ -124,12 +124,56 @@ function updateSedeAzienda() {
         $_POST["citta"], 
         $_POST["indirizzo"]
     );
+    $sedeAzienda->closeConnectionToDatabase();
+
     if ($result !== 0) {
         return_with_status(500, $rollbackLocation . '&update=failure');
         exit;
     }
 
     return_with_status(200, $rollbackLocation . '&update=success');
+    exit;
+}
+
+function updateLogo() {
+    $rollbackLocation = '../../../frontEnd/azienda/modificaProfilo.php?id='.$_SESSION['azienda_id'];
+    $rollbackLocationFailure = $rollbackLocation . '&update=failure&message=';
+    $rollbackLocationSuccess = $rollbackLocation . '&update=success';
+
+    $storageAziende = new StorageAziende();
+    if (!isset($_FILES["logo"]) || $_FILES["logo"]["error"] !== UPLOAD_ERR_OK) {
+        return_with_status(400, $rollbackLocationFailure . "image upload");
+        exit;
+    }
+    $azienda = new Aziende();
+    if ($azienda->connectToDatabase() != 0) {
+        return_with_status(500, $rollbackLocationFailure . "database connection");
+        exit;
+    }
+    if(0 != $azienda->getAziendaById($_SESSION["azienda_id"])){
+        $azienda->closeConnectionToDatabase();
+        return_with_status(500, $rollbackLocationFailure . "get azienda old logo");
+        exit;
+    }
+    $oldLogo = $azienda->getLogo();
+
+    if (0 != $storageAziende->uploadAziendaFile($_SESSION['azienda_id'], $_FILES["logo"])) {
+        $azienda->closeConnectionToDatabase();
+        return_with_status(400, $rollbackLocationFailure . "update file");
+        exit;
+    }
+
+    $result = $azienda->updateAziendaLogo($_FILES["logo"]["name"]);
+    $azienda->closeConnectionToDatabase();
+
+    if ($result != 0) {
+        $storageAziende->deleteAziendaFile($_SESSION["azienda_id"], $_FILES["logo"]["name"]);
+        return_with_status(500, $rollbackLocationFailure . "update logo in database");
+        exit;
+    }
+
+    $storageAziende->deleteAziendaFile($_SESSION["azienda_id"], $oldLogo);
+    return_with_status(200, $rollbackLocationSuccess);
     exit;
 }
 
@@ -180,6 +224,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 break;
             case "sede":
                 updateSedeAzienda();
+                break;
+            case "logo":
+                updateLogo();
                 break;
             default:
                 return_with_status(405, '../../../frontEnd/azienda/paginaProfilo.php?id=' . $_SESSION['azienda_id']);

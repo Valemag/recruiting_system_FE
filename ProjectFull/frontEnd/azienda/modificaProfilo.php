@@ -172,12 +172,12 @@
                                     }
                                 ?>
                             </div>
-                            <form method="POST" action="">
+                            <form method="POST" action="../../../backEnd/controllers/aziende/ControllerAzienda.php?op=logo" enctype="multipart/form-data">
                                 <div class="input-field col s12">
                                     <div class="file-field input-field">
                                         <div class="btn light-blue darken-1">
                                             <span id="tastoImmagine">Nuova Immagine Azienda</span>
-                                            <input type="file" name="logo">
+                                            <input type="file" id="logo" name="logo">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate black-text" type="text">

@@ -45,16 +45,22 @@ class FileSystem{
 
     }
 
-    function isImageExtensionValid($ext){
-
-        return in_array($ext, $this -> validImageExtensions);
-
+    function isFileExtensionValid($fileName): bool {
+        foreach ($this->validFileExtensions as $ext) {
+            if (str_ends_with($fileName, $ext)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    function isFileExtensionValid($ext){
-
-        return in_array($ext, $this -> validFileExtensions);
-
+    function isImageExtensionValid($imageName): bool {
+        foreach ($this->validImageExtensions as $ext) {
+            if (str_ends_with($imageName, $ext)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

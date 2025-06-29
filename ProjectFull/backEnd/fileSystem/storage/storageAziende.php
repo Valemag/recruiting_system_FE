@@ -13,15 +13,11 @@ class StorageAziende extends FileSystem{
 
     }
 
-    function uploadAziendaFile($idAzienda, $file){
-
+    function uploadAziendaFile($idAzienda, $file): int {
         $fileTmpPath = $file['tmp_name'];
         $fileName = $file['name'];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
 
-
-        if (!in_array($fileExtension, $this->validImageExtensions)) {
+        if (! $this->isImageExtensionValid($fileName)) {
             return 1;
         }
 

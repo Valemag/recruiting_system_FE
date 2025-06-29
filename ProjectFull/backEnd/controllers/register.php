@@ -230,7 +230,7 @@ function register(){
                 }
 
 
-                $result = $azienda -> setAziendaLogo($_FILES["logo"]["name"]);
+                $result = $azienda -> updateAziendaLogo($_FILES["logo"]["name"]);
 
                 if($result != 0){
                             
