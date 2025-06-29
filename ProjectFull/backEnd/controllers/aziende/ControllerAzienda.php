@@ -68,7 +68,7 @@ function getInfoAzienda(): array|null {
     }
     $aziendaData = $aziende -> toArray();
 
-    $path = "../../bitByte/backEnd/fileSystem/";
+    $path = "../../../bitByte/backEnd/fileSystem/";
     $path .= $storageAziende -> getUploadsPath();
     $path .= $storageAziende -> getAziendaFolderPlaceholder();
     $path .= $aziendaId."/";
@@ -108,6 +108,31 @@ function updateGenericInfo() {
     exit;
 }
 
+function updateSedeAzienda() {
+    $rollbackLocation = '../../../frontEnd/azienda/modificaProfilo.php?id='.$_SESSION['azienda_id'];
+
+    $sedeAzienda = new SediAziende();
+    if ($sedeAzienda->connectToDatabase() != 0) {
+        return_with_status(500, $rollbackLocation . '&update=failure');
+        exit;
+    }
+
+    $result = $sedeAzienda->updateSedeAziendaById(
+        $_SESSION["azienda_id"], 
+        $_POST["paese"], 
+        $_POST["regione"], 
+        $_POST["citta"], 
+        $_POST["indirizzo"]
+    );
+    if ($result !== 0) {
+        return_with_status(500, $rollbackLocation . '&update=failure');
+        exit;
+    }
+
+    return_with_status(200, $rollbackLocation . '&update=success');
+    exit;
+}
+
 function updatePassword() {
     $rollbackLocation = '../../../frontEnd/azienda/modificaProfilo.php?id='.$_SESSION['azienda_id'];
 
@@ -119,7 +144,13 @@ function updatePassword() {
     
     $azienda->setAziendaId($_SESSION['azienda_id']);
 
-    $result = $azienda->updatePassword($_POST["password"]);
+    if (!isset($_POST["password"]) || strlen($_POST["password"]) < 8 
+        || trim($_POST["password"]) !== $_POST["password"]) {
+        return_with_status(400, $rollbackLocation . '&update=failure');
+        exit;
+    }
+
+    $result = $azienda->updatePassword(password_hash($_POST["password"], PASSWORD_DEFAULT));
     $azienda->closeConnectionToDatabase();
 
     if ($result != 0) {
@@ -146,6 +177,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
                 break;
             case "password":
                 updatePassword();
+                break;
+            case "sede":
+                updateSedeAzienda();
                 break;
             default:
                 return_with_status(405, '../../../frontEnd/azienda/paginaProfilo.php?id=' . $_SESSION['azienda_id']);

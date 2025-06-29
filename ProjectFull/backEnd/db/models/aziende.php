@@ -204,11 +204,16 @@ class Aziende extends DataBaseCore{
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
-    
-        if (!$result || $result->num_rows === 0) return 1;
+        $stmt->close();
+
+        if (!$result || $result->num_rows === 0) {
+            return 1;
+        }
     
         $row = $result->fetch_assoc();
-        $this->populateFromArray($row);  
+        $result->close();
+        
+        $this->populateFromArray($row); 
         
         return 0;
     }
@@ -309,17 +314,20 @@ class Aziende extends DataBaseCore{
     }
 
 
-    public function setPassword($hashedPassword) {
+    /*public function setPassword($hashedPassword) {
         $this->password = $hashedPassword;
         return $this->updateAzienda();
-    }
+    }*/
 
-    public function updatePassword($password) {
+    public function updatePassword($hashedPassword) {
         if (!$this -> isConnectedToDb) {
             return 2; // Connessione non attiva
         }
 
-        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        $this->password = $hashedPassword;
+        if (password_get_info($this->password)['algo'] === 0) {
+            $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        }
 
         $stmt = $this -> conn->prepare("UPDATE aziende SET password = ? WHERE azienda_id = ?");
     
@@ -388,15 +396,6 @@ class Aziende extends DataBaseCore{
         if (!empty($this->ragioneSociale)) {
             $fields[] = "ragione_sociale = ?";
             $values[] = $this->ragioneSociale;
-            $types .= "s";
-        }
-    
-        if (!empty($this->password)) {
-            if (password_get_info($this->password)['algo'] === 0) {
-                $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-            }
-            $fields[] = "password = ?";
-            $values[] = $this->password;
             $types .= "s";
         }
     

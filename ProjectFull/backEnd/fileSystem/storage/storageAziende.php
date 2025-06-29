@@ -5,11 +5,11 @@ require("core/fileSystemCore.php");
 
 class StorageAziende extends FileSystem{
 
-    function createAziendaFolder($idAzienda){
+    function createAziendaFolder($idAzienda): bool {
 
         $userFolder = $this->fileSystemUrl.$this->uploadsPath.$this->aziendaFolderPlaceholder.$idAzienda;
 
-        mkdir($userFolder, 0777, true);
+        return mkdir($userFolder, 0777, true);
 
     }
 

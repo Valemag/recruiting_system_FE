@@ -211,7 +211,11 @@ function register(){
                 exit;
             }
                 
-            $fs -> createAziendaFolder($azienda->getAziendaId());
+            if (! $fs -> createAziendaFolder($azienda->getAziendaId())) {
+                $azienda -> closeConnectionToDatabase();
+                http_response_code(500);
+                exit;
+            }
 
             if(isset($_FILES["logo"]) && $_FILES["logo"]["error"] == 0){
 

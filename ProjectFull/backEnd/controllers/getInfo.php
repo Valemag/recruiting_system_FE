@@ -277,7 +277,7 @@ function getInfoAzienda(){
 
             $aziendaData = $aziende -> toArray();
 
-            $path = "../../bitByte/backEnd/fileSystem/";
+            $path = "../fileSystem/";
             $path .= $storageAziende -> getUploadsPath();
             $path .= $storageAziende -> getAziendaFolderPlaceholder();
             $path .= $aziendaId."/";

@@ -82,7 +82,7 @@
                     <div class="row valign-wrapper">
                         <div class="col s12">
                             <h4 class="black-text">
-                                Dati Personali
+                                Modifica Dati Personali
                             </h4>
                             <form method="POST" action="../../../backEnd/controllers/aziende/ControllerAzienda.php?op=generic_info">
                                 <div class="input-field col s6">
@@ -93,9 +93,13 @@
                                     <input id="ragione_sociale" type="text" name="ragione_sociale" value="<?php echo($aziendaData["ragione_sociale"]) ?>" class="validate black-text" required>
                                     <label for="ragione_sociale">Ragione Sociale</label>
                                 </div>
-                                <div class="input-field col s12">
+                                <div class="input-field col s6">
                                     <input id="partita_iva" type="text" name="partita_iva" value="<?php echo($aziendaData["partita_iva"]) ?>" class="validate black-text" required>
                                     <label for="partita_iva">Partita IVA</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input id="sito_web" type="text" name="sito_web" value="<?php echo($aziendaData["sito_web"]) ?>" class="validate black-text" required>
+                                    <label for="sito_web">Link Sito Web</label>
                                 </div>
                                 <div class="input-field col s6">
                                     <input id="telefono_contatto" type="tel" name="telefono_contatto" value="<?php echo($aziendaData["telefono_contatto"]) ?>" class="validate black-text" required>
@@ -156,7 +160,7 @@
                     <div class="row valign-wrapper">
                         <div class="col s12">
                             <h4 class="black-text">
-                                Aggiorna Immagine Azienda
+                                Modifica Immagine Azienda
                             </h4>
                             <div class="col l2 square-container">
                                 <?php 
@@ -195,9 +199,9 @@
                     <div class="row valign-wrapper">
                         <div class="col s12">
                             <h4 class="black-text">
-                                Modifica Dati Sede Azienda
+                                Modifica Sede
                             </h4>
-                            <form method="POST" action="">
+                            <form method="POST" action="../../../backEnd/controllers/aziende/ControllerAzienda.php?op=sede">
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input id="paese" type="text" name="paese" value="<?php echo($aziendaData["sediAzienda"][0]->getPaese()) ?>" class="validate black-text" required>
