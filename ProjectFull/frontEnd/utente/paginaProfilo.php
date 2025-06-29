@@ -2,10 +2,9 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    require("../../backEnd/controllers/getInfo.php");
+    require_once("../../backEnd/controllers/getInfo.php");
 
     $userData = getInfoUtente();
-
 ?>
 
 <!DOCTYPE html>
@@ -20,9 +19,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href="../css/custom.css">
         <style>
-            body {
-                color: white;
-            }
             #competenze {
                 margin-top: 30px;
             }
@@ -61,7 +57,7 @@
         </style>
 
     </head>
-    <body class="black">
+    <body class="grey lighten-5">
         <nav>
             <div class="nav-wrapper light-blue darken-1">
                 <a href="#" class="brand-logo center"><img class="responsive-img" src="../assets/logo.png" alt="Logo"></a>
@@ -78,18 +74,18 @@
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i>'.$userData['username'].'<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
                 <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
-                    <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
+                    <li><a href="modificaProfilo.php"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                     <li class="divider"></li>
                     <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul id="dropdownmenu_mobile" class="dropdown-content light-blue darken-2">
-                    <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
+                    <li><a href="modificaProfilo.php"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                     <li class="divider"></li>
                     <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul class="sidenav light-blue darken-1" id="mobile-demo">
                     <li><a href="paginaCandidature.php"><i class="material-icons left">business_center</i>Candidature</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i>i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i>'.$userData['username'].'<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>');
                     }
 
@@ -102,7 +98,7 @@
             <!-- FOTO, NOME, COGNOME, USERNAME -->
 
             <div class="col s12 m8 offset-m2 l6 offset-l3">
-                <div class="card-panel grey darken-4 z-depth-1">
+                <div class="card-panel z-depth-1">
                     <div class="row valign-wrapper">
                         <div class="col s4 l2 square-container">
                             <?php 
@@ -115,10 +111,10 @@
                             ?>
                         </div>
                         <div class="col s8 l10">
-                            <h4 id="nomeCognome" class="white-text">
+                            <h4 id="nomeCognome">
                                 <?php echo($userData["nome"]." ".$userData["cognome"])?>
                             </h4>
-                            <p id="username" class="white-text">
+                            <p id="username">
                             <?php echo($userData["username"])?>
                             </p>
                         </div>
@@ -129,10 +125,10 @@
             <!-- DESCRIZIONE, COMPETENZE -->
 
             <div class="col s12 m8 offset-m2 l6 offset-l3">
-                <div class="card-panel grey darken-4 z-depth-1">
+                <div class="card-panel z-depth-1">
                     <div class="row valign-wrapper">
                         <div class="col s12">
-                            <p id="descrizione" class="white-text">
+                            <p id="descrizione">
                             <h5>Descrizione</h5>
                             <?php echo($userData["descrizione"])?>
                             </p>
@@ -162,10 +158,10 @@
 
             <!-- CONTATTI, CV -->
             <div class="col s12 m8 offset-m2 l6 offset-l3">
-                <div class="card-panel grey darken-4 z-depth-1">
+                <div class="card-panel z-depth-1">
                     <div class="row valign-wrapper">
                         <div class="col s12">
-                            <p class="white-text">
+                            <p>
                                 <h5>Contatti</h5>
                                 <br>
                                 telefono: <?php echo($userData["telefono_contatto"])?>

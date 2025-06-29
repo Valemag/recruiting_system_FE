@@ -2,8 +2,8 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    require(__DIR__."/../../backEnd/controllers/utenti/getOfferte.php");
-    require(__DIR__."/../../backEnd/controllers/getInfo.php");
+    require_once(__DIR__."/../../backEnd/controllers/utenti/getOfferte.php");
+    require_once(__DIR__."/../../backEnd/controllers/getInfo.php");
 
     $offerteLavoro = getOfferte();
     $datiUtente = getInfoUtenteBySession();
@@ -30,7 +30,7 @@
                     <li><a href="paginaCandidature.php"><i class="material-icons left">business_center</i>Candidature</a></li>
                 </ul>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i><i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i><?php echo($datiUtente['username']) ?><i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
                 <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
                     <?php echo('<li><a href="paginaProfilo.php?id='.$_SESSION["utente_id"].'"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>'); ?>
@@ -46,7 +46,7 @@
                 </ul>
                 <ul class="sidenav light-blue darken-1" id="mobile-demo">
                     <li><a href="candidature.php"><i class="material-icons left">business_center</i>Candidature</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i><i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i><?php echo($datiUtente['username']) ?><i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
         </nav>

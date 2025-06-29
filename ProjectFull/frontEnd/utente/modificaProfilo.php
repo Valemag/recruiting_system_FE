@@ -2,9 +2,31 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    require_once("../../backEnd/controllers/aziende/ControllerAzienda.php");
+    require_once(__DIR__."/../../backEnd/controllers/getInfo.php");
 
-    $aziendaData = getInfoAzienda();
+    $utente = getInfoUtenteBySession();
+
+    $competenzeList = [
+        "1"  => "Java",
+        "2"  => "Python",
+        "3"  => "SQL",
+        "4"  => "Project Management",
+        "5"  => "React",
+        "6"  => "Machine Learning",
+        "7"  => "Linux",
+        "8"  => "Comunicazione efficace",
+        "9"  => "AWS",
+        "10" => "Cybersecurity"
+    ];
+
+    function generateHtmlOptions($check): string {
+        global $competenzeList;
+        $result = "";
+        foreach ($competenzeList as $key => $value) {
+            $result .= '<option value="' . $key . '" ' . ($check($key) ? "selected" : "") . ">" . $value . "</option>";
+        }
+        return $result;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -54,22 +76,22 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i>
-                        <?php echo ($aziendaData["nome"]) ?>
+                        <?php echo ($utente["username"]) ?>
                     <i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
                 <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
-                    <li><a href="paginaProfilo.php?id=<?php echo ($_SESSION["azienda_id"]) ?>"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>
+                    <li><a href="paginaProfilo.php?id=<?php echo ($_SESSION["utente_id"]) ?>"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>
                     <li class="divider"></li>
                     <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul id="dropdownmenu_mobile" class="dropdown-content light-blue darken-2">
-                    <li><a href="paginaProfilo.php?id=<?php echo ($_SESSION["azienda_id"]) ?>"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>
+                    <li><a href="paginaProfilo.php?id=<?php echo ($_SESSION["utente_id"]) ?>"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>
                     <li class="divider"></li>
                     <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul class="sidenav light-blue darken-1" id="mobile-demo">
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i>
-                        <?php echo ($aziendaData["nome"]) ?>
+                        <?php echo ($utente["nome"]) ?>
                     <i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
@@ -85,33 +107,29 @@
                             <h4 class="black-text">
                                 Modifica Dati Personali
                             </h4>
-                            <form method="POST" action="../../../backEnd/controllers/aziende/ControllerAzienda.php?op=generic_info">
+                            <form method="POST" action="../../../backEnd/controllers/utenti/ControllerUtente.php?op=generic_info">
                                 <div class="input-field col s6">
-                                    <input id="nome" type="text" name="nome" value="<?php echo($aziendaData["nome"]) ?>" class="validate black-text" required>
-                                    <label for="nome">Nome Azienda</label>
+                                    <input id="nome" type="text" name="nome" value="<?php echo($utente["nome"]) ?>" class="validate black-text" required>
+                                    <label for="nome">Nome</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="ragione_sociale" type="text" name="ragione_sociale" value="<?php echo($aziendaData["ragione_sociale"]) ?>" class="validate black-text" required>
-                                    <label for="ragione_sociale">Ragione Sociale</label>
+                                    <input id="cognome" type="text" name="cognome" value="<?php echo($utente["cognome"]) ?>" class="validate black-text" required>
+                                    <label for="cognome">Cognome</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="partita_iva" type="text" name="partita_iva" value="<?php echo($aziendaData["partita_iva"]) ?>" class="validate black-text" required>
-                                    <label for="partita_iva">Partita IVA</label>
+                                    <input id="username" type="text" name="username" value="<?php echo($utente["username"]) ?>" class="validate black-text" required>
+                                    <label for="username">Username</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="sito_web" type="text" name="sito_web" value="<?php echo($aziendaData["sito_web"]) ?>" class="validate black-text" required>
-                                    <label for="sito_web">Link Sito Web</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input id="telefono_contatto" type="tel" name="telefono_contatto" value="<?php echo($aziendaData["telefono_contatto"]) ?>" class="validate black-text" required>
+                                    <input id="telefono_contatto" type="tel" name="telefono_contatto" value="<?php echo($utente["telefono_contatto"]) ?>" class="validate black-text" required>
                                     <label for="telefono_contatto">Telefono</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <input id="email" type="email" name="email" value="<?php echo($aziendaData["email"]) ?>" class="validate black-text" required>
+                                    <input id="email" type="email" name="email" value="<?php echo($utente["email"]) ?>" class="validate black-text" required>
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <textarea id="descrizione" name="descrizione" class="materialize-textarea black-text"><?php echo($aziendaData["descrizione"]) ?></textarea>
+                                    <textarea id="descrizione" name="descrizione" class="materialize-textarea black-text"><?php echo($utente["descrizione"]) ?></textarea>
                                     <label for="descrizione">Descrizione</label>
                                 </div>
                                 <div class="col right">
@@ -132,7 +150,7 @@
                             <h4 class="black-text">
                                 Modifica Password
                             </h4>
-                            <form method="POST" action="../../../backEnd/controllers/aziende/ControllerAzienda.php?op=password">
+                            <form method="POST" action="../../../backEnd/controllers/utenti/ControllerUtente.php?op=password">
                                 <div class="input-field col s12">
                                     <input type="password" class="black-text" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Ci devono essere almeno 8 caratteri, di cui un numero, una lettera maiuscola ed una minuscola." required>
                                     <label for="password">Nuova Password</label>
@@ -161,19 +179,19 @@
                     <div class="row valign-wrapper">
                         <div class="col s12">
                             <h4 class="black-text">
-                                Modifica Immagine Azienda
+                                Modifica Immagine Profilo
                             </h4>
                             <div class="col l2 square-container">
                                 <?php 
-                                    if(isset($aziendaData["logo"])){
-                                        echo('<img id="propic" src="'.$aziendaData["logo"].'" class="circle responsive-img">');
+                                    if(isset($utente["logo"])){
+                                        echo('<img id="propic" src="'.$utente["logo"].'" class="circle responsive-img">');
                                     }
                                     else{
                                         echo('<img id="propic" src="../assets/defaultPropic.jpg" class="circle responsive-img">');
                                     }
                                 ?>
                             </div>
-                            <form method="POST" action="../../../backEnd/controllers/aziende/ControllerAzienda.php?op=logo" enctype="multipart/form-data">
+                            <form method="POST" action="../../../backEnd/controllers/utenti/ControllerUtente.php?op=img_profilo" enctype="multipart/form-data">
                                 <div class="input-field col s12">
                                     <div class="file-field input-field">
                                         <div class="btn light-blue darken-1">
@@ -194,35 +212,42 @@
                 </div>
             </div>
 
-           <!-- CAMBIO SEDI AZIENDA -->
             <div class="col s12 m8 offset-m2 l6 offset-l3">
                 <div class="card-panel white z-depth-1">
                     <div class="row valign-wrapper">
                         <div class="col s12">
                             <h4 class="black-text">
-                                Modifica Sede
+                                Modifica Immagine Profilo
                             </h4>
-                            <form method="POST" action="../../../backEnd/controllers/aziende/ControllerAzienda.php?op=sede">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="paese" type="text" name="paese" value="<?php echo($aziendaData["sediAzienda"][0]->getPaese()) ?>" class="validate black-text" required>
-                                        <label for="paese">Paese</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input id="regione" type="text" name="regione" value="<?php echo($aziendaData["sediAzienda"][0]->getRegione()) ?>" class="validate black-text" required>
-                                        <label for="regione">Regione</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input id="citta" type="text" name="citta" value="<?php echo($aziendaData["sediAzienda"][0]->getCitta()) ?>" class="validate black-text" required>
-                                        <label for="citta">Città</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input id="indirizzo" type="text" name="indirizzo" value="<?php echo($aziendaData["sediAzienda"][0]->getIndirizzo()) ?>" class="validate black-text" required>
-                                        <label for="indirizzo">Indirizzo</label>
-                                    </div>
-                                    <div class="col right">
-                                        <input type="submit" class="light-blue darken-1 btn-small" value="Aggiorna Sede Aziendale">
-                                    </div>
+                            <form action="">
+                                <div class="input-field col s12">
+                                    <h3  for="competenze">Seleziona tre competenze:</h3>  
+                                    <?php 
+                                        for ($i = 0; $i < 3; $i++) {
+                                            echo ('<div class="input-field col s12">');
+                                            echo ('<select name="competenze'.($i+1).'" id="competenze'.($i+1).'" required>');
+
+                                            if (!isset($competenze[$i]) || !isset($competenze[$i]["competenza_id"])) {
+                                                $result = '<option value="0" selected>seleziona competenza</option>';
+                                                foreach ($staticOptions as $key => $value) {
+                                                    $result .= '<option value="' . $key . '">' . $value . "</option>";
+                                                }
+                                                echo ($result);
+                                            }
+                                            else {
+                                                echo(generateHtmlOptions($competenzeList, function($key){
+                                                    global $competenze; 
+                                                    global $i;
+                                                    return $competenze[$i]["competenza_id"] == $key;
+                                                }));
+                                            }
+                                            echo ('</select>');
+                                        }
+                                    ?>
+                                    
+                                </div>
+                                <div class="row center">
+                                    <input type="submit" class="light-blue darken-1 btn-large" value="Salva Offerta">
                                 </div>
                             </form>
                         </div>

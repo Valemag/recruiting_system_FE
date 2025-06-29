@@ -59,7 +59,7 @@ function getInfoUtente(){
             unset($userData["password"]);
             unset($userData["data_registrazione"]);
 
-            $path = "../../bitByte/backEnd/fileSystem/";
+            $path = "/backEnd/fileSystem/";
             $path .= $storageUtenti -> getUploadsPath();
             $path .= $storageUtenti -> getUtenteFolderPlaceholder();
             $path .= $userId."/";

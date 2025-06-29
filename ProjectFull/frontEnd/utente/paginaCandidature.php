@@ -2,9 +2,10 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+    require_once("../../backEnd/controllers/utenti/getCandidature.php");
+    require_once("../../backEnd/controllers/getInfo.php");
 
-    require("../../backEnd/controllers/utenti/getCandidature.php");
-
+    $datiUtente = getInfoUtenteBySession();
     $candidatureUtente = getCandidature();
 
 ?>
@@ -65,7 +66,7 @@
                     <li><a href="offerteLavoro.php"><i class="material-icons left">business_center</i>Offerte di lavoro</a></li>
                 </ul>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i>Nome Cognome<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu"><i class="material-icons left">person</i><?php echo ($datiUtente['username']) ?><i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
                 <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
                     <?php echo('<li><a href="paginaProfilo.php?id='.$_SESSION["utente_id"].'"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>'); ?>
@@ -81,7 +82,7 @@
                 </ul>
                 <ul class="sidenav light-blue darken-1" id="mobile-demo">
                     <li><a href="offerteLavoro.php"><i class="material-icons left">business_center</i>Offerte di lavoro</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i><i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i><?php echo ($datiUtente['username']) ?><i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
         </nav>
