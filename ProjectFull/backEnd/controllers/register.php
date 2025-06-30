@@ -112,7 +112,7 @@ function register(){
 
                 }
 
-                $result = $utente -> setUtenteProfileImage($_FILES["immagineProfilo"]["name"]);
+                $result = $utente -> updateImmagineProfilo($_FILES["immagineProfilo"]["name"]);
 
                 if($result != 0){
                             

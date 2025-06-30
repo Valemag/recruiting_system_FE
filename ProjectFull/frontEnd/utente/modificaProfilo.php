@@ -2,9 +2,11 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    require_once(__DIR__."/../../backEnd/controllers/getInfo.php");
+    require_once(__DIR__."/../../backEnd/controllers/utenti/ControllerUtente.php");
 
     $utente = getInfoUtenteBySession();
+    $competenzeId = $utente["competenzeId"];
+    $competenzeObj = $utente["competenze"];
 
     $competenzeList = [
         "1"  => "Java",
@@ -19,11 +21,11 @@
         "10" => "Cybersecurity"
     ];
 
-    function generateHtmlOptions($check): string {
+    function generateHtmlOptions($competenza): string {
         global $competenzeList;
         $result = "";
         foreach ($competenzeList as $key => $value) {
-            $result .= '<option value="' . $key . '" ' . ($check($key) ? "selected" : "") . ">" . $value . "</option>";
+            $result .= '<option value="' . $key . '" ' . (($competenza == $key) ? "selected" : "") . ">" . $value . "</option>";
         }
         return $result;
     }
@@ -62,6 +64,9 @@
             .invalid:before {
                 position: relative;
                 left: -35px;
+            }
+            .dropdown-content li > span {
+                color: black !important;
             }
         </style>
 
@@ -183,20 +188,20 @@
                             </h4>
                             <div class="col l2 square-container">
                                 <?php 
-                                    if(isset($utente["logo"])){
-                                        echo('<img id="propic" src="'.$utente["logo"].'" class="circle responsive-img">');
+                                    if(isset($utente["immagine_profilo"])){
+                                        echo('<img id="propic" src="'.$utente["immagine_profilo"].'" class="circle responsive-img">');
                                     }
                                     else{
                                         echo('<img id="propic" src="../assets/defaultPropic.jpg" class="circle responsive-img">');
                                     }
                                 ?>
                             </div>
-                            <form method="POST" action="../../../backEnd/controllers/utenti/ControllerUtente.php?op=img_profilo" enctype="multipart/form-data">
+                            <form method="POST" action="../../../backEnd/controllers/utenti/ControllerUtente.php?op=immagine_profilo" enctype="multipart/form-data">
                                 <div class="input-field col s12">
                                     <div class="file-field input-field">
                                         <div class="btn light-blue darken-1">
                                             <span id="tastoImmagine">Nuova Immagine Azienda</span>
-                                            <input type="file" id="logo" name="logo">
+                                            <input type="file" id="immagine_profilo" name="immagine_profilo">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate black-text" type="text">
@@ -217,17 +222,18 @@
                     <div class="row valign-wrapper">
                         <div class="col s12">
                             <h4 class="black-text">
-                                Modifica Immagine Profilo
+                                Modifica Competenze
                             </h4>
-                            <form action="">
-                                <div class="input-field col s12">
-                                    <h3  for="competenze">Seleziona tre competenze:</h3>  
-                                    <?php 
+                            <form method="POST" action="../../../backEnd/controllers/utenti/ControllerUtente.php?op=competenze">
+                                
+                                <div class="row">
+                                    <?php
+
                                         for ($i = 0; $i < 3; $i++) {
-                                            echo ('<div class="input-field col s12">');
+                                            echo ('<div class="input-field col s12 m4">');
                                             echo ('<select name="competenze'.($i+1).'" id="competenze'.($i+1).'" required>');
 
-                                            if (!isset($competenze[$i]) || !isset($competenze[$i]["competenza_id"])) {
+                                            if (!isset($competenzeObj[$i]) || $competenzeObj[$i]->getCompetenza() === "") {
                                                 $result = '<option value="0" selected>seleziona competenza</option>';
                                                 foreach ($staticOptions as $key => $value) {
                                                     $result .= '<option value="' . $key . '">' . $value . "</option>";
@@ -235,19 +241,17 @@
                                                 echo ($result);
                                             }
                                             else {
-                                                echo(generateHtmlOptions($competenzeList, function($key){
-                                                    global $competenze; 
-                                                    global $i;
-                                                    return $competenze[$i]["competenza_id"] == $key;
-                                                }));
+                                                echo(generateHtmlOptions($competenzeId[$i]));
                                             }
                                             echo ('</select>');
+                                            echo ('<label for="competenze'.($i+1).'">Competenza '.($i+1).'</label>');
+                                            echo ('</div>');
                                         }
+
                                     ?>
-                                    
-                                </div>
-                                <div class="row center">
-                                    <input type="submit" class="light-blue darken-1 btn-large" value="Salva Offerta">
+                                    <div class="col right">
+                                        <input type="submit" class="light-blue darken-1 btn-small" value="Aggiorna Competenze">
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -262,6 +266,11 @@
         <script type="text/javascript" src="../js/scripts.js"></script>
 
         <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('select');
+                M.FormSelect.init(elems);
+            });
+
             var myInput = document.getElementById("password");
             var letter = document.getElementById("letter");
             var capital = document.getElementById("capital");

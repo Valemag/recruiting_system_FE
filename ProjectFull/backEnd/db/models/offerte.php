@@ -313,18 +313,49 @@ class Offerte extends DataBaseCore{
     }
     
 
-    public function getUltimeOfferteConRequisiti() {
+    public function getUltimeOfferteConRequisiti($userId) {
         if (!$this->isConnectedToDb) {
             return 2;
         }
     
-        $query = "SELECT * FROM vista_ultime_offerte_con_requisiti";
-        $result = $this->conn->query($query);
-    
+        $query = "
+            SELECT 
+            o.offerta_id,
+            o.titolo,
+            o.descrizione,
+            o.data_pubblicazione,
+            o.data_scadenza,
+            o.retribuzione,
+            tc.tipo AS tipo_contratto,
+            ml.modalita AS modalita_lavoro,
+            a.nome AS nome_azienda,
+            GROUP_CONCAT(c.competenza SEPARATOR ', ') AS competenze_richieste
+            FROM offerte o
+            JOIN aziende a ON o.azienda_id = a.azienda_id
+            JOIN modalitaLavoro ml ON o.modalita_lavoro_id = ml.modalita_id
+            JOIN tipoContratti tc ON o.tipo_contratto_id = tc.tipo_contratto_id
+            LEFT JOIN requisitiCompetenzeOfferta rco ON o.offerta_id = rco.offerta_id
+            LEFT JOIN competenze c ON rco.competenza_id = c.competenza_id
+            WHERE o.offerta_id NOT IN (
+                SELECT DISTINCT(o2.offerta_id) 
+                FROM offerte o2 JOIN candidature ca ON ca.offerta_id = o2.offerta_id
+                WHERE ca.utente_id = ?
+            )
+            GROUP BY o.offerta_id
+            ORDER BY o.data_pubblicazione DESC
+        ";
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            $this->conn->rollback();
+            return 4; // Errore nella preparazione
+        }
+        $stmt->bind_param("i", $userId);
+        $result = $stmt->execute();
         if (!$result) {
             return 1;
         }
-    
+        $result = $stmt->get_result();
+        $stmt->close();
         $offerte = [];
     
         while ($row = $result->fetch_assoc()) {

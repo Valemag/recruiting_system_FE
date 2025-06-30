@@ -20,7 +20,7 @@ function getOfferte(){
         }
 
         // Recupera le offerte dalla vista
-        $risultato = $offerte->getUltimeOfferteConRequisiti();
+        $risultato = $offerte->getUltimeOfferteConRequisiti($_SESSION["utente_id"]);
 
         // Gestione errori o output
         if (!is_array($risultato)) {

@@ -22,11 +22,16 @@ class Utenti extends DataBaseCore{
 
     private $candidature;
     private $competenze;
+    private $competenzeId;
     private $documenti;
     
     // Getter per utenteId
     public function getUtenteId() {
         return $this->utenteId;
+    }
+
+    public function setUtenteId($utenteId) {
+        $this->utenteId = $utenteId;
     }
 
     // Getter per email
@@ -82,6 +87,10 @@ class Utenti extends DataBaseCore{
         return $this->competenze;
     }
 
+    public function getCompetenzeId() {
+        return $this->competenzeId;
+    }
+
     public function getDocumenti() {
         return $this->documenti;
     }
@@ -115,6 +124,7 @@ class Utenti extends DataBaseCore{
             'immagine_profilo' => $this->immagineProfilo,
             'candidature' => $this->candidature,
             'competenze' => $this->competenze,
+            'competenzeId' => $this->competenzeId,
             'documenti' => $this->documenti,
         ];
     }
@@ -175,23 +185,6 @@ class Utenti extends DataBaseCore{
         } else {
             return 5; // Errore in esecuzione
         }
-    }
-
-    public function setUtenteProfileImage($fileName){
-
-        if (!$this->isConnectedToDb) {
-            return 2;
-        }
-
-        $stmt = $this->conn->prepare("UPDATE utenti SET immagine_profilo = ? WHERE utente_id = ?");
-        $stmt->bind_param("si", $fileName, $this->utenteId);
-
-        if ($stmt->execute()) {
-            return 0;
-        } else {
-            return 1;
-        }
-
     }
 
     public function getUtenteByEmail($email) {
@@ -278,7 +271,7 @@ class Utenti extends DataBaseCore{
             return 2;
         }
 
-        $query = "SELECT u.utente_id as utente_id, c.competenza as competenza
+        $query = "SELECT u.utente_id as utente_id, c.competenza as competenza, c.competenza_id as competenza_id
                     FROM utenti u
                     JOIN competenzaUtente cu ON u.utente_id = cu.utente_id
                     JOIN competenze c ON cu.competenza_id = c.competenza_id
@@ -293,6 +286,7 @@ class Utenti extends DataBaseCore{
         if ($result->num_rows > 0) {
             // Elenco delle sedi da restituire
             $this->competenze = [];
+            $this->competenzeId = [];
     
             // Itera su tutte le righe del risultato
             while ($row = $result->fetch_assoc()) {
@@ -301,6 +295,7 @@ class Utenti extends DataBaseCore{
                 $competenza->populateFromArray($row);  // Popola l'oggetto Sede
                 // Aggiungi l'oggetto Sede all'array di sedi
                 array_push($this->competenze, $competenza);
+                array_push($this->competenzeId, $row["competenza_id"]);
             }
     
             return 0; // Successo
@@ -402,9 +397,47 @@ class Utenti extends DataBaseCore{
         return $result->fetch_assoc();
     }
 
-    public function setPassword($hashedPassword) {
+    public function updatePassword($hashedPassword) {
+        if (!$this -> isConnectedToDb) {
+            return 2; // Connessione non attiva
+        }
+
         $this->password = $hashedPassword;
-        return $this->updateUtente();
+        if (password_get_info($this->password)['algo'] === 0) {
+            $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        }
+
+        $stmt = $this -> conn->prepare("UPDATE utenti SET password = ? WHERE utente_id = ?");
+    
+        if (!$stmt) {
+            return 4; // Errore nella preparazione
+        }
+    
+        $stmt->bind_param("si", $this->password, $this->utenteId);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        if ($result) {
+            return 0; // Successo
+        } else {
+            return 1; // Errore durante l'update
+        }
+    }
+
+    public function updateImmagineProfilo($fileName){
+        if (!$this -> isConnectedToDb) {
+            return 2;
+        }
+
+        $stmt = $this->conn->prepare("UPDATE utenti SET immagine_profilo = ? WHERE utente_id = ?");
+        $stmt->bind_param("si", $fileName, $this->utenteId);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        if ($result) {
+            return 0;
+        } 
+        return 1;
     }
     
     public function updateUtente() {
@@ -420,15 +453,6 @@ class Utenti extends DataBaseCore{
         if (!empty($this->email)) {
             $fields[] = "email = ?";
             $values[] = $this->email;
-            $types .= "s";
-        }
-    
-        if (!empty($this->password)) {
-            if (password_get_info($this->password)['algo'] === 0) {
-                $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-            }
-            $fields[] = "password = ?";
-            $values[] = $this->password;
             $types .= "s";
         }
     
@@ -478,12 +502,60 @@ class Utenti extends DataBaseCore{
         $types .= "i";
     
         $stmt->bind_param($types, ...$values);
+        $result = $stmt->execute();
+        $stmt->close();
     
-        if ($stmt->execute()) {
+        if ($result) {
             return 0; // Successo
         } else {
             return 1; // Errore durante l'update
         }
+    }
+
+    function updateCompetenze(array $competenzeId) {
+        if (!$this->isConnectedToDb) {
+            return 2; // Connessione non attiva
+        }
+
+        $this->conn->begin_transaction();
+    
+        $query = "DELETE FROM competenzautente WHERE utente_id = ?";
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            $this->conn->rollback();
+            return 4; // Errore nella preparazione
+        }
+        if (! $stmt->bind_param("i", $this->utenteId)) {
+            $this->conn->rollback();
+            return 4; // Errore nella preparazione
+        }
+        $result = $stmt->execute();
+        $stmt->close();
+        if (!$result) {
+            $this->conn->rollback();
+            return 3;
+        }
+
+        $query = "INSERT INTO competenzautente (utente_id, competenza_id) VALUES (?, ?)";
+        foreach ($competenzeId as $compId) {
+            $stmt = $this->conn->prepare($query);
+            if (!$stmt) {
+                $this->conn->rollback();
+                return 4; // Errore nella preparazione
+            }
+            if (! $stmt->bind_param("ii", $this->utenteId, $compId)) {
+                $this->conn->rollback();
+                return 4; // Errore nella preparazione
+            }
+            $result = $stmt->execute();
+            $stmt->close();
+            if (!$result) {
+                $this->conn->rollback();
+                return 3;
+            }
+        }
+
+        $this->conn->commit();
     }
     
     public function appuntaOfferta($utenteId, $offertaId) {

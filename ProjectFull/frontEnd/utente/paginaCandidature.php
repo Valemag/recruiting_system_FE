@@ -70,15 +70,15 @@
                 </ul>
                 <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
                     <?php echo('<li><a href="paginaProfilo.php?id='.$_SESSION["utente_id"].'"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>'); ?>
-                    <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
+                    <li><a href="modificaProfilo.php"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                     <li class="divider"></li>
-                    <li><a href="../../backEnd/controllers/utenti/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+                    <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul id="dropdownmenu_mobile" class="dropdown-content light-blue darken-2">
                     <?php echo('<li><a href="paginaProfilo.php?id='.$_SESSION["utente_id"].'"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>'); ?>
-                    <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
+                    <li><a href="modificaProfilo.php"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                     <li class="divider"></li>
-                    <li><a href="../../backEnd/controllers/utenti/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+                    <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul class="sidenav light-blue darken-1" id="mobile-demo">
                     <li><a href="offerteLavoro.php"><i class="material-icons left">business_center</i>Offerte di lavoro</a></li>
@@ -87,92 +87,54 @@
             </div>
         </nav>
         <div class="container">
-            <div class="col s12 m8 offset-m2 l6 offset-l3">
-                <div class="card-panel white z-depth-1">
+            <?php
+                if($candidatureUtente != NULL){
+                    echo('<h2 class="black-text center">Le mie candidature</h2>');
 
-                                <?php
-                                
-                                
-                                if($candidatureUtente != NULL){
+                    foreach($candidatureUtente as $candidaturaSingola){
+                        echo('<div class="card white z-depth-2" style="margin-bottom: 20px; padding: 20px;">');
+                        echo('<div class="card-content black-text center">
+                                <h4 style="margin:0px;">'.$candidaturaSingola["nome_azienda"].'</h4>
+                                <br>
+                                '.$candidaturaSingola["titolo_offerta"].'
+                                <br><br>
+                                <form action="../../backEnd/controllers/utenti/deleteCandidatura.php" method="post">
+                                    <input type="hidden" name="candidatura_id" value="'.$candidaturaSingola["candidatura_id"].'">
+                                    <input type="submit" value="Elimina" class="btn red lighten-1">
+                                </form>
+                            </div>');
 
-                                    echo('<h2 class="black-text center">Le mie candidature</h2>
-                                            <table class="highlight black-text">
-                                                <tbody>');
+                        echo('<div class="center" style="margin-top: 10px;">');
+                        if($candidaturaSingola["stato_candidatura"] == "In attesa"){
+                            echo('<div class="status"><div class="dot yellow"></div><span>In attesa</span></div>');
+                        }
+                        elseif($candidaturaSingola["stato_candidatura"] == "Accettata"){
+                            echo('<div class="status"><div class="dot green"></div><span>Accettata</span></div>');
+                        }
+                        elseif($candidaturaSingola["stato_candidatura"] == "Rifuitata"){
+                            echo('<div class="status"><div class="dot red"></div><span>Rifiutata</span></div>
+                                <br>
+                                <a class="btn-small light-blue darken-1 btn-motivazione" data-motivazione="'.$candidaturaSingola["motivazione_risultato"].'" href="#motivazioneModal">Motivazione</a>');
+                        }
+                        echo('</div></div>'); // chiusura card e card-action
 
-                                    foreach($candidatureUtente as $candidaturaSingola){
-                                        echo('<tr>');
-                                        echo('<td class="center">
-                                                <h4 style="margin:0px;" class="black-text">'.$candidaturaSingola["nome_azienda"].'</h4>
-                                                <br>
-                                                '.$candidaturaSingola["titolo_offerta"].'
-                                                <br>
-                                                <form action="../../backEnd/controllers/utenti/deleteCandidatura.php" method="post">
-                                                    <input type="hidden" name="candidatura_id" value="'.$candidaturaSingola["candidatura_id"].'">
-                                                    <input type="submit" value="Elimina">
-                                                </form>
-                                            </td>');
-
-                                        if($candidaturaSingola["stato_candidatura"] == "In attesa"){
-
-                                            echo('<td class="center">
-                                                    <div class="status">
-                                                        <div class="dot yellow"></div>
-                                                        <span>In attesa</span>
-                                                    </div>
-                                                </td>');
-
-                                        }
-                                        if($candidaturaSingola["stato_candidatura"] == "Accettata"){
-
-                                            echo('<td class="center">
-                                                    <div class="status center">
-                                                        <div class="dot green"></div>
-                                                        <span>Accettata</span>
-                                                    </div>
-                                                </td>');
-
-                                        }
-                                        if($candidaturaSingola["stato_candidatura"] == "Rifuitata"){
-
-                                            echo('<td class="center">
-                                                    <div class="status">
-                                                        <div class="dot red"></div>
-                                                        <span>Rifiutata</span>
-                                                    </div>
-                                                </td>
-                                                <td class="center">
-                                                    <a class="btn-small light-blue darken-1" href="#">motivazione</a>
-                                                </td>');
-
-                                            echo('<div id="motivazioneModal" class="modal">
-                                                    <div class="modal-content">
-                                                        <h4>Motivazione del Rifiuto</h4>
-                                                        <p id="motivazioneTesto">'.$candidaturaSingola["motivazione_risultato"].'</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Chiudi</a>
-                                                    </div>
-                                                </div>');
-
-                                        }
-    
-                                        echo('</tr>');
-        
-                                    }
-
-                                    echo('</tbody></table>');
-    
-                                }
-                                else{
-
-                                    echo("Non hai ancora inviato delle candidature");
-
-                                }
-                                
-                                
-                                ?>
-                </div>
-            </div>
+                        // Inserimento modal per ogni rifiuto (volendo puoi anche gestirla con ID dinamico)
+                        if($candidaturaSingola["stato_candidatura"] == "Rifuitata"){
+                            echo('<div id="motivazioneModal" class="modal">
+                                    <div class="modal-content">
+                                        <h4>Motivazione del Rifiuto</h4>
+                                        <p id="motivazioneTesto">'.$candidaturaSingola["motivazione_risultato"].'</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Chiudi</a>
+                                    </div>
+                                </div>');
+                        }
+                    }
+                } else {
+                    echo('<div class="card-panel white z-depth-1"><p class="center">Non hai ancora inviato delle candidature</p></div>');
+                }
+            ?>
         </div>
 
         <script>

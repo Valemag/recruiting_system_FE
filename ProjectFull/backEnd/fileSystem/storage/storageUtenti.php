@@ -14,14 +14,10 @@ class StorageUtenti extends FileSystem{
     }
 
     function uploadUtenteFile($idUtente, $file){
-       
         $fileTmpPath = $file['tmp_name'];
         $fileName = $file['name'];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
 
-
-        if (!in_array($fileExtension, $this->validFileExtensions)) {
+        if (! $this->isImageExtensionValid($fileName)) {
             return 1;
         }
 
@@ -41,6 +37,21 @@ class StorageUtenti extends FileSystem{
             return 3;
         }
     }
+
+    function deleteUtenteFile($idUtente, $fileName) {
+    
+        $filePath = $this->fileSystemUrl.$this->uploadsPath.$this->utenteFolderPlaceholder . $idUtente . "/" . $fileName;
+    
+        if (!file_exists($filePath)) {
+            return 1; // File non trovato
+        }
+    
+        if (unlink($filePath)) {
+            return 0; // Eliminazione riuscita
+        } else {
+            return 2; // Errore durante l'eliminazione
+        }
+    } 
 
 
 

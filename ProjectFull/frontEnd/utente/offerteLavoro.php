@@ -34,15 +34,15 @@
                 </ul>
                 <ul id="dropdownmenu" class="dropdown-content light-blue darken-1">
                     <?php echo('<li><a href="paginaProfilo.php?id='.$_SESSION["utente_id"].'"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>'); ?>
-                    <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
+                    <li><a href="modificaProfilo.php"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                     <li class="divider"></li>
-                    <li><a href="../../backEnd/controllers/utenti/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+                    <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul id="dropdownmenu_mobile" class="dropdown-content light-blue darken-2">
                     <?php echo('<li><a href="paginaProfilo.php?id='.$_SESSION["utente_id"].'"><i class="material-icons left">assignment_ind</i>Visualizza Profilo</a></li>'); ?>
-                    <li><a href="modificaProfilo.html"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
+                    <li><a href="modificaProfilo.php"><i class="material-icons left">edit</i>Modifica Profilo</a></li>
                     <li class="divider"></li>
-                    <li><a href="../../backEnd/controllers/utenti/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
+                    <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul class="sidenav light-blue darken-1" id="mobile-demo">
                     <li><a href="candidature.php"><i class="material-icons left">business_center</i>Candidature</a></li>
@@ -54,62 +54,62 @@
             <div class="col s12 m8 offset-m2 l6 offset-l3">
                 <div class="card-panel white z-depth-1">
                     <?php
-                        if ($offerteLavoro != NULL) {
+                        if ($offerteLavoro == NULL || count($offerteLavoro) == 0) {
+                            echo ("Nessuna nuova offerta disponibile al momento.");
+                        }
+                        foreach ($offerteLavoro as $index => $offertaSingola) {
 
-                            foreach ($offerteLavoro as $index => $offertaSingola) {
+                            echo('<table class="black-text"><tbody>');
 
-                                echo('<table class="black-text"><tbody>');
+                            echo('<tr>
+                                <td>
+                                    <h4 style="margin:0px;" class="black-text">' . $offertaSingola["nome_azienda"] . '</h4>
+                                </td>
+                            </tr>');
 
-                                echo('<tr>
+                            echo('<tr>
+                                <td style="color: #bdbdbd;" class="left">
+                                    <h3 style="margin:0px;" class="black-text">' . $offertaSingola["titolo"] . '</h3>
+                                </td>
+                                <td>
+                                    <h6 style="margin:0px;" class="black-text">' . $offertaSingola["retribuzione"] . '</h6>
+                                </td>
+                            </tr>');
+
+                            echo('<tr>
                                     <td>
-                                        <h4 style="margin:0px;" class="black-text">' . $offertaSingola["nome_azienda"] . '</h4>
-                                    </td>
-                                </tr>');
-
-                                echo('<tr>
-                                    <td style="color: #bdbdbd;" class="left">
-                                        <h3 style="margin:0px;" class="black-text">' . $offertaSingola["titolo"] . '</h3>
+                                        <h6 style="margin:0px;" class="black-text">Tipo contratto: ' . $offertaSingola["tipo_contratto"] . '</h6>
                                     </td>
                                     <td>
-                                        <h6 style="margin:0px;" class="black-text">' . $offertaSingola["retribuzione"] . '</h6>
+                                        <button class="btn light-blue darken-1 modal-trigger" href="#modal' . $index . '" style="margin-right: 10px;">
+                                            Mostra dettagli offerta
+                                        </button> 
+                                        <form method="POST" action="../../backEnd/controllers/utenti/createCandidatura.php" enctype="multipart/form-data" style="display: flex; gap: 10px; align-items: center;">
+                                            <input type="hidden" name="offerta_id" value="' . $offertaSingola["offerta_id"] . '">
+                                            <input type="file" name="file" id="file">
+                                            <button type="submit" class="btn light-blue darken-1">Invia</button>
+                                        </form>
                                     </td>
-                                </tr>');
+                            </tr>');
 
-                                echo('<tr>
-                                        <td>
-                                            <h6 style="margin:0px;" class="black-text">Tipo contratto: ' . $offertaSingola["tipo_contratto"] . '</h6>
-                                        </td>
-                                        <td>
-                                            <button class="btn light-blue darken-1 modal-trigger" href="#modal' . $index . '" style="margin-right: 10px;">
-                                                Mostra dettagli offerta
-                                            </button> 
-                                            <form method="POST" action="../../backEnd/controllers/utenti/createCandidatura.php" enctype="multipart/form-data" style="display: flex; gap: 10px; align-items: center;">
-                                                <input type="hidden" name="offerta_id" value="' . $offertaSingola["offerta_id"] . '">
-                                                <input type="file" name="file" id="file">
-                                                <button type="submit" class="btn light-blue darken-1">Invia</button>
-                                            </form>
-                                        </td>
-                                </tr>');
+                            echo('</tbody></table>');
 
-                                echo('</tbody></table>');
-
-                                // MODAL
-                                echo('
-                                    <div id="modal' . $index . '" class="modal">
-                                        <div class="modal-content">
-                                            <h4>' . $offertaSingola["titolo"] . '</h4>
-                                            <p><strong>Descrizione:</strong><br>' . nl2br($offertaSingola["descrizione"]) . '</p>
-                                            <p><strong>Modalità di lavoro:</strong><br>' . nl2br($offertaSingola["modalita_lavoro"]) . '</p>
-                                            <p><strong>Competenze richieste:</strong><br>' . nl2br($offertaSingola["competenze_richieste"]) . '</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Chiudi</a>
-                                        </div>
+                            // MODAL
+                            echo('
+                                <div id="modal' . $index . '" class="modal">
+                                    <div class="modal-content">
+                                        <h4>' . $offertaSingola["titolo"] . '</h4>
+                                        <p><strong>Descrizione:</strong><br>' . nl2br($offertaSingola["descrizione"]) . '</p>
+                                        <p><strong>Modalità di lavoro:</strong><br>' . nl2br($offertaSingola["modalita_lavoro"]) . '</p>
+                                        <p><strong>Competenze richieste:</strong><br>' . nl2br($offertaSingola["competenze_richieste"]) . '</p>
                                     </div>
-                                ');
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Chiudi</a>
+                                    </div>
+                                </div>
+                            ');
 
-                                echo('<br>');
-                            }
+                            echo('<br>');
                         }
                     ?>
                 </div>
