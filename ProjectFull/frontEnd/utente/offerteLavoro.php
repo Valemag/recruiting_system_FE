@@ -166,7 +166,6 @@ document.querySelector('[data-target="modalAppuntate"]').addEventListener('click
             <p><strong>Azienda:</strong> ${offerta.nome || 'N/A'}</p>
             <p><strong>Tipo contratto:</strong> ${offerta.tipo || 'N/A'}</p>
             <p><strong>Retribuzione:</strong> ${offerta.retribuzione || 'N/A'}</p>
-            <p style="color:red;"><strong>Offerta scaduta o revocata</strong></p>
             <button class="btn red remove-btn" data-id="${offerta.offerta_id}">
                 <i class="material-icons left">delete</i>Rimuovi
             </button>
