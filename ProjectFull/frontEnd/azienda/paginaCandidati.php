@@ -144,10 +144,22 @@
                                                 <strong>Email:</strong> ' . $candidato["email"] . '
                                             </div>
                                             <div class="card-action">
-                                                <a class="btn-small light-blue darken-1" href="#">Visualizza</a>
-                                                <button class="btn-small green darken-1">Approva</button>
-                                                <button class="btn-small red darken-1" onclick="apriDialogRifiutaCandidato(\''.$candidato["username"].'\', \''.$candidato["utente_id"].'\')">Rifiuta</button>
-                                            </div>
+                                                <a class="btn-small light-blue darken-1" href="../utente/paginaProfilo.php?id='.$candidato["utente_id"].'">Visualizza</a>
+                                                '.($candidato["stato_id"] == 2 
+                                                    ? '✅ Approvato' 
+                                                    : ($candidato["stato_id"] == 3
+                                                        ? '❌ Rifiutato'
+                                                        : ('
+                                                            <form method="POST" action="../../../backEnd/controllers/aziende/ControllerOfferta.php?op=manageCandidatura&offerta='.$offerta["offerta_id"].'">
+                                                                <input type="hidden" name="candidatura_id" value="'.$candidato["candidatura_id"].'">
+                                                                <input type="hidden" name="stato_id" value="2">
+                                                                <input type="submit" class="btn-small green darken-1" value="Approva">
+                                                            </form>
+                                                            <button class="btn-small red darken-1" onclick="apriDialogRifiutaCandidato(\''.$candidato["username"].'\', \''.$candidato["candidatura_id"].'\')">Rifiuta</button>
+                                                        ')
+                                                    )
+                                                )
+                                            .'</div>
                                         </div>
                                     </div>
                                 ';
@@ -163,13 +175,17 @@
         <!-- Overlay + Dialog -->
         <div class="overlay" id="overlay">
             <div class="dialog">
-                <h4 id="dialog-title">Vuoi rifiutare il candidato?</h4>
-                <label for="commento">Commenta rifiuto:</label>
-                <input type="text" id="commento" placeholder="Scrivi il motivo...">
-                <div class="dialog-buttons">
-                    <button class="btn-small red darken-1" onclick="chiudiDialog()">Annulla</button>
-                    <button class="btn-small green darken-1" onclick="inviaRifiuto()">Invia</button>
-                </div>
+                <form method="POST" action="../../../backEnd/controllers/aziende/ControllerOfferta.php?op=manageCandidatura&motivazioneRequired=true&offerta=<?php echo $offerta['offerta_id'] ?>">
+                    <h4 id="dialog-title">Vuoi rifiutare il candidato?</h4>
+                    <label for="motivazione">Commenta rifiuto:</label>
+                    <input type="text" id="motivazione" name="motivazione" placeholder="Scrivi il motivo...">
+                    <div class="dialog-buttons">
+                        <a class="btn-small red darken-1" onclick="chiudiDialog()">Annulla</a>
+                        <input id="dialog_hidden_candidatura_id" type="hidden" name="candidatura_id" value="">
+                        <input type="hidden" name="stato_id" value="3">
+                        <input type="submit" class="btn-small green darken-1" value="Invia">
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -180,20 +196,14 @@
         <script>
             function apriDialogRifiutaCandidato(candidatoUsername, candidatoId) {
                 document.getElementById('dialog-title').textContent = "Vuoi rifiutare il candidato " + candidatoUsername + "?";
+                document.getElementById('dialog_hidden_candidatura_id').value = candidatoId;
                 document.getElementById('overlay').style.display = 'flex';
-                document.getElementById('commento').value = ''; // reset input
+                document.getElementById('motivazione').value = ''; // reset input
             }
 
             function chiudiDialog() {
                 document.getElementById('overlay').style.display = 'none';
-            }
-
-            function inviaRifiuto() {
-                const commento = document.getElementById('commento').value;
-                console.log("Commento inviato:", commento);
-                // Qui potresti inviare i dati via fetch/ajax
-                alert("Rifiuto inviato con commento: " + commento);
-                chiudiDialog();
+                document.getElementById('dialog_hidden_candidatura_id').value = "";
             }
         </script>
     </body>

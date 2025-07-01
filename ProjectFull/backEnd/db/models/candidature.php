@@ -86,16 +86,25 @@ class Candidature extends DataBaseCore{
     
         $id = intval($id); // Sicurezza base
     
-        $query = "SELECT * FROM candidature WHERE candidatura_id = $id";
-    
-        $result = $this->conn->query($query);
-
+        $query = "SELECT * FROM candidature WHERE candidatura_id = ?";
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            return 4;
+        }
+        if (!$stmt->bind_param("i", $id)) {
+            return 3;
+        }
+        $result = $stmt->execute();
+        if (!$result) {
+            return 5;
+        }
+        $result = $stmt->get_result();
         if (!$result) {
             return 1; // oppure puoi restituire $conn->error per debugging
         }
 
-        $result =  $result->fetch_assoc();
-        $this->populateFromArray($result);
+        $row =  $result->fetch_assoc();
+        $this->populateFromArray($row);
 
         return 0;
     }
@@ -154,11 +163,9 @@ class Candidature extends DataBaseCore{
         $stmt = $this->conn->prepare(
             "UPDATE candidature SET stato_id = ?, motivazione_risultato = ? WHERE candidatura_id = ?"
         );
-
         if (!$stmt) {
             return 1; // Errore nella preparazione
         }
-
         $stmt->bind_param("isi", $statoId, $motivazione, $this->candidaturaId);
 
         if ($stmt->execute()) {

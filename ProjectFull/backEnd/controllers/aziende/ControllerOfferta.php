@@ -7,6 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once(__DIR__."/../../db/models/offerte.php");
 require_once(__DIR__."/../../db/models/competenzeOfferta.php");
 require_once(__DIR__."/../../db/models/aziende.php");
+require_once(__DIR__."/../../db/models/candidature.php");
 require_once(__DIR__."/../../fileSystem/storage/storageAziende.php");
 
 function return_with_status($status_code, $locationFile) {
@@ -316,6 +317,42 @@ function getCandidatiOfferta(): array|null {
     return $result;
 }
 
+function manageCandidatura() {
+    $rollbackLocation = '../../../frontEnd/azienda/paginaCandidati.php?id='. $_SESSION['azienda_id'] . '&offerta='.$_GET['offerta'];
+    
+    if (! isset($_POST["candidatura_id"]) || ! isset($_POST["stato_id"])) {
+        return_with_status(400, $rollbackLocation . '&error=missing params');
+        exit;
+    }
+    if (isset($_GET["motivazioneRequired"]) && (!isset($_POST["motivazione"]) || empty($_POST["motivazione"]))) {
+        return_with_status(400, $rollbackLocation . '&error=missing motivation');
+        exit;
+    }
+
+    $candidatura = new Candidature();
+    if ($candidatura -> connectToDatabase() != 0) {
+        echo "errore durante la connessione al database";
+        return_with_status(500, $rollbackLocation . '&error=db connection error');
+        exit;
+    }
+
+    if ($candidatura->getCandidaturaById($_POST["candidatura_id"]) != 0) {
+        $candidatura->closeConnectionToDatabase();
+        return_with_status(500, $rollbackLocation . '&error=db get error');
+        exit;
+    }
+
+    $result = $candidatura->setStatoCandidatura($_POST["stato_id"], $_POST["motivazione"]);
+    $candidatura->closeConnectionToDatabase();
+    if($result != 0){
+        return_with_status(500, $rollbackLocation . '&error=db update error');
+        exit;
+    }
+
+    return_with_status(200, $rollbackLocation);
+    exit;
+}
+
 VerifyAuthentication();
 
 // Handle multiple http methods.
@@ -325,8 +362,19 @@ switch ($method) {
         // If GET, do nothing by default.
         break;
     case 'POST':
-        // Handle ADD offerta.
-        addOfferta();
+        switch ($_GET["op"]) {
+            case "manageCandidatura":
+                manageCandidatura();
+                break;
+            case "addOfferta":
+                // Handle ADD offerta.
+                addOfferta();
+                break;
+            default:
+                // operation not supported.
+                return_with_status(400, '../../../frontEnd/azienda/paginaProfilo.php?id=' . $_SESSION['azienda_id']);
+                exit;
+        }
         break;
     case 'PUT':
         // Handle UPDATE offerta.

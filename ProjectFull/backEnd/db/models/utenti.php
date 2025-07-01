@@ -559,11 +559,7 @@ class Utenti extends DataBaseCore{
     }
     
     public function appuntaOfferta($utenteId, $offertaId) {
-        $query = "
-            INSERT INTO offerteAppuntate (utente_id, offerta_id)
-            VALUES (?, ?)
-            ON DUPLICATE KEY UPDATE data_appuntamento = CURRENT_TIMESTAMP
-        ";
+        $query = "INSERT IGNORE INTO offerteAppuntate (utente_id, offerta_id) VALUES (?, ?)";
     
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("ii", $utenteId, $offertaId);
@@ -577,26 +573,20 @@ class Utenti extends DataBaseCore{
     
     // Ottiene le offerte appuntate dall'utente
     public function getOfferteAppuntate($utenteId) {
-    $query = "
-        SELECT 
-            o.offerta_id,
-            o.titolo,
-            o.retribuzione,
-            o.data_scadenza,
-            oa.data_appuntamento,
-            a.nome,
-            tc.tipo
-        FROM offerteAppuntate oa
-        LEFT JOIN offerte o ON oa.offerta_id = o.offerta_id
-        LEFT JOIN aziende a ON o.azienda_id = a.azienda_id
-        LEFT JOIN tipocontratti tc ON o.tipo_contratto_id = tc.tipo_contratto_id
-            
-        WHERE oa.utente_id = ?
-        ORDER BY oa.data_appuntamento DESC
-    ";
-    
-    
-
+        $query = "
+            SELECT 
+                o.offerta_id,
+                o.titolo,
+                o.retribuzione,
+                o.data_scadenza,
+                a.nome,
+                tc.tipo
+            FROM offerteAppuntate oa
+            LEFT JOIN offerte o ON oa.offerta_id = o.offerta_id
+            LEFT JOIN aziende a ON o.azienda_id = a.azienda_id
+            LEFT JOIN tipocontratti tc ON o.tipo_contratto_id = tc.tipo_contratto_id
+            WHERE oa.utente_id = ?
+        ";
     
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $utenteId);

@@ -7,7 +7,6 @@
 
     $datiUtente = getInfoUtenteBySession();
     $candidatureUtente = getCandidature();
-
 ?>
 
 <!DOCTYPE html>
@@ -108,13 +107,13 @@
                         if($candidaturaSingola["stato_candidatura"] == "In attesa"){
                             echo('<div class="status"><div class="dot yellow"></div><span>In attesa</span></div>');
                         }
-                        elseif($candidaturaSingola["stato_candidatura"] == "Accettata"){
+                        elseif($candidaturaSingola["stato_candidatura"] == "Accettato"){
                             echo('<div class="status"><div class="dot green"></div><span>Accettata</span></div>');
                         }
-                        elseif($candidaturaSingola["stato_candidatura"] == "Rifuitata"){
+                        elseif($candidaturaSingola["stato_candidatura"] == "Rifiutato"){
                             echo('<div class="status"><div class="dot red"></div><span>Rifiutata</span></div>
                                 <br>
-                                <a class="btn-small light-blue darken-1 btn-motivazione" data-motivazione="'.$candidaturaSingola["motivazione_risultato"].'" href="#motivazioneModal">Motivazione</a>');
+                                Motivazione: <strong>'.$candidaturaSingola["motivazione_risultato"].'</strong>');
                         }
                         echo('</div></div>'); // chiusura card e card-action
 
