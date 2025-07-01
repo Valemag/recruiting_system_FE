@@ -573,7 +573,58 @@ class Utenti extends DataBaseCore{
         } else {
             return false;
         }
-    }    
+    }
+    
+    // Ottiene le offerte appuntate dall'utente
+    public function getOfferteAppuntate($utenteId) {
+    $query = "
+        SELECT 
+            o.offerta_id,
+            o.titolo,
+            o.retribuzione,
+            o.data_scadenza,
+            oa.data_appuntamento,
+            a.nome,
+            tc.tipo
+        FROM offerteAppuntate oa
+        LEFT JOIN offerte o ON oa.offerta_id = o.offerta_id
+        LEFT JOIN aziende a ON o.azienda_id = a.azienda_id
+        LEFT JOIN tipocontratti tc ON o.tipo_contratto_id = tc.tipo_contratto_id
+            
+        WHERE oa.utente_id = ?
+        ORDER BY oa.data_appuntamento DESC
+    ";
+    
+    
+
+    
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $utenteId);
+        $stmt->execute();
+        
+        $result = $stmt->get_result();
+        $offerte = [];
+        while ($row = $result->fetch_assoc()) {
+            $offerte[] = $row;
+        }
+
+        return $offerte;
+    }
+    
+
+    // Rimuove una offerta appuntata
+    public function rimuoviOffertaAppuntata($utenteId, $offertaId) {
+        $query = "
+            DELETE FROM offerteAppuntate
+            WHERE utente_id = ? AND offerta_id = ?
+        ";
+    
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ii", $utenteId, $offertaId);
+    
+        return $stmt->execute();
+    }
+
     
 
 }

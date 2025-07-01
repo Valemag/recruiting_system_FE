@@ -44,4 +44,7 @@ function appuntaOfferta(){
 
 }
 
+//chiamata effettiva della funzione
+appuntaOfferta(); 
+
 ?>
