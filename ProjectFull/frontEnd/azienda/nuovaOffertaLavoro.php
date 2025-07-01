@@ -3,9 +3,9 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    require_once("../../backEnd/controllers/getInfo.php");
+    require_once("../../backEnd/controllers/aziende/ControllerOfferta.php");
 
-    $aziendaData = getInfoAzienda();
+    $aziendaData = getInfoByAzienda();
 ?>
 
 

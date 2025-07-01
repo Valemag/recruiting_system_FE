@@ -17,7 +17,7 @@ class StorageUtenti extends FileSystem{
         $fileTmpPath = $file['tmp_name'];
         $fileName = $file['name'];
 
-        if (! $this->isImageExtensionValid($fileName)) {
+        if (! $this->isFileExtensionValid($fileName)) {
             return 1;
         }
 

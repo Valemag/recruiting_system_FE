@@ -6,6 +6,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require_once(__DIR__."/../../db/models/offerte.php");
 require_once(__DIR__."/../../db/models/competenzeOfferta.php");
+require_once(__DIR__."/../../db/models/aziende.php");
+require_once(__DIR__."/../../fileSystem/storage/storageAziende.php");
 
 function return_with_status($status_code, $locationFile) {
     http_response_code(response_code: $status_code);
@@ -198,6 +200,71 @@ function getOfferta(): array|null {
     return $datiOfferta;
 }
 
+function getInfoByAzienda(){
+    $aziende = new Aziende();
+    $storageAziende = new StorageAziende();
+
+    $aziendaId = $_SESSION["azienda_id"];
+
+    if ($aziende->connectToDatabase() != 0) {
+        echo "Connessione al database fallita";
+        http_response_code(500);
+        return NULL;
+    }
+    
+    $result = $aziende -> getAziendaById($aziendaId);
+
+    if($result != 0){
+
+        $aziende -> closeConnectionToDatabase();
+        echo("errore durante il fetching dell'azienda");
+        http_response_code(500);
+        return NULL;
+
+    }
+
+    $result = $aziende -> fetchOfferteAzienda();
+
+    if($result != 0){
+
+        //echo("errore durante il fetching delle offerte");
+
+    }
+
+    $result = $aziende -> fetchSediAzienda();
+
+    if($result != 0){
+
+        $aziende -> closeConnectionToDatabase();
+        echo("errore durante il fetching delle sedi: ".$result);
+        http_response_code(500);
+        return NULL;
+
+    }
+
+    $aziendaData = $aziende -> toArray();
+
+    $path = "../fileSystem/";
+    $path .= $storageAziende -> getUploadsPath();
+    $path .= $storageAziende -> getAziendaFolderPlaceholder();
+    $path .= $aziendaId."/";
+
+    if($aziendaData["logo"] != NULL){
+
+        $aziendaData["logo"] = $path . $aziendaData["logo"];
+
+    }
+    else{
+
+        unset($aziendaData["logo"]);
+
+    }
+
+    $aziende -> closeConnectionToDatabase();
+
+    return $aziendaData;
+}
+
 function getOfferte(){
     $offerte = new Offerte();
 
@@ -218,6 +285,35 @@ function getOfferte(){
     else {
         return $risultato;
     }
+}
+
+function getCandidatiOfferta(): array|null {
+    $offerta = new Offerte();
+
+    if ($offerta->connectToDatabase() != 0) {
+        http_response_code(500);
+        return NULL;
+    }
+
+    if (! isset($_GET["offerta"])) {
+        $offerta->closeConnectionToDatabase();
+        http_response_code(400);
+        return NULL;
+    }
+
+    if ($offerta->getOffertaById($_GET["offerta"]) != 0) {
+        $offerta->closeConnectionToDatabase();
+        http_response_code(500);
+        return NULL;
+    }
+    $result = $offerta->fetchCandidatureOfferta();
+    if ($result === false) {
+        $offerta->closeConnectionToDatabase();
+        http_response_code(500);
+        return NULL;
+    }
+
+    return $result;
 }
 
 VerifyAuthentication();

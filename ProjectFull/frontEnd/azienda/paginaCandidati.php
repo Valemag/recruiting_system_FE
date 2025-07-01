@@ -5,7 +5,8 @@
     require_once("../../backEnd/controllers/aziende/ControllerOfferta.php");
 
     $aziendaData = getInfoByAzienda();
-    $offerte = getOfferte();
+    $offerta = getOfferta();
+    $candidati = getCandidatiOfferta();
 ?>
 
 <!DOCTYPE html>
@@ -35,6 +36,53 @@
                 justify-content: space-between; /* bottone sinistra e destra */
                 align-items: center;
             }
+            /* Sfondo scuro semitrasparente */
+            .overlay {
+                position: fixed;
+                top: 0; left: 0;
+                width: 100%; height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 999;
+            }
+
+            /* Dialog centrato */
+            .dialog {
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                max-width: 700px;
+                width: 100%;
+                box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            }
+
+            .dialog h3 {
+                margin-top: 0;
+            }
+
+            .dialog label {
+                display: block;
+                margin-top: 10px;
+                font-weight: bold;
+            }
+
+            .dialog input[type="text"] {
+                width: 100%;
+                padding: 8px;
+                margin-top: 5px;
+                margin-bottom: 15px;
+                box-sizing: border-box;
+            }
+
+            .dialog-buttons {
+                text-align: right;
+            }
+
+            .dialog-buttons button {
+                margin-left: 10px;
+            }
         </style>
     </head>
     <body class="grey lighten-5">
@@ -43,11 +91,6 @@
                 <a href="#" class="brand-logo center"><img class="responsive-img" src="../assets/logo.png" alt="Logo"></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li>
-                        <a class="btn white black-text" href="nuovaOffertaLavoro.php?id=<?php echo $_SESSION['azienda_id']; ?>">
-                            <i class="material-icons left">add</i>Nuova Offerta
-                        </a>
-                    </li>
                     <li>
                         <a class="dropdown-trigger" href="#!" data-target="dropdownmenu">
                             <i class="material-icons left">person</i>
@@ -78,33 +121,32 @@
         <div class="container">
             <div class="col s12 m8 offset-m2 l6 offset-l3">
                 <div class="card-panel grey lighten-5 z-depth-1">    
-                    <h2 class="black-text center">Offerte di Lavoro</h2>
-
+                    <h2 class="black-text center">Candidati per offerta <strong><?php echo $offerta["titolo"] ?></strong></h2>
+                    <p>Descrizione: <strong><?php echo $offerta['descrizione'] ?></strong></p>
+                    <p>Competenze richieste: <strong><?php echo $offerta['competenze_richieste'] ?></strong></p>
                     <?php
-                        if ($offerte != NULL) {
+                        if (! isset($candidati) || count($candidati) == 0) {
+                            echo '<p>Nessun candidato disponibile al momento. Riprova più tardi...</p>';
+                        }
+                        else {
                             echo '<div class="row">';
 
-                            foreach ($offerte as $offerta) {
+                            foreach ($candidati as $candidato) {
                                 echo '
                                     <div class="col s12 m6 l4">
                                         <div class="card white hoverable card-fixed-height">
                                             <div class="card-content black-text">
-                                                <span class="card-title"><strong>' . $offerta["titolo"] . '</strong></span>
-                                                <p>' . $offerta["descrizione"] . '</p>
+                                                <span class="card-title"><strong>' . $candidato["nome"] . ' ' . $candidato["cognome"] . '</strong></span>
+                                                <p>' . $candidato["descrizione"] . '</p>
                                                 <br>
-                                                <strong>Retribuzione:</strong> ' . $offerta["retribuzione"] . '<br>
-                                                <strong>Tipo contratto:</strong> ' . $offerta["tipo_contratto"] . '<br>
-                                                <strong>Modalità di lavoro:</strong> ' . $offerta["modalita_lavoro"] . '<br>
-                                                <strong>Competenze richieste:</strong> ' . $offerta["competenze_richieste"] . '
+                                                <strong>Username:</strong> ' . $candidato["username"] . '<br>
+                                                <strong>Telefono:</strong> ' . $candidato["telefono_contatto"] . '<br>
+                                                <strong>Email:</strong> ' . $candidato["email"] . '
                                             </div>
                                             <div class="card-action">
-                                                <a class="btn-small light-blue darken-1" href="modificaOffertaLavoro.php?id='.$_SESSION["azienda_id"].'&offerta='.$offerta["offerta_id"].'">Modifica</a>
-                                                '.($offerta["numero_candidati"] !== 0 ? '<a class="btn-small green darken-1" href="paginaCandidati.php?id='.$_SESSION["azienda_id"].'&offerta='.$offerta["offerta_id"].'">Candidati</a>' : '').'
-                                                <form method="POST" action="../../backEnd/controllers/aziende/ControllerOfferta.php">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="offerta_id" value="'.$offerta["offerta_id"].'">
-                                                    <input type="submit" class="btn-small red darken-1" value="Elimina">
-                                                </form>
+                                                <a class="btn-small light-blue darken-1" href="#">Visualizza</a>
+                                                <button class="btn-small green darken-1">Approva</button>
+                                                <button class="btn-small red darken-1" onclick="apriDialogRifiutaCandidato(\''.$candidato["username"].'\', \''.$candidato["utente_id"].'\')">Rifiuta</button>
                                             </div>
                                         </div>
                                     </div>
@@ -118,9 +160,41 @@
             </div>
         </div>
 
+        <!-- Overlay + Dialog -->
+        <div class="overlay" id="overlay">
+            <div class="dialog">
+                <h4 id="dialog-title">Vuoi rifiutare il candidato?</h4>
+                <label for="commento">Commenta rifiuto:</label>
+                <input type="text" id="commento" placeholder="Scrivi il motivo...">
+                <div class="dialog-buttons">
+                    <button class="btn-small red darken-1" onclick="chiudiDialog()">Annulla</button>
+                    <button class="btn-small green darken-1" onclick="inviaRifiuto()">Invia</button>
+                </div>
+            </div>
+        </div>
+
         <!--JavaScript at end of body for optimized loading-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
         <script type="text/javascript" src="../js/materialize.js"></script>
         <script type="text/javascript" src="../js/scripts.js"></script>
+        <script>
+            function apriDialogRifiutaCandidato(candidatoUsername, candidatoId) {
+                document.getElementById('dialog-title').textContent = "Vuoi rifiutare il candidato " + candidatoUsername + "?";
+                document.getElementById('overlay').style.display = 'flex';
+                document.getElementById('commento').value = ''; // reset input
+            }
+
+            function chiudiDialog() {
+                document.getElementById('overlay').style.display = 'none';
+            }
+
+            function inviaRifiuto() {
+                const commento = document.getElementById('commento').value;
+                console.log("Commento inviato:", commento);
+                // Qui potresti inviare i dati via fetch/ajax
+                alert("Rifiuto inviato con commento: " + commento);
+                chiudiDialog();
+            }
+        </script>
     </body>
 </html>

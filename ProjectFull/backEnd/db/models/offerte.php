@@ -1,6 +1,7 @@
 <?php
 
 require_once("core/dbCore.php");
+require_once("candidature.php");
 
 class Offerte extends DataBaseCore{
 
@@ -69,7 +70,7 @@ class Offerte extends DataBaseCore{
 
     // Getter per candidature
     public function getCandidature() {
-        return $this->dataScadenza;
+        return $this->candidature;
     }
 
     public function getModalitaLavoroId() {
@@ -371,9 +372,40 @@ class Offerte extends DataBaseCore{
             return 2;
         }
     
-        $query = "SELECT * FROM vista_offerte_azienda WHERE azienda_id = ".$aziendaId;
-        $result = $this->conn->query($query);
-    
+        $query = "
+            SELECT 
+                COUNT(DISTINCT(ca.utente_id)) as numero_candidati,
+                o.offerta_id,
+                o.titolo,
+                o.descrizione,
+                o.data_pubblicazione,
+                o.data_scadenza,
+                o.retribuzione,
+                tc.tipo AS tipo_contratto,
+                a.azienda_id,
+                ml.modalita AS modalita_lavoro,
+                a.nome AS nome_azienda,
+                GROUP_CONCAT(DISTINCT c.competenza SEPARATOR ', ') AS competenze_richieste
+            FROM offerte o
+            JOIN aziende a ON o.azienda_id = a.azienda_id
+            JOIN modalitaLavoro ml ON o.modalita_lavoro_id = ml.modalita_id
+            JOIN tipoContratti tc ON o.tipo_contratto_id = tc.tipo_contratto_id
+            LEFT JOIN requisitiCompetenzeOfferta rco ON o.offerta_id = rco.offerta_id
+            LEFT JOIN competenze c ON rco.competenza_id = c.competenza_id
+            LEFT JOIN candidature ca ON ca.offerta_id = o.offerta_id
+            WHERE o.azienda_id = ?
+            GROUP BY o.offerta_id;
+        ";
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            return 1;
+        }
+        $stmt->bind_param("i", $aziendaId);
+        $result = $stmt->execute();
+        if (!$result) {
+            return 1;
+        }
+        $result = $stmt->get_result();
         if (!$result) {
             return 1;
         }
@@ -413,38 +445,41 @@ class Offerte extends DataBaseCore{
         return $offerta;
     }
 
-    public function fetchCandidatureOfferta(){
-
-
+    public function fetchCandidatureOfferta(): array|bool {
         if (!$this->isConnectedToDb) {
-            return 2;
+            return false;
         }
 
-        $query = "select * from candidature where offerta_id = ".$this->offertaId;
+        $query = "
+            SELECT c.*, u.email, u.nome, u.cognome, u.username, u.descrizione, u.telefono_contatto
+            FROM candidature c
+            JOIN utenti u ON c.utente_id = u.utente_id
+            WHERE c.offerta_id = ?
+        ";
+        $stmt = $this->conn->prepare($query);
+        if (!$stmt) {
+            return false;
+        }
+        $stmt->bind_param("i", $this->offertaId);
 
-        $result = $this->conn->query($query);
-
+        $result = $stmt->execute();
         if (!$result) {
-            return 1; // oppure puoi restituire $conn->error per debugging
+            return false; // oppure puoi restituire $conn->error per debugging
         }
-        $finalResult = 1;
 
-        if ($result->num_rows > 0) {
-            // Elenco delle sedi da restituire
-            $this->candidature = [];
-    
-            // Itera su tutte le righe del risultato
-            while ($row = $result->fetch_assoc()) {
-                // Crea un oggetto SediAziende e popola con i dati
-                $candidatura = new SediAziende();
-                $candidatura->populateFromArray($row);  // Popola l'oggetto Sede
-                // Aggiungi l'oggetto Sede all'array di sedi
-                array_push($this->candidature, $candidatura);
-            }
-    
-            $finalResult = 0; // Successo
-        } else {
-            $finalResult = 3; // Nessuna sede trovata
+        $result = $stmt->get_result();
+        $stmt->close();
+        // Elenco delle sedi da restituire
+        $finalResult = [];
+
+        // Itera su tutte le righe del risultato
+        while ($row = $result->fetch_assoc()) {
+            // Crea un oggetto SediAziende e popola con i dati
+            //$candidatura = new Candidature();
+            //$candidatura->populateFromArray($row);  // Popola l'oggetto Sede
+            // Aggiungi l'oggetto Sede all'array di sedi
+            //array_push($this->candidature, $row);
+            array_push($finalResult, $row);
         }
 
         $result->close();

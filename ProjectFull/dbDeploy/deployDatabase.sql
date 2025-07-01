@@ -70,7 +70,7 @@ CREATE TABLE tipoContratti (
 );
 
 CREATE TABLE statiCandidature (
-    stato_id INT AUTO_INCREMENT PRIMARY KEY,
+    stato_id INT PRIMARY KEY,
     stato VARCHAR(100) NOT NULL
 );
 
@@ -304,10 +304,10 @@ INSERT INTO tipoContratti (tipo) VALUES
 ('Contratto a chiamata');
 
 
-INSERT INTO statiCandidature (stato) VALUES
-('In attesa'),
-('Accettato'),
-('Rifiutato');
+INSERT INTO statiCandidature (stato_id, stato) VALUES
+(1, 'In attesa'),
+(2, 'Accettato'),
+(3, 'Rifiutato');
 
 INSERT INTO modalitaLavoro (modalita_id, modalita) VALUES
 (1, 'in sede'),

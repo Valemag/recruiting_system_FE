@@ -4,8 +4,8 @@
         session_start();
     }
     require_once("../../backEnd/controllers/aziende/ControllerOfferta.php");
-    require_once("../../backEnd/controllers/getInfo.php");
-    $aziendaData = getInfoAzienda();
+    
+    $aziendaData = getInfoByAzienda();
     $dati = getOffertaForModifica();
     $offerta = $dati["offerta"];
     $competenze = $dati["competenze"];
