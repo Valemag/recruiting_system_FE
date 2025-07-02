@@ -36,8 +36,8 @@ switch ($action) {
     case 'add':
         header('Content-Type: application/json');
         if (!isset($_POST['offerta_id'])) {
-                echo json_encode(['success' => false, 'message' => 'ID offerta mancante']);
-                break;
+            echo json_encode(['success' => false, 'message' => 'ID offerta mancante']);
+            break;
         }
         
         $offertaId = intval($_POST['offerta_id']);
@@ -54,6 +54,7 @@ switch ($action) {
     default:
         http_response_code(400);
         echo json_encode(["error" => "Azione non valida"]);
+        break;
 }
 
 ?>

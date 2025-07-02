@@ -1,12 +1,9 @@
 
 <?php
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
     require_once("../../backEnd/controllers/aziende/ControllerOfferta.php");
     
-    $aziendaData = getInfoByAzienda();
-    $dati = getOffertaForModifica();
+    $aziendaData = ControllerOfferta::getInfoByAzienda();
+    $dati = ControllerOfferta::getOffertaForModifica();
     $offerta = $dati["offerta"];
     $competenze = $dati["competenze"];
 

@@ -424,7 +424,7 @@ class Utenti extends DataBaseCore{
         }
     }
 
-    public function updateImmagineProfilo($fileName){
+    public function updateImmagineProfilo($fileName): int {
         if (!$this -> isConnectedToDb) {
             return 2;
         }

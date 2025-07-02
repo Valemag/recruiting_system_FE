@@ -1,13 +1,9 @@
 <?php
+    require_once(__DIR__."/../../backEnd/controllers/utenti/ControllerCandidatura.php");
+    require_once(__DIR__."/../../backEnd/controllers/utenti/ControllerUtente.php");
 
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-    require_once(__DIR__."/../../backEnd/controllers/utenti/getOfferte.php");
-    require_once(__DIR__."/../../backEnd/controllers/getInfo.php");
-
-    $offerteLavoro = getOfferte();
-    $datiUtente = getInfoUtenteBySession();
+    $offerteLavoro = ControllerCandidatura::getOfferte();
+    $datiUtente = ControllerUtente::getInfoUtenteBySession();
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +42,7 @@
                     <li><a href="../../backEnd/controllers/logout.php"><i class="material-icons left">exit_to_app</i>Logout</a></li>
                 </ul>
                 <ul class="sidenav light-blue darken-1" id="mobile-demo">
-                    <li><a href="candidature.php"><i class="material-icons left">business_center</i>Candidature</a></li>
+                    <li><a href="paginaCandidature.php"><i class="material-icons left">business_center</i>Candidature</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target="dropdownmenu_mobile"><i class="material-icons left">person</i><?php echo($datiUtente['username']) ?><i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
@@ -94,7 +90,7 @@
                         <i class="material-icons left">star</i> Appunta
                     </button>
 
-                    <form method="POST" action="../../backEnd/controllers/utenti/createCandidatura.php" enctype="multipart/form-data" style="display: flex; gap: 10px; align-items: center;">
+                    <form method="POST" action="../../backEnd/controllers/utenti/ControllerCandidatura.php?op=new_candidatura" enctype="multipart/form-data" style="display: flex; gap: 10px; align-items: center;">
                         <input type="hidden" name="offerta_id" value="' . $offertaSingola["offerta_id"] . '">
                         <input type="file" name="file" id="file">
                         <button type="submit" class="btn light-blue darken-1">Invia</button>
@@ -142,7 +138,7 @@
 </script>
 <script>
 document.querySelector('[data-target="modalAppuntate"]').addEventListener('click', function () {
-    fetch('../../backEnd/controllers/utenti/offertePreferite.php', {
+    fetch('../../backEnd/controllers/utenti/ControllerOffertePreferite.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({ action: 'get' })
@@ -179,7 +175,7 @@ document.querySelector('[data-target="modalAppuntate"]').addEventListener('click
         document.querySelectorAll('.remove-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const offertaId = this.getAttribute('data-id');
-                fetch('../../backEnd/controllers/utenti/offertePreferite.php', {
+                fetch('../../backEnd/controllers/utenti/ControllerOffertePreferite.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: `action=remove&offerta_id=${offertaId}`
@@ -210,7 +206,7 @@ function appuntaOfferta(offertaId) {
     params.append('action', 'add');
     params.append('offerta_id', offertaId);
 
-    fetch('../../backEnd/controllers/utenti/offertePreferite.php', {
+    fetch('../../backEnd/controllers/utenti/ControllerOffertePreferite.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'

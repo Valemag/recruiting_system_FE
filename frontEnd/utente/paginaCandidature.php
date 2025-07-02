@@ -1,12 +1,9 @@
 <?php
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-    require_once("../../backEnd/controllers/utenti/getCandidature.php");
-    require_once("../../backEnd/controllers/getInfo.php");
+    require_once("../../backEnd/controllers/utenti/ControllerCandidatura.php");
+    require_once("../../backEnd/controllers/utenti/ControllerUtente.php");
 
-    $datiUtente = getInfoUtenteBySession();
-    $candidatureUtente = getCandidature();
+    $datiUtente = ControllerUtente::getInfoUtenteBySession();
+    $candidatureUtente = ControllerCandidatura::getCandidature();
 ?>
 
 <!DOCTYPE html>
@@ -97,7 +94,7 @@
                                 <br>
                                 '.$candidaturaSingola["titolo_offerta"].'
                                 <br><br>
-                                <form action="../../backEnd/controllers/utenti/deleteCandidatura.php" method="post">
+                                <form action="../../backEnd/controllers/utenti/ControllerCandidatura.php?op=delete_candidatura" method="post">
                                     <input type="hidden" name="candidatura_id" value="'.$candidaturaSingola["candidatura_id"].'">
                                     <input type="submit" value="Elimina" class="btn red lighten-1">
                                 </form>

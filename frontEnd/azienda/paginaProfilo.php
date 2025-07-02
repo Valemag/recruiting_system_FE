@@ -1,10 +1,7 @@
 <?php
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
     require_once("../../backEnd/controllers/aziende/ControllerAzienda.php");
 
-    $aziendaData = getInfoAzienda();
+    $aziendaData = ControllerAzienda::getInfoAzienda();
 ?>
 
 <!DOCTYPE html>
