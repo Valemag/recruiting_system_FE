@@ -73,10 +73,6 @@
                             <input id="retribuzione" type="text" name="retribuzione" class="validate black-text" required>
                             <label for="retribuzione">Retribuzione</label>
                         </div>
-                        <div class="input-field col s12">
-                            <input id="data_scadenza" type="date" name="data_scadenza" class="validate black-text" required>
-                            <label for="data_scadenza">Scadenza</label>
-                        </div>
                       <div class="input-field col s12">
                         <select name="tipo_contratto" id="contratto" required>
                             <option value="" disabled selected>Seleziona il tipo di contratto</option>

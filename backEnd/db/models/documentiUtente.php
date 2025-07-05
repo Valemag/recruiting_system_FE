@@ -48,20 +48,22 @@ require_once("core/dbCore.php");
                 return 2;
             }
 
-            $sql = "INSERT INTO documentiUtente (utente_id, documento) VALUES (:utente_id, :documento)";
+            $sql = "INSERT INTO documentiUtente (utente_id, documento) VALUES (?, ?)";
             $stmt = $this->conn->prepare($sql);
 
             // Associa i parametri
-            $stmt->bindParam(':utente_id', $idUtente, PDO::PARAM_INT);
-            $stmt->bindParam(':documento', $nomeDocumento, PDO::PARAM_STR);
+            $result = $stmt->bind_param('is', $idUtente, $nomeDocumento);
+            if (! $result) {
+                return 3;
+            }
+            $result = $stmt->execute();
+            $stmt->close();
 
             // Esegui l'inserimento
-            if ($stmt->execute()) {
+            if ($result) {
                 return 1; // restituisce l'ID del nuovo record
-            } else {
-                return 0; // inserimento fallito
-            }
-
+            } 
+            return 0; // inserimento fallito
         }
 
     }

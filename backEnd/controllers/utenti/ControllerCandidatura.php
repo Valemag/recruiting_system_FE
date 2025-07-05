@@ -223,6 +223,9 @@ class ControllerCandidatura extends GenericController
             exit;
         }
 
+        $storageUtenti = new StorageUtenti();
+        $storageUtenti->deleteUtenteFile($_SESSION['utente_id'], $candidatura->getCvDocumentoFileName());
+
         ControllerCandidatura::return_with_status(200, $rollbackLocation);
     }
 }

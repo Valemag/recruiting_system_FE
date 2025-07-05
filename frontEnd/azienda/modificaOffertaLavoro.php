@@ -134,10 +134,6 @@
                             <label for="retribuzione">Retribuzione</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="data_scadenza" type="date" name="data_scadenza" value="<?php echo($offerta["data_scadenza"]) ?>" class="validate black-text" required>
-                            <label for="data_scadenza">Scadenza</label>
-                        </div>
-                        <div class="input-field col s12">
                             <select name="tipo_contratto_id" id="contratto" required>
                                 <?php echo(generateHtmlOptions($tipiContrattoList, function($key){global $offerta; return $offerta["tipo_contratto_id"] == $key;})); ?>
                             </select>

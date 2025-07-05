@@ -13,7 +13,6 @@ class Offerte extends DataBaseCore{
     private $retribuzione;
     private $dataPubblicazione;
     private $sedeLavoroId;
-    private $dataScadenza;
 
     private $candidature;
 
@@ -63,11 +62,6 @@ class Offerte extends DataBaseCore{
         return $this->sedeLavoroId;
     }
 
-    // Getter per dataScadenza
-    public function getDataScadenza() {
-        return $this->dataScadenza;
-    }
-
     // Getter per candidature
     public function getCandidature() {
         return $this->candidature;
@@ -87,7 +81,6 @@ class Offerte extends DataBaseCore{
         $this->retribuzione = isset($data['retribuzione']) ? $data['retribuzione'] : null;
         $this->dataPubblicazione = isset($data['data_pubblicazione']) ? $data['data_pubblicazione'] : null;
         $this->sedeLavoroId = isset($data['sede_lavoro_id']) ? $data['sede_lavoro_id'] : null;
-        $this->dataScadenza = isset($data['data_scadenza']) ? $data['data_scadenza'] : null;
         $this->modalitaLavoroId = isset($data['modalita_lavoro_id']) ? $data['modalita_lavoro_id'] : null;
     }
 
@@ -102,7 +95,6 @@ class Offerte extends DataBaseCore{
             'retribuzione' => $this->retribuzione,
             'data_pubblicazione' => $this->dataPubblicazione,
             'sede_lavoro_id' => $this->sedeLavoroId,
-            'data_scadenza' => $this->dataScadenza,
             'modalita_lavoro_id' => $this->modalitaLavoroId,
         ];
     }
@@ -127,7 +119,7 @@ class Offerte extends DataBaseCore{
         return 0;
     }
 
-    public function addOfferta($aziendaId, $titolo, $descrizione, $requisiti, $sedeId, $retribuzione, $tipoContrattoId, $dataScadenza, $modalitaLavoro) {
+    public function addOfferta($aziendaId, $titolo, $descrizione, $requisiti, $sedeId, $retribuzione, $tipoContrattoId, $modalitaLavoro) {
         if (!$this->isConnectedToDb) {
             return 2; // Connessione non attiva
         }
@@ -137,8 +129,8 @@ class Offerte extends DataBaseCore{
     
         // 1. Inserimento offerta
         $stmt = $this->conn->prepare(
-            "INSERT INTO offerte (azienda_id, titolo, descrizione, data_pubblicazione, retribuzione, sede_lavoro_id, tipo_contratto_id, data_scadenza, modalita_lavoro_id)
-             VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?)"
+            "INSERT INTO offerte (azienda_id, titolo, descrizione, data_pubblicazione, retribuzione, sede_lavoro_id, tipo_contratto_id, modalita_lavoro_id)
+             VALUES (?, ?, ?, NOW(), ?, ?, ?, ?)"
         );
     
         if (!$stmt) {
@@ -146,7 +138,7 @@ class Offerte extends DataBaseCore{
             return 1; // Errore nella preparazione
         }
     
-        $stmt->bind_param("isssiisi", $aziendaId, $titolo, $descrizione, $retribuzione, $sedeId, $tipoContrattoId, $dataScadenza, $modalitaLavoro);
+        $stmt->bind_param("isssiii", $aziendaId, $titolo, $descrizione, $retribuzione, $sedeId, $tipoContrattoId, $modalitaLavoro);
     
         if (!$stmt->execute()) {
             $this->conn->rollback();
@@ -242,12 +234,6 @@ class Offerte extends DataBaseCore{
         if (!is_null($this->retribuzione)) {
             $fields[] = "retribuzione = ?";
             $values[] = $this->retribuzione;
-            $types .= "d"; // double, puoi cambiare in "i" se intero
-        }
-    
-        if (!empty($this->dataScadenza)) {
-            $fields[] = "data_scadenza = ?";
-            $values[] = $this->dataScadenza;
             $types .= "s";
         }
 
@@ -325,7 +311,6 @@ class Offerte extends DataBaseCore{
             o.titolo,
             o.descrizione,
             o.data_pubblicazione,
-            o.data_scadenza,
             o.retribuzione,
             tc.tipo AS tipo_contratto,
             ml.modalita AS modalita_lavoro,
@@ -379,7 +364,6 @@ class Offerte extends DataBaseCore{
                 o.titolo,
                 o.descrizione,
                 o.data_pubblicazione,
-                o.data_scadenza,
                 o.retribuzione,
                 tc.tipo AS tipo_contratto,
                 a.azienda_id,
@@ -451,9 +435,10 @@ class Offerte extends DataBaseCore{
         }
 
         $query = "
-            SELECT c.*, u.email, u.nome, u.cognome, u.username, u.descrizione, u.telefono_contatto
+            SELECT c.*, u.email, u.nome, u.cognome, u.username, u.descrizione, u.telefono_contatto, du.documento
             FROM candidature c
             JOIN utenti u ON c.utente_id = u.utente_id
+            LEFT JOIN documentiutente du ON du.documento_id = c.cv_documento_id
             WHERE c.offerta_id = ?
         ";
         $stmt = $this->conn->prepare($query);

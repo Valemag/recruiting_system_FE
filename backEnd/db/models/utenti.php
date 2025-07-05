@@ -578,7 +578,6 @@ class Utenti extends DataBaseCore{
                 o.offerta_id,
                 o.titolo,
                 o.retribuzione,
-                o.data_scadenza,
                 a.nome,
                 tc.tipo
             FROM offerteAppuntate oa

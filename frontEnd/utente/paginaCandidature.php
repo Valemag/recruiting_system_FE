@@ -108,10 +108,13 @@
                             echo('<div class="status"><div class="dot green"></div><span>Accettata</span></div>');
                         }
                         elseif($candidaturaSingola["stato_candidatura"] == "Rifiutato"){
-                            echo('<div class="status"><div class="dot red"></div><span>Rifiutata</span></div>
-                                <br>
-                                Motivazione: <strong>'.$candidaturaSingola["motivazione_risultato"].'</strong>');
+                            echo('<div class="status"><div class="dot red"></div><span>Rifiutata</span></div>');
                         }
+                        echo('
+                        <br>
+                        <strong>Feedback</strong>: '.(($candidaturaSingola["motivazione_risultato"] != NULL) 
+                            ? $candidaturaSingola["motivazione_risultato"]
+                            : '<i>Ancora nessun feedback disponibile</i>'));
                         echo('</div></div>'); // chiusura card e card-action
 
                         // Inserimento modal per ogni rifiuto (volendo puoi anche gestirla con ID dinamico)

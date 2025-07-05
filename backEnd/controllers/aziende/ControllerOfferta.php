@@ -53,6 +53,10 @@ class ControllerOfferta extends GenericController
         }
 
         $competenze = ControllerOfferta::initCompetenzeList();
+        if (count($competenze) !== 3) {
+            ControllerOfferta::return_with_status(400, $rollbackLocation);
+            exit;
+        }
 
         if (empty($_GET["sedeId"])) {
             ControllerOfferta::return_with_status(400, $rollbackLocation);
@@ -66,7 +70,6 @@ class ControllerOfferta extends GenericController
                                         $_GET["sedeId"],
                                         $_POST["retribuzione"],
                                         $_POST["tipo_contratto"],
-                                        $_POST["data_scadenza"],
                                         $_POST["modalita_lavoro"]);
         if($result != 0){
             ControllerOfferta::return_with_status(500, $rollbackLocation);
@@ -86,14 +89,18 @@ class ControllerOfferta extends GenericController
         $offerte->populateFromArray($_POST);
         $offerte->setOffertaId($offertaId);
         $competenze = ControllerOfferta::initCompetenzeList();
+        if (count($competenze) !== 3) {
+            ControllerOfferta::return_with_status(400, $rollbackLocation);
+            exit;
+        }
 
         if ($offerte->connectToDatabase() != 0) {
             ControllerOfferta::return_with_status(500, $rollbackLocation . '&update=failure');
             exit;
         }
         if ($offerte->updateOfferta($competenze) != 0) {
-        ControllerOfferta::return_with_status(500, $rollbackLocation . '&update=failure');
-        exit;
+            ControllerOfferta::return_with_status(500, $rollbackLocation . '&update=failure');
+            exit;
         }
 
         ControllerOfferta::return_with_status(200, $rollbackLocation . '&update=success');
@@ -293,14 +300,26 @@ class ControllerOfferta extends GenericController
             http_response_code(500);
             return NULL;
         }
-        $result = $offerta->fetchCandidatureOfferta();
-        if ($result === false) {
-            $offerta->closeConnectionToDatabase();
+        $candidati = $offerta->fetchCandidatureOfferta();
+        $offerta->closeConnectionToDatabase();
+        if ($candidati === false) {
             http_response_code(500);
             return NULL;
         }
 
-        return $result;
+        $storageUtenti = new StorageAziende();
+        $size = count($candidati);
+        for ($i = 0; $i < $size; $i++) {
+            if ($candidati[$i]["documento"] == NULL || $candidati[$i]["documento"] === "") {
+                continue;
+            }
+            $candidati[$i]["documento"] = '/backEnd/fileSystem/files/'
+                         . $storageUtenti->getUtenteFolderPlaceholder()
+                         . $candidati[$i]["utente_id"]
+                         . '/' . $candidati[$i]["documento"];
+        }
+
+        return $candidati;
     }
 
     public static function manageCandidatura() {

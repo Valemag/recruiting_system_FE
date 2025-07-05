@@ -138,7 +138,10 @@
                                                 <br>
                                                 <strong>Username:</strong> ' . $candidato["username"] . '<br>
                                                 <strong>Telefono:</strong> ' . $candidato["telefono_contatto"] . '<br>
-                                                <strong>Email:</strong> ' . $candidato["email"] . '
+                                                <strong>Email:</strong> ' . $candidato["email"] . '</br></br>' .
+                                                (($candidato["documento"] != NULL && $candidato["documento"] !== "") ? ('<a href="'.$candidato["documento"].'" download>
+                                                    <button class="btn-small yellow darken-4">Scarica il CV</button>
+                                                </a>') : '<i>Nessun CV disponibile</i>') . '
                                             </div>
                                             <div class="card-action">
                                                 <a class="btn-small light-blue darken-1" href="../utente/paginaProfilo.php?id='.$candidato["utente_id"].'">Visualizza</a>
@@ -147,12 +150,8 @@
                                                     : ($candidato["stato_id"] == 3
                                                         ? '❌ Rifiutato'
                                                         : ('
-                                                            <form method="POST" action="../../../backEnd/controllers/aziende/ControllerOfferta.php?op=manageCandidatura&offerta='.$offerta["offerta_id"].'">
-                                                                <input type="hidden" name="candidatura_id" value="'.$candidato["candidatura_id"].'">
-                                                                <input type="hidden" name="stato_id" value="2">
-                                                                <input type="submit" class="btn-small green darken-1" value="Approva">
-                                                            </form>
-                                                            <button class="btn-small red darken-1" onclick="apriDialogRifiutaCandidato(\''.$candidato["username"].'\', \''.$candidato["candidatura_id"].'\')">Rifiuta</button>
+                                                            <button class="btn-small green darken-1" onclick="apriDialogRifiutaCandidato(false, \''.$candidato["username"].'\', \''.$candidato["candidatura_id"].'\')">Approva</button>
+                                                            <button class="btn-small red darken-1" onclick="apriDialogRifiutaCandidato(true, \''.$candidato["username"].'\', \''.$candidato["candidatura_id"].'\')">Rifiuta</button>
                                                         ')
                                                     )
                                                 )
@@ -169,17 +168,17 @@
             </div>
         </div>
 
-        <!-- Overlay + Dialog -->
+        <!-- Overlay + Dialog RIFIUTO -->
         <div class="overlay" id="overlay">
             <div class="dialog">
                 <form method="POST" action="../../../backEnd/controllers/aziende/ControllerOfferta.php?op=manageCandidatura&motivazioneRequired=true&offerta=<?php echo $offerta['offerta_id'] ?>">
-                    <h4 id="dialog-title">Vuoi rifiutare il candidato?</h4>
-                    <label for="motivazione">Commenta rifiuto:</label>
+                    <h4 id="dialog-title"></h4>
+                    <label id="label_motivazione" for="motivazione"></label>
                     <input type="text" id="motivazione" name="motivazione" placeholder="Scrivi il motivo...">
                     <div class="dialog-buttons">
                         <a class="btn-small red darken-1" onclick="chiudiDialog()">Annulla</a>
                         <input id="dialog_hidden_candidatura_id" type="hidden" name="candidatura_id" value="">
-                        <input type="hidden" name="stato_id" value="3">
+                        <input id="stato_id_dialog" type="hidden" name="stato_id" value="1">
                         <input type="submit" class="btn-small green darken-1" value="Invia">
                     </div>
                 </form>
@@ -191,8 +190,14 @@
         <script type="text/javascript" src="../js/materialize.js"></script>
         <script type="text/javascript" src="../js/scripts.js"></script>
         <script>
-            function apriDialogRifiutaCandidato(candidatoUsername, candidatoId) {
-                document.getElementById('dialog-title').textContent = "Vuoi rifiutare il candidato " + candidatoUsername + "?";
+            function apriDialogRifiutaCandidato($rifiuta, candidatoUsername, candidatoId) {
+                document.getElementById('dialog-title').textContent = ($rifiuta) 
+                    ? "Vuoi rifiutare il candidato " + candidatoUsername + "?"
+                    : "Comunica l'approvazione al candidato " + candidatoUsername;
+                document.getElementById('label_motivazione').textContent = ($rifiuta) 
+                    ? "Commenta rifiuto:" 
+                    : "Commenta l'approvazione:";
+                document.getElementById('stato_id_dialog').value = ($rifiuta) ? "3" : "2";
                 document.getElementById('dialog_hidden_candidatura_id').value = candidatoId;
                 document.getElementById('overlay').style.display = 'flex';
                 document.getElementById('motivazione').value = ''; // reset input

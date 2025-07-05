@@ -12,6 +12,7 @@ class Candidature extends DataBaseCore{
     private $statoId;
     private $motivazioneRisultato;
     private $cvDocumentoId;
+    private $cvDocumentoFileName;
 
     // Getter per candidaturaId
     public function getCandidaturaId() {
@@ -53,6 +54,10 @@ class Candidature extends DataBaseCore{
         return $this->motivazioneRisultato;
     }
 
+    public function getCvDocumentoFileName() {
+        return $this->cvDocumentoFileName;
+    }
+
     // Metodo per trasferire i dati dall'array associativo agli attributi
     public function populateFromArray($data) {
         $this->candidaturaId = isset($data['candidatura_id']) ? $data['candidatura_id'] : null;
@@ -63,6 +68,7 @@ class Candidature extends DataBaseCore{
         $this->statoId = isset($data['stato_id']) ? $data['stato_id'] : null;
         $this->motivazioneRisultato = isset($data['motivazione_risultato']) ? $data['motivazione_risultato'] : null;
         $this->cvDocumentoId = isset($data['cv_documento_id']) ? $data['cv_documento_id'] : null;
+        $this->cvDocumentoFileName = isset($data['documento']) ? $data['documento'] : null;
     }
 
     // Metodo che restituisce un array associativo con i dati dell'oggetto
@@ -86,7 +92,13 @@ class Candidature extends DataBaseCore{
     
         $id = intval($id); // Sicurezza base
     
-        $query = "SELECT * FROM candidature WHERE candidatura_id = ?";
+        $query = "
+            SELECT c.*, d.documento
+            FROM candidature c
+            JOIN documentiutente d ON d.utente_id = c.utente_id
+            WHERE c.candidatura_id = ?
+            LIMIT 1
+        ";
         $stmt = $this->conn->prepare($query);
         if (!$stmt) {
             return 4;
@@ -139,19 +151,44 @@ class Candidature extends DataBaseCore{
             return 2; // Connessione non attiva
         }
 
-        $stmt = $this->conn->prepare("DELETE FROM candidature WHERE candidatura_id = ?");
+        if (! $this->conn->begin_transaction()) {
+            return 1;
+        }
 
+        $stmt = $this->conn->prepare("DELETE FROM candidature WHERE candidatura_id = ?");
         if (!$stmt) {
+            $this->conn->rollback();
             return 1; // Errore nella preparazione della query
         }
-
-        $stmt->bind_param("i", $this->candidaturaId);
-
-        if ($stmt->execute()) {
-            return 0; // Eliminazione riuscita
-        } else {
-            return 1; // Errore durante l'eliminazione
+        if (! $stmt->bind_param("i", $this->candidaturaId)) {
+            $this->conn->rollback();
+            return 1;
         }
+        $result = $stmt->execute();
+        $stmt->close();
+        if (!$result) {
+            $this->conn->rollback();
+            return 1;
+        }
+
+        $stmt = $this->conn->prepare("DELETE FROM documentiutente WHERE documento_id = ?");
+        if (!$stmt) {
+            $this->conn->rollback();
+            return 1;
+        }
+        if (! $stmt->bind_param("i", $this->cvDocumentoId)) {
+            $this->conn->rollback();
+            return 1;
+        }
+        $result = $stmt->execute();
+        $stmt->close();
+        if (!$result) {
+            $this->conn->rollback();
+            return 1;
+        }
+
+        $this->conn->commit();
+        return 0;
     }
 
 

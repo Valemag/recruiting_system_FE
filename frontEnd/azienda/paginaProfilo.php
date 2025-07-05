@@ -106,21 +106,11 @@
                                 Telefono: <?php echo($aziendaData["telefono_contatto"]); ?>
                                 <br>
                                 Email: <?php echo($aziendaData["email_contatto"]); ?>
-                                <h6>Sedi Azienda</h6>
+                                <h6>Sede Azienda</h6>
                                 <div id="sedi">
-                                    Sedi:
-                                    <br>
                                     <?php
-
-                                        $c = 1;
-
-                                        foreach($aziendaData["sediAzienda"] as $sede){
-
-                                            echo("Sede ".$c." in:<br>");
-                                            echo($sede->getPaese()." ".$sede->getRegione()." ".$sede->getCitta()." ".$sede->getIndirizzo()."<br>");
-
-                                        }
-                                    
+                                        $sede = $aziendaData["sediAzienda"][0];
+                                        echo($sede->getPaese().", ".$sede->getRegione().", ".$sede->getCitta().", ".$sede->getIndirizzo());
                                     ?>
                                 </div>
                             </p>

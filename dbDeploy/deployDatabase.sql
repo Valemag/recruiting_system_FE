@@ -10,8 +10,6 @@ GRANT ALL PRIVILEGES ON *.* TO 'user123'@'localhost' WITH GRANT OPTION;
 
 FLUSH PRIVILEGES;
 
-
-
 create database bitByte;
 
 use bitByte;
@@ -100,7 +98,6 @@ CREATE TABLE offerte (
     data_pubblicazione DATE,
     sede_lavoro_id INT,
     modalita_lavoro_id INT,
-    data_scadenza DATE,
     FOREIGN KEY (azienda_id) REFERENCES aziende(azienda_id) ON DELETE CASCADE,
     FOREIGN KEY (tipo_contratto_id) REFERENCES tipoContratti(tipo_contratto_id),
     FOREIGN KEY (sede_lavoro_id) REFERENCES sediAziende(sede_id),
@@ -150,7 +147,6 @@ SELECT
     o.titolo,
     o.descrizione,
     o.data_pubblicazione,
-    o.data_scadenza,
     o.retribuzione,
     tc.tipo AS tipo_contratto,
     a.azienda_id,
@@ -219,7 +215,6 @@ SELECT
     o.titolo,
     o.descrizione,
     o.data_pubblicazione,
-    o.data_scadenza,
     o.retribuzione,
     tc.tipo AS tipo_contratto,
     ml.modalita AS modalita_lavoro,
@@ -242,7 +237,6 @@ SELECT
     o.titolo,
     o.descrizione,
     o.data_pubblicazione,
-    o.data_scadenza,
     o.retribuzione,
     tc.tipo AS tipo_contratto,
     ml.modalita AS modalita_lavoro,
@@ -266,7 +260,6 @@ SELECT
     o.titolo AS titolo_offerta,
     o.descrizione,
     o.data_pubblicazione,
-    o.data_scadenza,
     o.retribuzione,
     tc.tipo AS tipo_contratto,
     ml.modalita AS modalita_lavoro,
@@ -314,37 +307,37 @@ INSERT INTO modalitaLavoro (modalita_id, modalita) VALUES
 (2, 'smart working'),
 (3, 'ibrido');
 
-INSERT INTO utenti (email, password, username, nome, cognome, telefono_contatto, descrizione) VALUES ('admin@admin.com', '$2y$10$wnSAqXD0QKhhiPHagJY7a.EH8kgr4VLipZI11yZ6vVEA.qWa8V3Du', 'admin_user', 'Nome Admin', 'Cognome Admin', '1234567890', 'Descrizione dell admin');
-                            --password: admin
-
 
 --utenti per test password tutte uguali: utenteProva1234
-INSERT INTO utenti (email, password, username, nome, cognome, telefono_contatto, descrizione) VALUES 
-('mario.rossi@example.com', '$2y$10$8o4ZgbWClD8Odc.zqmYH0.u4E0BKcICf3U.c7sSJJQglQrvooJW12', 'mario_rossi', 'Mario', 'Rossi', '3312345678', 'Appassionato di tecnologia, in cerca di nuove opportunità professionali.'),
-('giovanni.bianchi@example.com', '$2y$10$8o4ZgbWClD8Odc.zqmYH0.u4E0BKcICf3U.c7sSJJQglQrvooJW12', 'giovanni_bianchi', 'Giovanni', 'Bianchi', '3398765432', 'Esperto in sviluppo software e consulenze tecniche.'),
-('lucia.verdi@example.com', '$2y$10$8o4ZgbWClD8Odc.zqmYH0.u4E0BKcICf3U.c7sSJJQglQrvooJW12', 'lucia_verdi', 'Lucia', 'Verdi', '3401234567', 'Sviluppatrice front-end con esperienza in React e Angular.');
+INSERT INTO utenti (email, password, username, nome, cognome, telefono_contatto, descrizione, immagine_profilo) VALUES 
+('mario.rossi@example.com', '$2y$10$8o4ZgbWClD8Odc.zqmYH0.u4E0BKcICf3U.c7sSJJQglQrvooJW12', 'mario_rossi', 'Mario', 'Rossi', '3312345678', 'Appassionato di tecnologia, in cerca di nuove opportunità professionali.', 'u_1_profilo.png'),
+('giovanni.bianchi@example.com', '$2y$10$8o4ZgbWClD8Odc.zqmYH0.u4E0BKcICf3U.c7sSJJQglQrvooJW12', 'giovanni_bianchi', 'Giovanni', 'Bianchi', '3398765432', 'Esperto in sviluppo software e consulenze tecniche.', 'u_2_profilo.png'),
+('lucia.verdi@example.com', '$2y$10$8o4ZgbWClD8Odc.zqmYH0.u4E0BKcICf3U.c7sSJJQglQrvooJW12', 'lucia_verdi', 'Lucia', 'Verdi', '3401234567', 'Sviluppatrice front-end con esperienza in React e Angular.', 'u_3_profilo.png');
 
 --aziende per test password tutte uguali: utenteProva1234
 INSERT INTO aziende (nome, descrizione, sito_web, email_contatto, telefono_contatto, partita_iva, ragione_sociale, logo, password, email) VALUES
-('Tech Solutions Srl', 'Azienda leader nel settore tecnologico, specializzata in soluzioni software innovative.', 'https://www.techsolutions.com', 'contatti@techsolutions.com', '0234567890', 'IT12345678901', 'Tech Solutions Srl', 'tech_logo.png', '$2y$10$8o4ZgbWClD8Odc.zqmYH0.u4E0BKcICf3U.c7sSJJQglQrvooJW12', 'info@techsolutions.com'),
-('Digital Innovators', 'Azienda che fornisce soluzioni digitali per l\'ottimizzazione dei processi aziendali.', 'https://www.digitalinnovators.com', 'support@digitalinnovators.com', '0222333445', 'IT98765432101', 'Digital Innovators Srl', 'digital_logo.png', '$2y$10$8o4ZgbWClD8Odc.zqmYH0.u4E0BKcICf3U.c7sSJJQglQrvooJW12', 'contact@digitalinnovators.com');
+('Tech Solutions Srl', 'Azienda leader nel settore tecnologico, specializzata in soluzioni software innovative.', 'https://www.techsolutions.com', 'contatti@techsolutions.com', '0234567890', 'IT12345678901', 'Tech Solutions Srl', 'a_1_logo.png', '$2y$10$8o4ZgbWClD8Odc.zqmYH0.u4E0BKcICf3U.c7sSJJQglQrvooJW12', 'info@techsolutions.com'),
+('Digital Innovators', 'Azienda che fornisce soluzioni digitali per l\'ottimizzazione dei processi aziendali.', 'https://www.digitalinnovators.com', 'support@digitalinnovators.com', '0222333445', 'IT98765432101', 'Digital Innovators Srl', 'a_2_logo.png', '$2y$10$8o4ZgbWClD8Odc.zqmYH0.u4E0BKcICf3U.c7sSJJQglQrvooJW12', 'contact@digitalinnovators.com');
 
-INSERT INTO offerte (azienda_id, descrizione, titolo, tipo_contratto_id, retribuzione, data_pubblicazione, sede_lavoro_id, modalita_lavoro_id, data_scadenza) VALUES
-(1, 'Stiamo cercando un software developer con esperienza in Java e Python. Unisciti a un team innovativo!', 'Sviluppatore Software', 1, '€30.000/anno', '2025-06-25', NULL, 2, '2025-08-01'),
-(2, 'Cerchiamo un esperto di marketing digitale per l\'espansione della nostra presenza online.', 'Marketing Manager', 2, '€25.000/anno', '2025-06-24', NULL, 1, '2025-07-30'),
-(1, 'Posizione aperta per un ingegnere del software con esperienza in Machine Learning.', 'Ingegnere Software', 1, '€35.000/anno', '2025-06-23', NULL, 2, '2025-09-01');
+INSERT INTO sediAziende (azienda_id, paese, regione, citta, indirizzo) VALUES
+(1, 'Italia', 'Lombardia', 'Milano', 'Via Monte Napoleone 10'),
+(2, 'Italia', 'Veneto', 'Venezia', 'Campo San Polo 5');
 
+INSERT INTO offerte (azienda_id, descrizione, titolo, tipo_contratto_id, retribuzione, data_pubblicazione, sede_lavoro_id, modalita_lavoro_id) VALUES
+(1, 'Stiamo cercando un software developer con esperienza in Java e Python. Unisciti a un team innovativo!', 'Sviluppatore Software', 1, '€30.000/anno', '2025-06-25', 1, 2),
+(2, 'Cerchiamo un esperto di marketing digitale per l\'espansione della nostra presenza online.', 'Marketing Manager', 2, '€25.000/anno', '2025-06-24', 2, 1),
+(1, 'Posizione aperta per un ingegnere del software con esperienza in Machine Learning.', 'Ingegnere Software', 1, '€35.000/anno', '2025-06-23', 1, 2);
+
+
+INSERT INTO documentiUtente (utente_id, documento) VALUES  
+(1, 'u_1_cv.pdf'),
+(2, 'u_2_cv.pdf'),
+(3, 'u_3_cv.pdf');
 
 INSERT INTO candidature (offerta_id, utente_id, note, stato_id, motivazione_risultato, cv_documento_id) VALUES
-(1, 1, 'Sono entusiasta di questa posizione. Ho molta esperienza con Java e Python!', 2, 'In valutazione', NULL),
-(2, 2, 'Ho esperienza nel settore del marketing digitale e sono interessato a contribuire al vostro successo online.', 1, 'Candidatura ricevuta', NULL),
-(3, 3, 'Passionata di tecnologia e Machine Learning. Mi piacerebbe portare il mio contributo al vostro team.', 3, 'Offerta inviata', NULL);
-
-
-INSERT INTO offerteAppuntate (utente_id, offerta_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+(1, 1, 'Sono entusiasta di questa posizione. Ho molta esperienza con Java e Python!', 2, 'Ha superato tutte le 3 fasi di colloquio (conoscitivo, tecnico, tecnico+allineamento con CTO) brillantemente', 1),
+(2, 2, 'Ho esperienza nel settore del marketing digitale e sono interessato a contribuire al vostro successo online.', 1, 'Candidatura ricevuta', 2),
+(3, 3, 'Passionata di tecnologia e Machine Learning. Mi piacerebbe portare il mio contributo al vostro team.', 3, 'Colloquio tecnico non superato', 3);
 
 -- Offerta 1 (Sviluppatore Software)
 INSERT INTO requisitiCompetenzeOfferta (competenza_id, offerta_id) VALUES
@@ -366,28 +359,18 @@ INSERT INTO requisitiCompetenzeOfferta (competenza_id, offerta_id) VALUES
 
 -- Utente 1 (Mario Rossi)
 INSERT INTO competenzaUtente (utente_id, competenza_id) VALUES
-(2, 1), 
-(2, 2), 
-(2, 3); 
+(1, 1), 
+(1, 2), 
+(1, 3); 
 
 -- Utente 2 (Giovanni Bianchi)
 INSERT INTO competenzaUtente (utente_id, competenza_id) VALUES
-(3, 4), 
-(3, 2), 
-(3, 2); 
+(2, 4), 
+(2, 5), 
+(2, 8); 
 
 -- Utente 3 (Lucia Verdi)
 INSERT INTO competenzaUtente (utente_id, competenza_id) VALUES
-(4, 6), 
-(4, 3), 
-(4, 3); 
-
--- Sedi per Tech Solutions Srl (azienda_id = 1)
-INSERT INTO sediAziende (azienda_id, paese, regione, citta, indirizzo) VALUES
-(1, 'Italia', 'Lombardia', 'Milano', 'Via Monte Napoleone 10'),
-(1, 'Italia', 'Lazio', 'Roma', 'Viale delle Milizie 20');
-
--- Sedi per Digital Innovators (azienda_id = 2)
-INSERT INTO sediAziende (azienda_id, paese, regione, citta, indirizzo) VALUES
-(2, 'Italia', 'Veneto', 'Venezia', 'Campo San Polo 5'),
-(2, 'Italia', 'Emilia-Romagna', 'Bologna', 'Via Zamboni 33');
+(3, 6), 
+(3, 7), 
+(3, 9); 
